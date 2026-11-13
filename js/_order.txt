@@ -23,4 +23,5 @@
 23-oto-tasarim
 24-oto-motor
 25-canli
+26-canli2
 99-baslat

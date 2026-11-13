@@ -53,6 +53,12 @@ Tek dosyada (`js/25-canli.js`) toplanmış, her biri ayrı korumalı blokta çal
 - **Editör:** araç şeridi ve panel sekmelerinde seçili olana kayan gösterge, artboard değişince parlayan çerçeve, otomatik tasarımda öğelerin eski yerlerinden yenilerine akması, "Tasarla" düğmesinde denenen aday sayısının canlı akışı ve bitince kıvılcım.
 - **Performans ve erişilebilirlik:** nokta alanı tek seferde 8 toplu çizimle boyanır (kare başına ≈1 ms işlemci), imleç durunca ≈0,8 sn'de sakinleşip tamamen durur, ekran dışındayken, sekme gizliyken ve editördeyken çalışmaz. Sistemdeki ya da Ayarlar'daki "Hareketi azalt" açıksa sürekli animasyonlar kapanır ve içerik hemen görünür. Dokunmatik cihazlarda imleç efektleri devre dışıdır.
 
+### Canlı arayüz 2: ikinci hareket dalgası (v23)
+`js/26-canli2.js`; her efekt ayrı korumalı blokta, "Hareketi azalt" açıkken kapalı.
+- **Ana sayfa:** kaydırdıkça derinleşen giriş sahnesi (başlık hızlı, demo yavaş uzaklaşır), menü bağlantılarında ve bölüm etiketlerinde harf çözme (0,6 sn, sonunda metin birebir aslına döner, ekran okuyucu etiketi korunur), özellik kartlarının 3D eğimle sırayla açılması (mevcut belirme ve hover geçişleri korunur), ana düğmede renkli parçacık patlaması, ilerleme halkalı "başa dön" düğmesi, üzerine gelince duran kayan şerit.
+- **Her yerde:** menüler ve pencereler yaylı açılır, bildirimlerde süre çubuğu, asistan düğmesi süzülür, asistan penceresi yaylı açılır.
+- **Editör:** panel içeriği sekme yönüne göre kayar, yeni seçimde seçim kutusu "pop" yapar (yeniden çizimde tekrarlanmaz), bağlam çubuğu sırayla belirir, yakınlaştırma yüzdesi sayarak değişir, kaydedilince tik animasyonu, geri al / yinele simgesi döner, yeni artboard belirerek gelir, görsel yer tutucularında parıltı, görsel sürüklerken bırakma alanı nabız atar.
+
 ### Otomatik tasarım motoru (v20)
 Görsel yüklenince sayfa kendiliğinden tasarlanır; sonra her öğe elle değiştirilebilir. Düzen sekmesindeki **✨ Otomatik tasarım** kartından: *Tasarla*, *🎲 Başka* ve yalnızca bir yönü değiştiren *Düzen · Renk · Yazı tipi · Görsel efekti*; *Tüm artboardlara uygula* bütün yayını aynı yazı çifti ve renk ailesiyle, sayfadan sayfaya değişen düzenle tasarlar.
 - **Görsel analizi:** baskın renkler (k-ortalamalar), özne merkezi (kırpma odağı), düz zemin tespiti (sayfa rengi görselin zeminiyle birleşir), sakin ve kalabalık bölgeler.
