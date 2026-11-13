@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="tr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Editra · Dergi, Katalog, Kapak ve Baskı Tasarım Aracı</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@100..900&family=Inter:wght@100..900&family=Manrope:wght@200..800&family=Montserrat:wght@100..900&family=Raleway:wght@100..900&family=Rubik:wght@300..900&family=Work+Sans:wght@100..900&family=DM+Sans:wght@100..1000&family=Space+Grotesk:wght@300..700&family=Syne:wght@400..800&family=Unbounded:wght@200..900&family=Libre+Franklin:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100..700&family=Nunito:wght@200..1000&family=Quicksand:wght@300..700&family=Open+Sans:wght@300..800&family=Noto+Sans:wght@100..900&family=Karla:wght@200..800&family=Bricolage+Grotesque:wght@200..800&family=Outfit:wght@100..900&family=Sora:wght@100..800&family=Plus+Jakarta+Sans:wght@200..800&family=Figtree:wght@300..900&family=Urbanist:wght@100..900&family=Lexend:wght@100..900&family=Epilogue:wght@100..900&family=Red+Hat+Display:wght@300..900&family=Chivo:wght@100..900&family=Cabin:wght@400..700&family=Poppins:wght@300;400;600;800&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400..900&family=Bodoni+Moda:wght@400..900&family=Fraunces:wght@100..900&family=Lora:wght@400..700&family=Merriweather:wght@300;400;700;900&family=Source+Serif+4:wght@200..900&family=Libre+Baskerville:wght@400;700&family=Cormorant+Garamond:wght@300..700&family=EB+Garamond:wght@400..800&family=Roboto+Slab:wght@100..900&family=Noto+Serif:wght@100..900&family=Crimson+Pro:wght@200..900&family=Spectral:wght@300;400;600;800&family=Alegreya:wght@400..900&family=Vollkorn:wght@400..900&family=Cinzel:wght@400..900&family=Libre+Caslon+Text:wght@400;700&family=Old+Standard+TT:wght@400;700&family=Instrument+Serif&family=DM+Serif+Display&family=Yeseva+One&family=Young+Serif&family=Gloock&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bebas+Neue&family=Anton&family=Oswald:wght@200..700&family=Archivo+Black&family=Alfa+Slab+One&family=Righteous&family=Staatliches&family=Bungee&family=Rubik+Mono+One&family=Shrikhand&family=Fjalla+One&family=Big+Shoulders+Display:wght@100..900&family=Monoton&family=Limelight&family=Black+Ops+One&family=Rozha+One&family=Pacifico&family=Lobster&family=Dancing+Script:wght@400..700&family=Caveat:wght@400..700&family=Permanent+Marker&family=Special+Elite&family=IBM+Plex+Mono:wght@400;500&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@100..800&family=DM+Mono:wght@300;400;500&family=VT323&family=Press+Start+2P&family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
+<meta name="description" content="Editra: ücretsiz çevrimiçi dergi, katalog, kapak ve baskı tasarım aracı. Görsel, başlık ve paragraflarını ekle, binlerce düzen varyasyonunu dene, PDF veya PNG olarak indir.">
+<meta name="theme-color" content="#111111">
+<link rel="canonical" href="https://ALAN-ADIN.com/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Editra"><meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta property="og:type" content="website"><meta property="og:locale" content="tr_TR">
+<meta property="og:title" content="Editra · Dergi, Katalog, Kapak ve Baskı Tasarım Aracı">
+<meta property="og:description" content="Binlerce dergi ve Swiss grid düzenini dene, yapay zekâ önerileri al, PDF olarak indir.">
+<meta property="og:url" content="https://ALAN-ADIN.com/">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Editra","url":"https://ALAN-ADIN.com/","applicationCategory":"DesignApplication","operatingSystem":"Any","inLanguage":"tr","offers":{"@type":"Offer","price":"0","priceCurrency":"TRY"},"description":"Dergi ve Swiss grid sayfa düzeni tasarım aracı."}</script>
+<link rel="stylesheet" href="style.css">
+<script src="jspdf.umd.min.js"></script>
+</head><body>
+<div id="home" hidden>
+<header class="hh"><div class="logo" id="hlg"></div><nav class="hn"><a class="hl" href="#proj">Çalışmalarım</a><button class="hl" id="hass">🤖 Asistan</button><button class="hl" id="hset">⚙ Ayarlar</button></nav><button class="ib" id="th2" title="Tema" aria-label="Tema">🌓</button><button class="pb" id="hnew">＋ Yeni tasarım</button></header>
+<main class="hm">
+<section class="hero"><div><h1>Merhaba 👋<br>Ne tasarlıyoruz?</h1><p>Dergi, katalog, kapak ya da baskı işi. Boyutu seç, sayfaları belirle, gerisini Editra halletsin.</p><div class="hb"><button class="pb big" id="hnew2">＋ Yeni tasarım</button><label class="b big" for="himg">📸 Görselle başla</label><input type="file" id="himg" accept="image/*" multiple hidden><button class="b big" id="hport">📚 Portfolyo</button></div><div class="bq"><input id="bqi" class="wni" placeholder="Ne istediğini yaz: “Lüks kahve kataloğu”…" aria-label="Yapay zekâ komutu"><button class="pb" id="bqg">✨ Oluştur</button></div><div class="chips" id="bqc"></div></div><div class="hart" id="hart"></div></section>
+<section><h3>Hızlı başlangıç</h3><div class="qs" id="qs"></div></section>
+<section><h3>Şablonlar</h3><div class="tpls" id="tpls"></div></section>
+<div class="hcols"><section id="proj"><div class="sh"><h3>Son çalışmalar</h3><input id="srch" class="wni" placeholder="Ara…" aria-label="Ara"><select id="srt" aria-label="Sırala"><option value="u">Son düzenlenen</option><option value="c">Oluşturma</option><option value="n">Ada göre</option></select></div><div id="pgrid" class="pgrid"></div></section>
+<aside class="hside"><div class="card ac"><b>🤖 Editra Asistan</b><p>Boyut seçmekten tasarım eleştirisine kadar yanındayım.</p><div class="chips" id="hch"></div></div><div class="card"><b>💡 İpuçları</b><ul id="tips"></ul></div><div class="card" id="inst" hidden><b>📲 Uygulama olarak kur</b><p id="insp"></p><button class="b" id="instb" hidden>Ana ekrana ekle</button></div><div class="card"><b>💾 Depolama</b><p id="stor"></p><label class="b" for="himp">📥 Proje dosyasından aç</label><input type="file" id="himp" accept=".editra,.json" hidden><small class="mut">Çalışmalar bu tarayıcıda saklanır.</small></div></aside></div>
+</main>
+<section class="about" id="abt"><h2>Dergi ve Swiss grid düzenlerini dakikalar içinde dene</h2>
+<p>Editra, grafik tasarımcılar ve öğrenciler için geliştirilmiş ücretsiz bir sayfa kompozisyon aracıdır. Görsel, başlık, alt başlık, paragraf ve alıntı ekleyerek Swiss grid (Uluslararası Tipografik Stil) ve modern dergi düzenlerinin binlerce varyasyonunu görebilirsin.</p>
+<ul><li>Birden fazla görsel ve paragraf ekleme, öğe sayısına göre otomatik düzen önerileri</li><li>30'dan fazla Google Fonts yazı tipi, harf ve satır aralığı, renk ve sütun ayarları</li><li>Yapay zekâ destekli düzen ve stil önerileri</li><li>PDF ve PNG olarak dışa aktarma</li></ul></section>
+</div>
+<div id="edw" hidden>
+<header class="top"><button class="ib" id="hb" title="Ana sayfa" aria-label="Ana sayfa">⌂</button><div class="logo" id="lg"></div><input id="pname" class="wni pni" aria-label="Çalışma adı" maxlength="60"><span id="sv" class="sv"></span>
+<nav class="seg" id="tabs" style="--n:5" hidden><button data-m="dergi">Dergi</button><button data-m="katalog">Katalog</button><button data-m="baski">Baskı</button><button data-m="kapak">Kapak</button><button data-m="sinirsiz">Sınırsız</button><i class="pill"></i></nav>
+<div class="tools"><button class="ib" id="un" title="Geri al (Ctrl+Z)" aria-label="Geri al">↶</button><button class="ib" id="re" title="Yinele" aria-label="Yinele">↷</button><button class="ib" id="sn" title="Serbest taşıma (Alt)" aria-label="Serbest taşıma" aria-pressed="false">✋</button><button class="ib" id="gr" title="Grid çizgileri" aria-label="Grid" aria-pressed="false">▦</button>
+<button class="ib" id="hm" title="Göz izleme ısı haritası" aria-label="Isı haritası" aria-pressed="false">🔥</button><button class="ib" id="cm" title="Yorum ekle" aria-label="Yorum ekle" aria-pressed="false">💬</button><select id="px" title="Çözünürlük (uzun kenar)"><option value="2000">2K</option><option value="4000" selected>4K</option><option value="6000">6K</option><option value="8000">8K</option><option value="12000">12K</option></select><button class="pb gh" id="png" title="Bu sayfayı PNG indir">PNG</button><button class="pb" id="pdf" title="Tüm sayfaları PDF indir">PDF</button><button class="ib" id="th3" title="Tema" aria-label="Tema">🌓</button><button class="ib" id="set3" title="Ayarlar" aria-label="Ayarlar">⚙</button></div></header>
+<div class="app"><aside id="pn"></aside>
+<section class="stage"><div class="cvw" id="cvw"><div id="cv"></div><div class="dz">Görselleri buraya bırak</div></div>
+<div class="sth"><button class="ib sm" id="pp" aria-label="Önceki sayfa">‹</button><b id="pgn"></b><button class="ib sm" id="pn2" aria-label="Sonraki sayfa">›</button><small id="dim"></small></div>
+<div class="stw"><div id="strip" class="strip"></div><div class="pmenu" id="pmenu" hidden><button data-add2="auto">✨ Yeni düzenli sayfa</button><button data-add2="blank">▢ Boş sayfa</button><button data-add2="dup">⧉ Bu sayfanın kopyası</button></div></div>
+<p class="hint">Sürükle: taşı · Köşeden çek: boyutlandır · ✋ ya da Alt: serbest taşı · Ctrl+Z · PageUp/PageDown: sayfa değiştir</p></section><aside id="rp"></aside></div>
+</div>
+<div id="wiz" class="mdl" hidden></div><div id="cfgm" class="mdl" hidden></div>
+<div id="toast" role="status"></div>
+<button class="fab" id="bot" aria-label="Editra Asistan" title="Editra Asistan">🤖</button>
+<div class="chat" id="chat" hidden><div class="ch-h"><span class="av">🤖</span><b>Editra Asistan</b><button class="ib sm" id="cx" aria-label="Kapat">✕</button></div><div id="msgs"></div><div class="chips" id="chips"></div><form id="cf"><input id="ci" placeholder="Bir şey sor: “daha modern yap”…" autocomplete="off"><button class="pb">Gönder</button></form></div>
+<div id="splash"><div class="sp-in"><div id="sp-logo"></div><h1>editra</h1><p>Dergi · Katalog · Kapak · Baskı. Sınır yok.</p><button class="pb" id="go">Başla →</button></div></div>
+<script defer src="js/01-temel.js"></script>
+<script defer src="js/02-calisma-alani.js"></script>
+<script defer src="js/03-ai-yonetmen.js"></script>
+<script defer src="js/04-v3-duzen.js"></script>
+<script defer src="js/05-studyo-arayuz.js"></script>
+<script defer src="js/06-donusum-kilavuz-baski.js"></script>
+<script defer src="js/07-yazi-firca-zincir.js"></script>
+<script defer src="js/08-iceaktar-disaaktar.js"></script>
+<script defer src="js/09-kalem-sekil.js"></script>
+<script defer src="js/10-renk-efekt-liste.js"></script>
+<script defer src="js/11-mockup-svg-flipbook.js"></script>
+<script defer src="js/12-kilavuz-baglanti-surum.js"></script>
+<script defer src="js/13-asset-font-marka.js"></script>
+<script defer src="js/14-baski-merkezi.js"></script>
+<script defer src="js/15-dergi-kutuphane-portfoy.js"></script>
+<script defer src="js/16-eklentiler.js"></script>
+<script defer src="js/17-hareket.js"></script>
+<script defer src="js/99-baslat.js"></script>
+</body></html>
