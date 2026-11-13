@@ -53,6 +53,13 @@ Tek dosyada (`js/25-canli.js`) toplanmış, her biri ayrı korumalı blokta çal
 - **Editör:** araç şeridi ve panel sekmelerinde seçili olana kayan gösterge, artboard değişince parlayan çerçeve, otomatik tasarımda öğelerin eski yerlerinden yenilerine akması, "Tasarla" düğmesinde denenen aday sayısının canlı akışı ve bitince kıvılcım.
 - **Performans ve erişilebilirlik:** nokta alanı tek seferde 8 toplu çizimle boyanır (kare başına ≈1 ms işlemci), imleç durunca ≈0,8 sn'de sakinleşip tamamen durur, ekran dışındayken, sekme gizliyken ve editördeyken çalışmaz. Sistemdeki ya da Ayarlar'daki "Hareketi azalt" açıksa sürekli animasyonlar kapanır ve içerik hemen görünür. Dokunmatik cihazlarda imleç efektleri devre dışıdır.
 
+### Dokunmatik hareket (v25)
+`js/28-dokunmatik.js`; yalnız telefon ve tablette çalışır, bilgisayarda hiçbir şey değişmez; "Hareketi azalt" açıkken kapalı.
+- **Eğim:** telefonu eğince ana sahnenin katmanları (dev V, noktalar, renk bulutları, rozetler) farklı derinlikte kayar, demo kartı 3D döner. Telefonu nasıl tutarsan tut o duruş "düz" kabul edilir. iPhone izin ister: "📱 Hareketi aç" düğmesi; sensörü veri gönderen telefonlarda (Android) izinsiz, kendiliğinden başlar.
+- **Dokunma:** dokunulan yerden üç renkli halka (ana sayfa; yazı alanlarında ve editörde değil), başlığa dokununca harfler dokunulan noktadan dalga gibi zıplar.
+- **Kaydırma:** ekranın ortasındaki kart öne çıkar ve ışık kenarı yanar (fare üstü efektinin dokunmatik karşılığı); hızlı kaydırınca başlıklar ve şerit hafifçe esner, durunca yaylı geri gelir.
+- **Titreşim:** destekleyen telefonlarda önemli düğmelerde kısa titreşim (iPhone tarayıcısı titreşimi desteklemez).
+
 ### Vybble markası (v24)
 Uygulamanın adı Editra'dan **Vybble** olarak değişti: sekme başlığı, açıklama, arama motoru verisi, uygulama adı (PWA), logolar, açılış ekranı, asistan, tanıtım metinleri, "… ile hazırlandı" imzası ve dışa aktarılan dosya adları (`vybble-yedek-*.json`, `.vybble` proje dosyası, `*.vybble-sablon.json`).
 - **Logo:** yalnız V. İki kol ayrı çizilir (sol mor, sağ pembe-turuncu) ve köşe noktasından esneyebilir. İlk görünüşte kollar sırayla çizilip V yay gibi zıplar; üzerine gelince kollar esner; tıklayınca jöle; ana sayfada 7 sn'de bir kendiliğinden titreşir (editörde değil); açılış ekranında süzülür ve ritimle titreşir. Renk geçişleri tek ortak tanımda (`#vdefs`), böylece gizlenen bir kopya diğerlerini etkilemez. Simge dosyaları (`favicon.svg`, `icon-*.png`, `apple-touch-icon.png`, maskable sürüm) yeni V ile üretildi.
