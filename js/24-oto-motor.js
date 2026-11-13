@@ -38,11 +38,12 @@ const TREAT={
 
 /* ------------------------------------------------------- bağlam */
 const SPECIAL=e=>e.cid||e.ch||e.fn||e.tg||e.emb||e.lock||e.shape=='draw'||e.gid;
-function collect(){const M={img:[],t:[],s:[],b:[],q:[],m:[]},obs=[];
- S.els.forEach(e=>{if(e.adx)return;if(!e.on){return}if(!SPECIAL(e)&&M[e.type])M[e.type].push(e);else if(e.type!='r'||e.shape=='draw'||e.fr)obs.push(e)});
+const isDec=e=>e.type=='r'&&!e.adx&&!e.lock&&!e.gid&&!e.cid&&!e.ch&&!e.fn&&!e.emb;
+function collect(){const M={img:[],t:[],s:[],b:[],q:[],m:[],dec:[]},obs=[];
+ S.els.forEach(e=>{if(e.adx||!e.on)return;if(isDec(e))M.dec.push(e);else if(!SPECIAL(e)&&M[e.type])M[e.type].push(e);else obs.push(e)});
  /* fazladan başlıklar alt başlık gibi davranır */
  if(M.t.length>1){M.s=[...M.t.slice(1),...M.s];M.t=M.t.slice(0,1)}
- return{M,obs,hidden:S.els.filter(e=>e.type=='r'&&!e.adx&&!SPECIAL(e)&&!e.fr&&e.on)}}
+ return{M,obs}}
 function ctxFor(pair,M,ks){const H=100/S.fmt,short=Math.min(100,H),m=clamp(short*.068,3.6,9),g=clamp(short*.024,1.3,3.2),cw=(100-2*m-11*g)/12,
  bfs=pt2u(bodyPt(ks))*pair.bfs,bl=bfs*pair.blh;
  return{H,m,g,cw,bfs,bl,pair,M,ks:ks||1,X:c=>m+c*(cw+g),Wc:n=>n*cw+(n-1)*g,imgs:M.img.map(e=>({e,info:e.src&&e.im&&e.im.complete?analyze(e.im):null}))}}
@@ -201,7 +202,7 @@ function validate(P){const C=P.C,{m,g,H,bfs}=C,sc=P.sc,why=[],T=[...P.T.entries(
  /* çakışmalar */
  for(let i=0;i<IR.length;i++)for(let j=i+1;j<IR.length;j++)if(hit(IR[i].r,IR[j].r,g*.45))return fail('metin çakışması '+IR[i].t.role+'/'+IR[j].t.role);
  for(let i=0;i<I.length;i++)for(let j=i+1;j<I.length;j++)if(hit(I[i][1].r,I[j][1].r,g*.6-.01))return fail('görsel çakışması');
- const obsR=C.obs?C.obs.map(e=>geo(e,100)):[];
+ const obsR=C.obs?C.obs.map(boxOf):[];for(const o of obsR)for(const[,q]of I)if(hit(o,q.r,g*.3))return fail('sabit öğe görselle çakışıyor');
  for(const a of IR){for(const o of obsR)if(hit(a.r,o,g*.3))return fail('sabit öğeyle çakışma');
   for(const[id,q]of I){if(!hit(a.r,q.r,g*.5))continue;
    if(P.ov.has(a.t)&&q.info){const u=boxToImg(q.info,q.r,q.info.fx,q.info.fy,a.r),R=region(q.info,clamp(u[0],0,1),clamp(u[1],0,1),clamp(u[2],0,1),clamp(u[3],0,1)),bg=r2h(R.c),need=a.t.role=='b'||a.t.role=='m'?4.5:3.2;
@@ -230,7 +231,7 @@ function score(P,IR,I,gapFr){const C=P.C,{H,bfs}=C,pa=100*H;let s=0;
 
 /* --------------------------------------------------------------- arama */
 const SESS=new Map();let busy=0;
-function sigOf(M){return JSON.stringify([S.fmt,S.mm,...['img','t','s','b','q','m'].map(k=>M[k].map(e=>k=='img'?(e.src||'').slice(-24):txtOf(e).length+':'+e.id))])}
+function sigOf(M){return JSON.stringify([S.fmt,S.mm,(M.dec||[]).map(e=>e.id+':'+(e.shape||'')),...['img','t','s','b','q','m'].map(k=>M[k].map(e=>k=='img'?(e.src||'').slice(-24):txtOf(e).length+':'+e.id))])}
 async function prep(M){await Promise.all(M.img.map(e=>e.src&&e.im&&!e.im.complete?new Promise(r=>{e.im.addEventListener('load',r,{once:true});e.im.addEventListener('error',r,{once:true});setTimeout(r,4000)}):0))}
 async function fontsFor(pairs){const fam=new Set();pairs.forEach(p=>['h','b','s','q','m'].forEach(k=>fam.add(p[k+'w']?`${p[k+'w']} 20px "${p[k]}"`:`20px "${p[k]}"`)));pairs.forEach(p=>{if(p.qi)fam.add(`italic ${p.qw} 20px "${p.q}"`)});
  await Promise.all([...fam].map(f=>document.fonts.load(f,'ÇĞİÖŞÜçğıöşü Aa').catch(()=>0)))}
@@ -247,12 +248,14 @@ async function search(o){o=o||{};const{M,obs}=collect(),n=M.img.length,key=sigOf
 
 /* ------------------------------------------------------------- uygulama */
 function applyPlan(P,treat,quiet){const C=P.C,sc=P.sc,M=C.M;
- S.els=S.els.filter(e=>!e.adx);collect().hidden.forEach(e=>{e.on=false});
+ S.els=S.els.filter(e=>!e.adx);
  S.bg=sc.bg;S.pc=[sc.tx,sc.ac];S.imgPal=[sc.bg,sc.tx,sc.ac];S.mar=+C.m.toFixed(2);S.gut=+C.g.toFixed(2);S.grain=0;S.vig=0;
  let z=0;const base=1e6;
  P.I.forEach((q,id)=>{const e=S.els.find(x=>x.id==id);if(!e)return;const tr=TREAT[treat||'dogal']||TREAT.dogal;
   Object.assign(e,{fr:q.r.map(v=>+v.toFixed(2)),pin:true,ad:1,fit:'cover',fx:q.info?Math.round(q.info.fx):50,fy:q.info?Math.round(q.info.fy):50,rot:0,dx:0,dy:0,rad:0,zm:1,op:100,on:true,blend:'normal',sb:0,sx:0,sy:0,lb:0,z:base+(++z)},tr.p);
   if(tr.duo){e.d1=sc.dark?sc.bg:sc.tx;e.d2=sc.dark?sc.ac:sc.bg}});
+ (P.Dc||new Map()).forEach((d,id)=>{const e=S.els.find(x=>x.id==id);if(!e)return;if(!e._adp)e._adp=[e.pin?1:0,e.fr?1:0];
+  Object.assign(e,{fr:d.r.map(v=>+v.toFixed(2)),dx:0,dy:0,pin:true,ad:1,on:true,z:d.bg?base*.5+(++z):base*1.7+(++z)});if(d.bg)e.rot=0});
  P.D.forEach(d=>{const e=mk('r');Object.assign(e,{shape:'rect',col:d.col,op:d.op||100,rad:0,fr:d.r.map(v=>+v.toFixed(2)),pin:true,adx:1,nm:d.k=='card'?'Okunurluk kartı':'Vurgu çizgisi',z:base*1.5+(++z)});S.els.push(e)});
  P.T.forEach((t,id)=>{const e=S.els.find(x=>x.id==id);if(!e)return;const o=t.o,keep=['ff','fw','fs','lh','ls','tc','it','col','al','va','cc','sw','gr','sb','sx','sy','ws','ind','vert','bend','wr','op','rot','dx','dy'];
   keep.forEach(k=>{if(k in o)e[k]=o[k]});e.fs=+o.fs.toFixed(3);e.fr=t.r.map(v=>+v.toFixed(2));e.fr[3]=+(t.r[3]+Math.min(.6,o.fs*.06)).toFixed(2);e.pin=true;e.ad=1;e.on=true;e.z=base*2+(++z);
@@ -261,11 +264,30 @@ function applyPlan(P,treat,quiet){const C=P.C,sc=P.sc,M=C.M;
 /* bindirme metinleri için renk: sakin bölgede açık ya da koyu mürekkep */
 function overlayInk(P){P.ov.forEach((imgId,t)=>{const q=P.I.get(imgId);if(!q||!q.info)return;const r=inkRect(t),u=boxToImg(q.info,q.r,q.info.fx,q.info.fy,r),R=region(q.info,clamp(u[0],0,1),clamp(u[1],0,1),clamp(u[2],0,1),clamp(u[3],0,1)),bg=r2h(R.c);
  const w=t.role=='s'||t.role=='q'?mixH(P.sc.ac,'#ffffff',.6):'#ffffff',k=t.role=='s'||t.role=='q'?mixH(P.sc.ac,'#000000',.5):'#111111';t.o.col=contrast(w,bg)>=contrast(k,bg)?w:k})}
+/* bir öğenin sayfadaki gerçek kutusu (konum + kaydırma + dönüş) */
+function aabb(x,y,w,h,rot){const a=(rot||0)*Math.PI/180,c=Math.abs(Math.cos(a)),s2=Math.abs(Math.sin(a)),W2=w*c+h*s2,H2=w*s2+h*c;return[x+w/2-W2/2,y+h/2-H2/2,W2,H2]}
+function boxOf(e){const g0=geo(e,100);return aabb(g0[0]+(e.dx||0),g0[1]+(e.dy||0),g0[2],g0[3],e.rot)}
+/* kullanıcının eklediği şekiller tasarımın parçası: boş, ızgaraya hizalı bir yere konur (gerekirse küçültülür).
+   Sayfanın yarısından büyük şekil arka plandır; o zaman yazılar o şeklin rengi üzerinde de okunmalıdır. */
+function placeDecor(P){const C=P.C,{m,g,H,X,Wc,bl}=C,list=C.M.dec||[];P.Dc=new Map();if(!list.length)return true;
+ const occ=[...[...P.T.values()].map(inkRect),...[...P.I.values()].map(q=>q.r),...P.D.map(d=>d.r),...(C.obs||[]).map(boxOf)],free=r=>!occ.some(o=>hit(r,o,g*.6));
+ const txt=[...P.T.values()].map(inkRect),lefts=new Set(txt.map(r=>Math.round(r[0]*3)));
+ const big=list.filter(e=>{const b=boxOf(e);return b[2]*b[3]>=100*H*.5}),small=list.filter(e=>!big.includes(e)).sort((a,b)=>{const p=boxOf(a),q=boxOf(b);return q[2]*q[3]-p[2]*p[3]});
+ for(const e of big){if((e.op??100)>=40&&/^#[0-9a-f]{6}$/i.test(e.col||'')){for(const t of P.T.values()){if(P.ov.has(t))continue;const need=t.role=='b'||t.role=='m'?4.5:3;if(contrast(t.o.col,e.col)<need)return false}}P.Dc.set(e.id,{r:[0,0,100,H],bg:1})}
+ for(const e of small){const g0=geo(e,100),w0=Math.max(.5,g0[2]),h0=Math.max(.3,g0[3]),asp=w0/h0,c0=[g0[0]+(e.dx||0)+w0/2,g0[1]+(e.dy||0)+h0/2],base=clamp(w0,4,34);let best=null;
+  for(const k of[1,.85,.7,.55,.42]){const w=base*k,h=w/asp;if(w<3.5&&h<3.5)break;const bx=aabb(0,0,w,h,e.rot),ox=(bx[2]-w)/2,oy=(bx[3]-h)/2;
+   const xs=[];for(let c=0;c<12;c++){xs.push(X(c));xs.push(X(c)+Wc(1)-bx[2])}
+   for(const ax of xs)for(let ay=m*.6;ay+bx[3]<=H-m*.6;ay+=bl/2){const r=[ax,ay,bx[2],bx[3]];if(r[0]<m*.72||r[0]+r[2]>100-m*.72||!free(r))continue;
+    const cx=ax+r[2]/2,cy=ay+r[3]/2,near=txt.length?Math.min(...txt.map(t=>Math.hypot(Math.max(0,t[0]-(ax+r[2]),ax-(t[0]+t[2])),Math.max(0,t[1]-(ay+r[3]),ay-(t[1]+t[3]))))):0,
+     sc=(lefts.has(Math.round(ax*3))?3:0)-near*.12-Math.hypot(cx-c0[0],cy-c0[1])*.04+k*4;if(!best||sc>best.sc)best={sc,r:[ax+ox,ay+oy,w,h],bb:r}}
+   if(best)break}
+  if(!best)return false;occ.push(best.bb);P.Dc.set(e.id,{r:best.r,bb:best.bb})}
+ return true}
 /* kapak kalıbında bindirme renkleri denetimden önce belirlenmeli */
 const DIAG={};function diag(k){DIAG[k]=(DIAG[k]||0)+1}
 function build(L,pair,sc,M,obs,ks){const C=ctxFor(pair,M,ks);C.obs=obs;const P=newPlan(C,sc,L);let ok=false;try{ok=L.fn(P,L.v)}catch(e){console.warn('düzen',L.id,e);diag('hata:'+(e&&e.message));ok=false}if(!ok){diag('kalıp sığmadı:'+L.arch);return null}
  if(P.ov.size)overlayInk(P);const card=P.D.find(d=>d.k=='card');if(card){P.cardOf=new Map();P.T.forEach(t=>P.cardOf.set(t,card.col))}
- const v=validate(P);if(!v.ok){P.why=v.why;diag(String(v.why[0]).replace(/[\d.%]+$/,'').trim());return null}P.score=v.score;return P}
+ const v=validate(P);if(!v.ok){P.why=v.why;diag(String(v.why[0]).replace(/[\d.%]+$/,'').trim());return null}if(!placeDecor(P)){diag('şekil sığmadı');return null}P.score=v.score;return P}
 
 /* ------------------------------------------------------ dışa açık API */
 const AD={sess:null,idx:0,treat:'dogal',shown:new Set()};
@@ -317,7 +339,7 @@ mount();
 /* görsel yüklenince eski otomatik düzen yerine bu motor çalışsın */
 window.autoDesign=autoDesign=async function(){if(busy)return;try{const P=await designPage();toast(P?`✨ Tasarım hazır · ${P.lay.n}. “🎲 Başka” ile varyasyonları gez`:'Bu kadar metin ve görsel bu sayfa boyutuna okunaklı sığmıyor. Bir kısmını yeni artboarda taşı ya da metni kısalt; mevcut düzen korundu.')}catch(e){console.error(e);toast('Otomatik tasarım çalışmadı')}}
 /* eski düzen galerisi kullanılırsa motorun sabitlediği öğeler serbest kalsın */
-{const ap=window.apply;if(typeof ap=='function')window.apply=apply=function(){if(S.els.some(e=>e.ad||e.adx)){S.els=S.els.filter(e=>!e.adx);S.els.forEach(e=>{if(e.ad){delete e.ad;e.pin=false;delete e.fr}})}return ap.apply(this,arguments)}}
+{const ap=window.apply;if(typeof ap=='function')window.apply=apply=function(){if(S.els.some(e=>e.ad||e.adx)){S.els=S.els.filter(e=>!e.adx);S.els.forEach(e=>{if(!e.ad)return;delete e.ad;if(e._adp){e.pin=!!e._adp[0];if(!e._adp[1])delete e.fr;delete e._adp}else if(e.shape!='draw'){e.pin=false;delete e.fr}})}return ap.apply(this,arguments)}}
 if(window.v4cmd){v4cmd(['Tasarım','Otomatik tasarla',['Ctrl+Alt+A'],()=>designPage({salt:Date.now()%997})]);v4cmd(['Tasarım','Başka bir varyasyon',['Ctrl+Alt+R'],()=>vary()]);v4cmd(['Tasarım','Tüm artboardlara otomatik tasarım',[],designAll])}
 
 window.v4ad={DIAG,designPage,vary,designAll,search,build,validate,LAYOUTS,schemes,TREAT,collect,applyPlan,state:AD,inkRect,count};
