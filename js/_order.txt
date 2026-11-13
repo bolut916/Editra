@@ -22,4 +22,5 @@
 22-artboard
 23-oto-tasarim
 24-oto-motor
+25-canli
 99-baslat

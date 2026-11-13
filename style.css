@@ -871,3 +871,91 @@ body.abtiny #cv .sbox .th,body.abtiny #cv .sbox [data-hd]{display:none}
 .adc .chip:hover{border-color:var(--pr);color:var(--pr)}
 .adbox button:disabled{opacity:.55;cursor:progress}
 .adn{margin:0;font-size:11.5px;line-height:1.4}
+
+/* =====================================================================
+   CANLI ARAYÜZ (v22): hareket katmanı (js/25-canli.js)
+   ===================================================================== */
+:root{--cv-spring:cubic-bezier(.3,1.45,.45,1);--cv-out:cubic-bezier(.2,.85,.2,1)}
+/* tema: tıklanan noktadan dairesel açılım */
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+::view-transition-new(root){animation:cvvt .7s cubic-bezier(.6,0,.2,1)}
+@keyframes cvvt{from{clip-path:circle(0 at var(--vx,50%) var(--vy,50%))}to{clip-path:circle(150vmax at var(--vx,50%) var(--vy,50%))}}
+/* ana sayfa ↔ editör perdesi */
+.cv-cur{position:fixed;inset:0;z-index:9990;pointer-events:none;background:radial-gradient(circle at var(--x) var(--y),#8b5cff,var(--pr) 45%,#2a1e8f);animation:cvcur .78s cubic-bezier(.7,0,.25,1) forwards}
+@keyframes cvcur{0%{clip-path:circle(0 at var(--x) var(--y));opacity:1}42%{clip-path:circle(150vmax at var(--x) var(--y));opacity:1}100%{clip-path:circle(150vmax at var(--x) var(--y));opacity:0}}
+/* tıklama dalgası */
+.cv-rip{position:fixed;z-index:9989;pointer-events:none;overflow:hidden}
+.cv-rip i{position:absolute;border-radius:50%;background:rgba(20,20,40,.14);transform:scale(0);animation:cvrip .62s var(--cv-out) forwards}
+.cv-rip.lt i{background:rgba(255,255,255,.38)}
+@keyframes cvrip{to{transform:scale(1);opacity:0}}
+/* imleç halkası */
+.cv-ring,.cv-dot{position:fixed;left:0;top:0;pointer-events:none;z-index:9988;opacity:0;transition:opacity .25s}
+.cv-ring{width:34px;height:34px;margin:-17px 0 0 -17px;border:1.5px solid color-mix(in srgb,var(--pr) 75%,transparent);border-radius:50%;display:grid;place-items:center;transition:opacity .25s,width .3s var(--cv-spring),height .3s var(--cv-spring),margin .3s var(--cv-spring),background .3s,scale .2s}
+.cv-ring.on,.cv-dot.on{opacity:1}
+.cv-ring.big{width:58px;height:58px;margin:-29px 0 0 -29px;background:color-mix(in srgb,var(--pr) 10%,transparent);border-color:color-mix(in srgb,var(--pr) 45%,transparent)}
+.cv-ring.lab{width:74px;height:74px;margin:-37px 0 0 -37px;background:var(--pr);border-color:var(--pr)}
+.cv-ring span{font:700 11.5px var(--fb);color:#fff;opacity:0;transition:opacity .2s;white-space:nowrap}
+.cv-ring.lab span{opacity:1}
+.cv-ring.down{scale:.82}
+.cv-dot{width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:var(--pr)}
+/* mıknatıs düğmeler */
+.cv-mag{translate:var(--mx,0) var(--my,0);transition:translate .35s var(--cv-spring),transform .2s var(--lp-ease),box-shadow .2s,background .2s,border-color .2s}
+/* dev başlık */
+.lp-h1.cv-split .cv-wd{display:inline-block;white-space:nowrap}
+.lp-h1.cv-split .cv-ch,.lp-h1.cv-split .cv-em{display:inline-block;translate:0 calc(var(--w,0) * -.1em);scale:calc(1 + var(--w,0) * .07);transition:translate .35s var(--cv-spring),scale .35s var(--cv-spring),opacity .7s var(--cv-out) calc(var(--i) * 32ms),transform .9s var(--cv-out) calc(var(--i) * 32ms);will-change:transform}
+.lp-h1.cv-split:not(.cv-in) .cv-ch,.lp-h1.cv-split:not(.cv-in) .cv-em{opacity:0;transform:translateY(.55em) rotate(8deg)}
+/* bölüm başlıkları kelime kelime */
+.cv-words .cv-w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
+.cv-words .cv-w>span{display:inline-block;transform:translateY(110%);transition:transform .9s var(--cv-out) calc(var(--i) * 70ms)}
+.cv-words.cv-in .cv-w>span{transform:none}
+/* nokta alanı ve ilerleme çubuğu */
+.cv-field{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.cv-prog{position:fixed;left:0;right:0;top:0;height:3px;z-index:60;pointer-events:none;transform:scaleX(0);transform-origin:0 50%;background:linear-gradient(90deg,var(--pr),#ff5c9a,#ff9a3c)}
+body.ined .cv-prog{display:none}
+/* kayan göstergeler */
+.cv-ind{position:absolute;left:0;top:0;z-index:0;pointer-events:none;border-radius:12px;opacity:0;transition:transform .5s var(--cv-spring),width .35s var(--cv-out),height .35s var(--cv-out),opacity .2s}
+.cv-ind-rail{background:linear-gradient(135deg,var(--pr),#8b5cff);box-shadow:0 8px 18px -8px color-mix(in srgb,var(--pr) 90%,transparent)}
+.cv-has-ind .rg[aria-pressed=true],.cv-has-ind .rg[aria-expanded=true][aria-pressed=true]{background:transparent;box-shadow:none}
+.cv-ind-tab{border-radius:9px;background:var(--pn);box-shadow:0 1px 3px #0000002a}
+.dtabs.cv-has-ind [role=tab][aria-selected=true]{background:transparent;box-shadow:none}
+.rb,.dtabs [role=tab]{transition:color .25s,background .2s,scale .15s}
+.rb:active,.dtabs [role=tab]:active,.b:active,.cbb:active,.chip:active{scale:.94}
+/* yaylı anahtarlar: sitedeki tüm anahtarlar (onay kutuları zaten anahtar biçiminde; düğme ::after) */
+input[type=checkbox]{border:0;background:color-mix(in srgb,var(--tx) 18%,var(--pn));transition:background .25s;vertical-align:middle}
+input[type=checkbox]::after{width:18px;height:18px;top:2px;left:2px;background:#fff;box-shadow:0 1px 3px #0000004d;transition:transform .42s var(--cv-spring),width .2s,background .2s}
+input[type=checkbox]:checked{background:linear-gradient(135deg,var(--pr),#8b5cff)}
+input[type=checkbox]:checked::after{background:#fff;transform:translateX(16px)}
+input[type=checkbox]:active::after{width:22px}
+input[type=checkbox]:checked:active::after{transform:translateX(12px)}
+input[type=checkbox]:focus-visible{outline:2px solid var(--pr);outline-offset:2px}
+/* artboard değişince çerçeve parıltısı */
+#cv.cv-pulse{animation:cvpulse .8s var(--cv-out)}
+@keyframes cvpulse{from{outline:2px solid color-mix(in srgb,var(--pr) 80%,transparent);outline-offset:0}to{outline:2px solid transparent;outline-offset:14px}}
+/* otomatik tasarım düğmesi ve kıvılcım */
+.adbox button.cv-busy{background-image:linear-gradient(110deg,transparent 30%,color-mix(in srgb,var(--pr) 22%,transparent) 50%,transparent 70%);background-size:220% 100%;animation:cvshim 1.1s linear infinite;opacity:1!important}
+.adbox .b.pr.cv-busy{background-image:linear-gradient(110deg,var(--pr) 30%,#a78bff 50%,var(--pr) 70%)}
+@keyframes cvshim{from{background-position:120% 0}to{background-position:-120% 0}}
+.cv-spark{position:fixed;width:0;height:0;z-index:9991;pointer-events:none}
+.cv-spark i{position:absolute;left:-3px;top:-3px;width:6px;height:6px;border-radius:50%;background:hsl(var(--h) 92% 64%);animation:cvspk .85s var(--cv-out) forwards}
+@keyframes cvspk{to{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0}}
+/* açılış ekranı */
+#splash h1 .cv-sp{display:inline-block;animation:cvsp .8s var(--cv-spring) both;animation-delay:calc(.55s + var(--i) * 70ms)}
+@keyframes cvsp{from{opacity:0;transform:translateY(.5em) scale(.6) rotate(-12deg)}}
+/* bildirim yaylı girsin */
+#toast{transition:transform .5s var(--cv-spring),opacity .2s}
+/* kartlar: dönen ışık kenarı */
+@property --cv-a{syntax:'<angle>';inherits:false;initial-value:0deg}
+.cv-beam::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;pointer-events:none;background:conic-gradient(from var(--cv-a),transparent 0 70%,var(--pr) 82%,#ff5c9a 90%,transparent 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .35s}
+.cv-beam:hover::after{opacity:1;animation:cvbeam 2.4s linear infinite}
+@keyframes cvbeam{to{--cv-a:360deg}}
+/* hareketi azalt: her şey durur, içerik hemen görünür */
+@media(prefers-reduced-motion:reduce){
+ .cv-ring,.cv-dot,.cv-field,.cv-cur,.cv-rip,.cv-spark{display:none!important}
+ .lp-h1.cv-split .cv-ch,.lp-h1.cv-split .cv-em,.cv-words .cv-w>span{opacity:1!important;transform:none!important;translate:none!important;scale:none!important;transition:none!important}
+ #splash h1 .cv-sp,.cv-beam:hover::after,.adbox button.cv-busy,#cv.cv-pulse{animation:none!important}
+ .cv-ind,.cv-mag,#toast{transition:none!important}::view-transition-new(root){animation:none}
+}
+:root[data-motion=reduce] .cv-ring,:root[data-motion=reduce] .cv-dot,:root[data-motion=reduce] .cv-field,:root[data-motion=reduce] .cv-cur,:root[data-motion=reduce] .cv-rip,:root[data-motion=reduce] .cv-spark{display:none!important}
+:root[data-motion=reduce] .lp-h1.cv-split .cv-ch,:root[data-motion=reduce] .lp-h1.cv-split .cv-em,:root[data-motion=reduce] .cv-words .cv-w>span{opacity:1!important;transform:none!important;translate:none!important;scale:none!important;transition:none!important}
+:root[data-motion=reduce] #splash h1 .cv-sp,:root[data-motion=reduce] .cv-beam:hover::after,:root[data-motion=reduce] .adbox button.cv-busy,:root[data-motion=reduce] #cv.cv-pulse{animation:none!important}
+:root[data-motion=reduce] .cv-ind,:root[data-motion=reduce] .cv-mag,:root[data-motion=reduce] #toast,:root[data-motion=reduce] input[type=checkbox]::after{transition:none!important}

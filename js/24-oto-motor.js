@@ -242,12 +242,12 @@ async function search(o){o=o||{};const{M,obs}=collect(),n=M.img.length,key=sigOf
  const R=rng(seed),lays=LAYOUTS.filter(L=>L.need(n)),P0=pairs.slice(0,o.pairs||5);await fontsFor(P0);
  const sess={key,M,hero,pairs,SC,lays,res:[],tried:0,seed};let t0=performance.now();
  const scOrder=SC.slice().sort((a,b)=>(b.seam?3:0)-(a.seam?3:0));
- for(const ks of[1,.9,.8]){for(const pair of P0){for(const L of lays){const sc=scOrder[Math.floor(R()*Math.min(3,scOrder.length))]||scOrder[0];sess.tried++;const P=build(L,pair,sc,M,obs,ks);if(P){P.score+=R()*3-(1-ks)*20;sess.res.push(P)}
+ for(const ks of[1,.9,.8]){for(const pair of P0){for(const L of lays){const sc=scOrder[Math.floor(R()*Math.min(3,scOrder.length))]||scOrder[0];sess.tried++;window.v4adTried=sess.tried;const P=build(L,pair,sc,M,obs,ks);if(P){P.score+=R()*3-(1-ks)*20;sess.res.push(P)}
    if(performance.now()-t0>40){await tick();t0=performance.now()}}}if(sess.res.length)break}
  sess.res.sort((a,b)=>b.score-a.score);SESS.set(key,sess);return sess}
 
 /* ------------------------------------------------------------- uygulama */
-function applyPlan(P,treat,quiet){const C=P.C,sc=P.sc,M=C.M;
+function applyPlan(P,treat,quiet){const C=P.C,sc=P.sc,M=C.M;if(!quiet&&window.v4morph)try{v4morph.before()}catch(x){}
  S.els=S.els.filter(e=>!e.adx);
  S.bg=sc.bg;S.pc=[sc.tx,sc.ac];S.imgPal=[sc.bg,sc.tx,sc.ac];S.mar=+C.m.toFixed(2);S.gut=+C.g.toFixed(2);S.grain=0;S.vig=0;
  let z=0;const base=1e6;
@@ -260,7 +260,7 @@ function applyPlan(P,treat,quiet){const C=P.C,sc=P.sc,M=C.M;
  P.T.forEach((t,id)=>{const e=S.els.find(x=>x.id==id);if(!e)return;const o=t.o,keep=['ff','fw','fs','lh','ls','tc','it','col','al','va','cc','sw','gr','sb','sx','sy','ws','ind','vert','bend','wr','op','rot','dx','dy'];
   keep.forEach(k=>{if(k in o)e[k]=o[k]});e.fs=+o.fs.toFixed(3);e.fr=t.r.map(v=>+v.toFixed(2));e.fr[3]=+(t.r[3]+Math.min(.6,o.fs*.06)).toFixed(2);e.pin=true;e.ad=1;e.on=true;e.z=base*2+(++z);
   if(P.ov.has(t))e.col=o.col});
- S.sel=null;if(quiet)return;if(typeof MSEL!='undefined')MSEL.clear();render();list();ed();hist();try{palRender()}catch(x){}}
+ S.sel=null;if(quiet)return;if(typeof MSEL!='undefined')MSEL.clear();render();list();ed();hist();try{palRender()}catch(x){}if(window.v4morph)try{v4morph.after()}catch(x){}}
 /* bindirme metinleri için renk: sakin bölgede açık ya da koyu mürekkep */
 function overlayInk(P){P.ov.forEach((imgId,t)=>{const q=P.I.get(imgId);if(!q||!q.info)return;const r=inkRect(t),u=boxToImg(q.info,q.r,q.info.fx,q.info.fy,r),R=region(q.info,clamp(u[0],0,1),clamp(u[1],0,1),clamp(u[2],0,1),clamp(u[3],0,1)),bg=r2h(R.c);
  const w=t.role=='s'||t.role=='q'?mixH(P.sc.ac,'#ffffff',.6):'#ffffff',k=t.role=='s'||t.role=='q'?mixH(P.sc.ac,'#000000',.5):'#111111';t.o.col=contrast(w,bg)>=contrast(k,bg)?w:k})}

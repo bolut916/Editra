@@ -46,6 +46,13 @@ Sol araç şeridi (V seç · T metin · M dikdörtgen · L elips · \ çizgi · 
 - **Seçimi bırakma:** Seç aracındayken sayfanın boş bir yerine ya da gri çalışma alanına tıklamak seçimi kaldırır (Esc de aynı işi yapar). Sürükleme, kaydırma ve iki parmakla yakınlaştırma seçimi bozmaz.
 - Kod: `js/21-calisma-duzeni.js`; dışarıya `window.v4groups` ve `window.v4desel` açılır.
 
+### Canlı arayüz: hareket katmanı (v22)
+Tek dosyada (`js/25-canli.js`) toplanmış, her biri ayrı korumalı blokta çalışan efektler; biri hata verse bile diğerleri ve uygulama etkilenmez.
+- **Ana sayfa:** imleci yaylı izleyen halka (etkileşimli öğede büyür, ana düğmede "Başla" yazar; yalnız fareyle), imlece çekilen mıknatıs düğmeler, harf harf yükselen ve imleç yaklaştıkça dalgalanan dev başlık (kelimeler satır ortasında bölünmez, ekran okuyucu tam cümleyi okur), imleçten kaçan ve tıklayınca dalga yayan nokta alanı, kaydırma ilerleme çubuğu, kaydırma hızıyla hızlanan kayan şerit, kelime kelime açılan bölüm başlıkları, kartlarda dönen ışık kenarı.
+- **Her yerde:** tema değişince tıklanan noktadan dairesel açılım, ana sayfa ↔ editör perde geçişi, düğmelerde tıklama dalgası, yaylı anahtarlar, harf harf beliren açılış logosu, yaylı bildirimler.
+- **Editör:** araç şeridi ve panel sekmelerinde seçili olana kayan gösterge, artboard değişince parlayan çerçeve, otomatik tasarımda öğelerin eski yerlerinden yenilerine akması, "Tasarla" düğmesinde denenen aday sayısının canlı akışı ve bitince kıvılcım.
+- **Performans ve erişilebilirlik:** nokta alanı tek seferde 8 toplu çizimle boyanır (kare başına ≈1 ms işlemci), imleç durunca ≈0,8 sn'de sakinleşip tamamen durur, ekran dışındayken, sekme gizliyken ve editördeyken çalışmaz. Sistemdeki ya da Ayarlar'daki "Hareketi azalt" açıksa sürekli animasyonlar kapanır ve içerik hemen görünür. Dokunmatik cihazlarda imleç efektleri devre dışıdır.
+
 ### Otomatik tasarım motoru (v20)
 Görsel yüklenince sayfa kendiliğinden tasarlanır; sonra her öğe elle değiştirilebilir. Düzen sekmesindeki **✨ Otomatik tasarım** kartından: *Tasarla*, *🎲 Başka* ve yalnızca bir yönü değiştiren *Düzen · Renk · Yazı tipi · Görsel efekti*; *Tüm artboardlara uygula* bütün yayını aynı yazı çifti ve renk ailesiyle, sayfadan sayfaya değişen düzenle tasarlar.
 - **Görsel analizi:** baskın renkler (k-ortalamalar), özne merkezi (kırpma odağı), düz zemin tespiti (sayfa rengi görselin zeminiyle birleşir), sakin ve kalabalık bölgeler.
