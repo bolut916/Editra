@@ -67,9 +67,11 @@ safe('başlık',()=>{const h=D.querySelector('.lp-h1');if(!h||h.dataset.cv)retur
  h.addEventListener('pointerleave',()=>{inside=false;if(!raf)raf=requestAnimationFrame(wave)})});
 
 /* 7) Etkileşimli nokta alanı (hero arka planı): imleçten kaçan noktalar, tıklayınca dalga */
-safe('nokta alanı',()=>{const hero=$('lph');if(!hero)return;const c=D.createElement('canvas');c.className='cv-field';c.setAttribute('aria-hidden','true');hero.insertBefore(c,hero.firstChild);
+/* noktalar artık tüm ana sayfanın arkasında: ekrana sabit tuval, her bölümde imlece tepki verir */
+safe('nokta alanı',()=>{const home=$('home');if(!home)return;const hero=home;const c=D.createElement('canvas');c.className='cv-field';c.setAttribute('aria-hidden','true');home.insertBefore(c,home.firstChild);
+ home.classList.add('cv-fieldon');[...home.children].forEach(x=>{if(x!==c&&getComputedStyle(x).position=='static')x.classList.add('cv-up')});
  const g=c.getContext('2d');let W=0,H=0,dpr=1,P=[],raf=0,vis=true,mx=-999,my=-999,waves=[],col='108,71,255',lastMv=0;
- const size=()=>{const r=hero.getBoundingClientRect();dpr=Math.min(2,devicePixelRatio||1);W=r.width;H=r.height;c.width=W*dpr;c.height=H*dpr;c.style.width=W+'px';c.style.height=H+'px';
+ let sw=0,sh=0;const size=()=>{const nw=innerWidth,nh=Math.max(innerHeight,(screen&&screen.height)||0);if(nw===sw&&nh<=sh&&P.length)return;sw=nw;sh=nh;dpr=Math.min(2,devicePixelRatio||1);W=nw;H=nh;c.width=W*dpr;c.height=H*dpr;c.style.width=W+'px';c.style.height=H+'px';
   const step=fine()?26:34;P=[];for(let y=step/2;y<H;y+=step)for(let x=step/2;x<W;x+=step)P.push({x,y,ox:x,oy:y,vx:0,vy:0});
   const pr=getComputedStyle(R).getPropertyValue('--pr').trim(),m=/^#([0-9a-f]{6})$/i.exec(pr);if(m){const n=parseInt(m[1],16);col=`${n>>16},${n>>8&255},${n&255}`}};
  /* noktalar 8 parlaklık kovasında toplu çizilir; hiçbir şey kıpırdamıyorsa döngü durur (pil dostu) */
@@ -84,13 +86,12 @@ safe('nokta alanı',()=>{const hero=$('lph');if(!hero)return;const c=D.createEle
   BK.forEach((L2,i)=>{if(!L2.length)return;const e=i/(NB-1),r=1.1+e*1.6;g.fillStyle=`rgba(${col},${(.16+e*.6).toFixed(3)})`;g.beginPath();for(const p of L2){g.moveTo(p.x+r,p.y);g.arc(p.x,p.y,r,0,6.283)}g.fill()});
   cost+=performance.now()-t0;frames++;if(moving)raf=requestAnimationFrame(frame)};
  const kick=()=>{if(!raf&&vis&&!reduced()&&homeOn())raf=requestAnimationFrame(frame)};
- hero.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top;lastMv=performance.now();kick()},{passive:true});
- hero.addEventListener('pointerleave',()=>{mx=my=-999;kick()});
- hero.addEventListener('pointerdown',e=>{const r=c.getBoundingClientRect();waves.push({x:e.clientX-r.left,y:e.clientY-r.top,t:performance.now()});kick()},{passive:true});
- if('IntersectionObserver' in window)new IntersectionObserver(es=>{vis=es[0].isIntersecting;kick()}).observe(hero);
+ home.addEventListener('pointermove',e=>{if(e.pointerType!='mouse'&&e.pointerType!='pen')return;mx=e.clientX;my=e.clientY;lastMv=performance.now();kick()},{passive:true});
+ home.addEventListener('pointerleave',()=>{mx=my=-999;kick()});
+ home.addEventListener('pointerdown',e=>{if(e.target.closest&&e.target.closest('input,textarea,select'))return;if(waves.length<4)waves.push({x:e.clientX,y:e.clientY,t:performance.now()});kick()},{passive:true});
  D.addEventListener('visibilitychange',()=>{vis=!D.hidden;kick()});
- if('ResizeObserver' in window)new ResizeObserver(()=>{size();kick()}).observe(hero);else addEventListener('resize',()=>{size();kick()});
- new MutationObserver(()=>{size();kick()}).observe(R,{attributes:true,attributeFilter:['data-theme','data-motion']});
+ addEventListener('resize',()=>{size();kick()});
+ new MutationObserver(()=>{sw=0;size();kick()}).observe(R,{attributes:true,attributeFilter:['data-theme','data-motion']});
  size();kick();L.field={kick,running:()=>!!raf,cost:()=>frames?cost/frames:0,frames:()=>frames}});
 
 /* 8) Kaydırma: ilerleme çubuğu + hıza göre hızlanan kayan şerit + kelime kelime açılan bölüm başlıkları */

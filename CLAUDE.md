@@ -31,7 +31,7 @@ Kullanıcıya her zaman Türkçe, kısa ve teknik olmayan bir dille yanıt ver.
 | `20-interaktif.js` | İnteraktif öğeler (video, Spotify, harita, 3D, GIF, Lottie, form, QR, web) ve “İnteraktif yayın (HTML)” dışa aktarımı; medya `PROJ.media` içinde |
 | `23-oto-tasarim.js`, `24-oto-motor.js` | Otomatik tasarım motoru: görsel analizi, renk şemaları, 9 kalıptan 284 düzen, denetçi (`window.v4ad`) |
 | `25`–`29` | Hareket katmanları: canlı arayüz, ikinci dalga, Vybble logosu ve marka, dokunmatik, sahne anahtarları |
-| `30-kategori.js` | Kategori sahneleri: her kategori için 6 galeri (Klasör, Ayraç, Yay, Halka, Spot, Çember); `window.v4kat` |
+| `30-sahneler.js` | Bölüm sahneleri: Neden→Klasör, Özellikler→Ayraç, Yapay zekâ→Halka, Hareket→Spot, İnteraktif→Yay, Çalışmalarım→Çember; `window.v4sahne` |
 | `99-baslat.js` | Başlatma; her zaman en son yüklenir |
 
 ## Kurallar
