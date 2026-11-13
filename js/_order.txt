@@ -20,4 +20,6 @@
 20-interaktif
 21-calisma-duzeni
 22-artboard
+23-oto-tasarim
+24-oto-motor
 99-baslat
