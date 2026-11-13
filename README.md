@@ -46,6 +46,16 @@ Sol araç şeridi (V seç · T metin · M dikdörtgen · L elips · \ çizgi · 
 - **Seçimi bırakma:** Seç aracındayken sayfanın boş bir yerine ya da gri çalışma alanına tıklamak seçimi kaldırır (Esc de aynı işi yapar). Sürükleme, kaydırma ve iki parmakla yakınlaştırma seçimi bozmaz.
 - Kod: `js/21-calisma-duzeni.js`; dışarıya `window.v4groups` ve `window.v4desel` açılır.
 
+### Otomatik tasarım motoru (v20)
+Görsel yüklenince sayfa kendiliğinden tasarlanır; sonra her öğe elle değiştirilebilir. Düzen sekmesindeki **✨ Otomatik tasarım** kartından: *Tasarla*, *🎲 Başka* ve yalnızca bir yönü değiştiren *Düzen · Renk · Yazı tipi · Görsel efekti*; *Tüm artboardlara uygula* bütün yayını aynı yazı çifti ve renk ailesiyle, sayfadan sayfaya değişen düzenle tasarlar.
+- **Görsel analizi:** baskın renkler (k-ortalamalar), özne merkezi (kırpma odağı), düz zemin tespiti (sayfa rengi görselin zeminiyle birleşir), sakin ve kalabalık bölgeler.
+- **Renk şemaları:** görselden türetilir (Kâğıt, Gece, Görselin zemini, Görselin tonu, Cesur renk, Mono, Krem). Gövde ve künye için en az 4,5:1, başlık için en az 3:1 kontrast zorunludur.
+- **Tipografi:** 16 yazı tipi çifti (hepsi Türkçe karakterlerin tamamını içerir), görselin karakterine göre sıralanır. Gövde baskı puntosuna göre boyutlanır (A4'te ≈9,5 pt, asla 7 pt'nin altında değil); satır başına 32–78 karakterlik sütunlar.
+- **Düzenler:** 12 sütunlu ızgaraya oturan 9 kalıp ve bunların parametreleriyle 250'yi aşkın düzen: üstte/altta/yanda görsel, başlık-görsel-metin, dev başlık, tam sayfa kapak (sakin bölgede ya da okunurluk kartında metin), galeri, yan galeri, tipografik sayfa.
+- **Denetçi:** her aday ölçülür ve şu durumlarda reddedilir: metin–metin, metin–görsel ya da görsel–görsel çakışması (harflerin gerçek uzanımı yazı tipi ölçülerinden hesaplanır), kutudan ya da satırdan taşma, kenar boşluğuna taşma, yarım taşan görsel, %50'den fazla kırpma, okunmayan renk, bozuk hiyerarşi, çok dar/çok geniş sütun, büyük boşluk.
+- **Doğrulama:** 5 sayfa formatı × 9 görsel düzeni × 4 metin yükü = 180 birleşimde 182.860 aday üretildi, 34.832'si denetimden geçti; bunlardan 2.684'ü tarayıcıda çizilip bağımsız olarak (kelime kelime ekran ölçümüyle) yeniden denetlendi: kusur 0. Çok küçük sosyal medya formatına çok fazla metin konursa motor okunmaz punto kullanmak yerine bunu söyler ve mevcut düzeni korur.
+- Kod: `js/23-oto-tasarim.js` (analiz, renk, tipografi, ölçüm) ve `js/24-oto-motor.js` (şemalar, kalıplar, denetçi, arama, arayüz). API: `window.v4ad`.
+
 ### Artboard'lar (v19)
 - Alttaki sayfa şeridi kaldırıldı; projedeki bütün sayfalar çalışma alanında yan yana **artboard** olarak durur. Etkin artboard düzenlenir, diğerleri gerçek çizim motoruyla çizilmiş önizlemelerdir; tıklayınca düzenlenebilir olur.
 - **Taşı:** artboardın üstündeki ad etiketini (ya da masaüstünde önizlemenin kendisini) sürükle. Kenarlar diğer artboardlara mıknatıslanır, üst üste binmez.
