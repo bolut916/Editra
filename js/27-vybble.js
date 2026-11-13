@@ -11,7 +11,7 @@
 'use strict';
 const D=document,R=D.documentElement,$=id=>D.getElementById(id);
 const RM=(()=>{try{return matchMedia('(prefers-reduced-motion: reduce)')}catch(e){return{matches:false}}})();
-const reduced=()=>RM.matches||R.dataset.motion=='reduce';
+const reduced=()=>(RM.matches&&R.dataset.motion!='on')||R.dataset.motion=='reduce';
 const homeOn=()=>{const h=$('home');return!!h&&!h.hidden};
 const safe=(n,f)=>{try{f()}catch(e){console.warn('vybble: '+n,e)}};
 const replay=(el,cls,ms)=>{if(!el)return;el.classList.remove(cls);void el.getBoundingClientRect();el.classList.add(cls);clearTimeout(el['_t'+cls]);el['_t'+cls]=setTimeout(()=>el.classList.remove(cls),ms)};
@@ -48,6 +48,19 @@ safe('yazan kutu',()=>{const inp=$('bqi');if(!inp)return;const base=inp.getAttri
 /* 4) Alt bilgi: vybble yazısı harf harf dalgalanır */
 safe('alt bilgi',()=>{const done=b=>{if(!b||b.dataset.vw)return;b.dataset.vw=1;const t=b.textContent;b.setAttribute('aria-label',t);b.textContent='';[...t].forEach((c,i)=>{const s=D.createElement('i');s.className='vw';s.textContent=c;s.style.setProperty('--i',i);s.setAttribute('aria-hidden','true');b.appendChild(s)})};
  const go=()=>D.querySelectorAll('.lp-foot .logo b,#hlg b').forEach(done);go();setTimeout(go,300)});
+
+/* 5) Bilgisayarda hareket kapalıysa (ör. Windows "Animasyon efektleri" kapalı) ana sayfada tek tıkla açma önerisi */
+safe('hareket önerisi',()=>{const ask=()=>{try{return localStorage.getItem('vy-motion-ask')}catch(e){return'1'}};
+ const show=()=>{if(!RM.matches||typeof CFG=='undefined'||CFG.motion!==false||ask()||!homeOn()||$('vy-mask'))return;
+  const b=D.createElement('div');b.id='vy-mask';b.className='vy-mask';b.setAttribute('role','status');
+  b.innerHTML='<span class="vy-mask-i" aria-hidden="true">✨</span><span class="vy-mask-t"><b>Bilgisayarında animasyonlar kapalı.</b> Vybble’ın hareketlerini açayım mı?</span><button type="button" class="vy-mask-on">Aç</button><button type="button" class="vy-mask-no">Kapalı kalsın</button>';
+  D.body.appendChild(b);
+  const done=v=>{try{localStorage.setItem('vy-motion-ask',v)}catch(e){}b.remove()};
+  b.querySelector('.vy-mask-on').onclick=()=>{CFG.motion='on';try{cfgSave();applyCfg()}catch(e){R.dataset.motion='on'}done('on');
+   try{window.v4live&&v4live.parts.field&&v4live.parts.field.kick()}catch(e){}D.querySelectorAll('#home .vlogo').forEach(v=>{v.removeAttribute('data-vin')});try{P.logo&&P.logo.scan()}catch(e){}
+   if(typeof toast=='function')toast('✨ Animasyonlar açıldı · Ayarlar’dan değiştirebilirsin')};
+  b.querySelector('.vy-mask-no').onclick=()=>done('no')};
+ setTimeout(show,1200);const h=$('home');if(h)new MutationObserver(()=>setTimeout(show,600)).observe(h,{attributes:true,attributeFilter:['hidden']});P.ask={show}});
 
 window.v4vybble={reduced,parts:P};
 })();

@@ -13,7 +13,7 @@
 const D=document,R=D.documentElement,$=id=>D.getElementById(id);
 const mm=q=>{try{return matchMedia(q)}catch(e){return{matches:false}}};
 const RM=mm('(prefers-reduced-motion: reduce)'),COARSE=mm('(pointer: coarse)');
-const reduced=()=>RM.matches||R.dataset.motion=='reduce';
+const reduced=()=>(RM.matches&&R.dataset.motion!='on')||R.dataset.motion=='reduce';
 const touch=()=>COARSE.matches||('ontouchstart' in window&&navigator.maxTouchPoints>0);
 const homeOn=()=>{const h=$('home');return!!h&&!h.hidden};
 const safe=(n,f)=>{try{f()}catch(e){console.warn('dokunmatik: '+n,e)}};
