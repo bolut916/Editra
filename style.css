@@ -464,3 +464,6 @@ body[data-tool=a] #cvw{cursor:default;touch-action:none}
 #cv .sg.eq b{position:absolute;left:50%;top:-1.2em;transform:translateX(-50%);font:600 9px system-ui,sans-serif;color:#fff;background:#ff2d87;border-radius:3px;padding:0 4px;white-space:nowrap}
 #cv .sg.eq.y b{left:4px;top:50%;transform:translateY(-50%)}
 #v13gr{position:absolute;inset:0;pointer-events:none;z-index:40}#v13gr i{position:absolute;background:#e6a700;opacity:.55}
+
+/* yedekleme kartı */
+.bakr{display:flex;flex-wrap:wrap;gap:8px}.bakr>*{flex:1 1 140px;justify-content:center;text-align:center}.bakst{font-size:13px}.bakst.warn{color:#b45309!important;font-weight:700}:root[data-theme=dark] .bakst.warn{color:#fbbf24!important}@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .bakst.warn{color:#fbbf24!important}}
