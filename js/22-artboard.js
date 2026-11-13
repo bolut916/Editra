@@ -151,7 +151,7 @@ if(window.v4cmd){
 
 /* ---------- dışa aktarma: tüm artboardlar sırayla ---------- */
 async function pngAll(){const bt=$$('png');if(bt){bt.disabled=true;bt.classList.add('busy')}
- const N=PROJ.pages.length,slug=(window.v4slug?v4slug(PROJ.name).toLowerCase():(PROJ.name||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''))||'editra';let Lp=+$$('px').value,done=0;
+ const N=PROJ.pages.length,slug=(window.v4slug?v4slug(PROJ.name).toLowerCase():(PROJ.name||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''))||'vybble';let Lp=+$$('px').value,done=0;
  try{while(!done&&Lp>=1000){const files=[];try{const Wd=Math.round(S.fmt>=1?Lp:Lp*S.fmt);
    await eachPage(async i=>{toast(`Artboard ${i+1}/${N} hazırlanıyor…`);await loadF();const c=drawB(Wd,S.bleed,S.marks),b=await new Promise(r=>c.toBlob(r));c.width=c.height=1;if(!b)throw new Error('png');
     files.push({name:`${slug}-${String(i+1).padStart(2,'0')}.png`,data:new Uint8Array(await b.arrayBuffer())})});

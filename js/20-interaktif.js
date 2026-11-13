@@ -174,7 +174,7 @@ footer{opacity:.5;text-align:center;font-size:12px;padding:6px 16px 28px}
 </style></head><body>
 <header><b>__T__</b><span id="pc"></span></header><main id="m"></main>
 <div id="lb" role="dialog" aria-modal="true" aria-label="İçerik"><button id="lbx" aria-label="Kapat">✕</button><div id="lbc"></div><div id="lbm"></div></div>
-<footer>Editra ile hazırlandı · Canlı öğeler için internet bağlantısı gerekir</footer>
+<footer>Vybble ile hazırlandı · Canlı öğeler için internet bağlantısı gerekir</footer>
 <script>
 var P=__P__,M=__M__,N=__N__;
 var LOT="https://cdn.jsdelivr.net/npm/@lottiefiles/lottie-player@2.0.8/dist/lottie-player.js",MV="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js";

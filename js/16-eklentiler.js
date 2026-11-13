@@ -69,10 +69,10 @@ function ean13(d){d=String(d).replace(/\D/g,'');if(d.length!=12&&d.length!=13)th
 
 
 
-/* ===== izole kutunun içindeki API (eklenti bu nesneyi görür: window.editra) ===== */
+/* ===== izole kutunun içindeki API (eklenti bu nesneyi görür: window.vybble; eski ad window.editra da çalışır) ===== */
 function apiShim(){var pend={},n=0;function call(m,a){return new Promise(function(res,rej){var id=++n;pend[id]={res:res,rej:rej};parent.postMessage({editra:1,id:id,m:m,a:a===undefined?{}:a},'*')})}
  window.addEventListener('message',function(e){var d=e.data;if(!d||!d.editra||d.re==null)return;var p=pend[d.re];if(!p)return;delete pend[d.re];if(d.err)p.rej(new Error(d.err));else p.res(d.v)});
- window.editra={version:1,insertSVG:function(svg,o){return call('insertSVG',{svg:svg,o:o||{}})},insertImage:function(url,o){return call('insertImage',{url:url,o:o||{}})},insertText:function(t,o){return call('insertText',{text:t,o:o||{}})},insertFrame:function(o){return call('insertFrame',{o:o||{}})},batch:function(list){return call('batch',{list:list})},getContext:function(){return call('getContext')},getPageImage:function(w){return call('getPageImage',{w:w})},download:function(name,mime,data){return call('download',{name:name,mime:mime,data:data})},downloadZip:function(name,files){return call('downloadZip',{name:name,files:files})},toast:function(m){return call('toast',{m:m})},close:function(){return call('close')}};
+ window.vybble=window.editra={version:1,insertSVG:function(svg,o){return call('insertSVG',{svg:svg,o:o||{}})},insertImage:function(url,o){return call('insertImage',{url:url,o:o||{}})},insertText:function(t,o){return call('insertText',{text:t,o:o||{}})},insertFrame:function(o){return call('insertFrame',{o:o||{}})},batch:function(list){return call('batch',{list:list})},getContext:function(){return call('getContext')},getPageImage:function(w){return call('getPageImage',{w:w})},download:function(name,mime,data){return call('download',{name:name,mime:mime,data:data})},downloadZip:function(name,files){return call('downloadZip',{name:name,files:files})},toast:function(m){return call('toast',{m:m})},close:function(){return call('close')}};
  window.addEventListener('error',function(e){try{parent.postMessage({editra:1,id:0,m:'log',a:{m:String(e.message).slice(0,200)}},'*')}catch(x){}})}
 
 /* ===== yerleşik eklentiler ===== */
@@ -82,10 +82,10 @@ function pQR(){var T=document.body;T.innerHTML='<label>Metin ya da bağlantı</l
   return{svg:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+S+' '+S+'" width="'+S*10+'" height="'+S*10+'" shape-rendering="crispEdges">'+($('tr').checked?'':'<rect width="'+S+'" height="'+S+'" fill="'+$('b').value+'"/>')+'<path fill="'+$('f').value+'" d="'+d+'"/></svg>',v:q.version}}
  var cur=null;function upd(){try{cur=svg();$('pv').innerHTML=cur.svg;$('inf').textContent='Sürüm '+cur.v+' · '+new TextEncoder().encode($('t').value).length+' bayt';$('add').disabled=$('dl').disabled=false}catch(e){cur=null;$('pv').textContent=e.message;$('add').disabled=$('dl').disabled=true}}
  ['t','e','f','b','tr'].forEach(function(i){$(i).addEventListener('input',upd);$(i).addEventListener('change',upd)});
- $('add').onclick=function(){if(cur)editra.insertSVG(cur.svg,{w:.3,name:'QR kod'}).then(function(){editra.toast('QR kod eklendi')},function(e){editra.toast(e.message)})};
- $('dl').onclick=function(){if(cur)editra.download('qr-kod.svg','image/svg+xml',cur.svg)};
- editra.getContext().then(function(c){var s=(c.selection||[]).filter(function(x){return x.text})[0];if(s){$('t').value=s.text.slice(0,500)}upd()},upd)}
-function pBar(){var T=document.body;T.innerHTML='<div class="r"><div><label>Tür</label><select id="k"><option value="c">Code 128 (metin, sayı)</option><option value="e">EAN-13 (ürün barkodu)</option></select></div><div><label>Değer</label><input id="v" value="EDITRA-2026" style="width:100%"></div><div><label>Renk</label><input type="color" id="c" value="#111111"></div></div><label><input type="checkbox" id="x" checked> Altına değeri yaz</label><div class="prev" id="pv"></div><small id="inf"></small><div class="r" style="margin-top:8px"><button class="p" id="add">Sayfaya ekle</button><button id="dl">SVG indir</button></div>';
+ $('add').onclick=function(){if(cur)vybble.insertSVG(cur.svg,{w:.3,name:'QR kod'}).then(function(){vybble.toast('QR kod eklendi')},function(e){vybble.toast(e.message)})};
+ $('dl').onclick=function(){if(cur)vybble.download('qr-kod.svg','image/svg+xml',cur.svg)};
+ vybble.getContext().then(function(c){var s=(c.selection||[]).filter(function(x){return x.text})[0];if(s){$('t').value=s.text.slice(0,500)}upd()},upd)}
+function pBar(){var T=document.body;T.innerHTML='<div class="r"><div><label>Tür</label><select id="k"><option value="c">Code 128 (metin, sayı)</option><option value="e">EAN-13 (ürün barkodu)</option></select></div><div><label>Değer</label><input id="v" value="VYBBLE-2026" style="width:100%"></div><div><label>Renk</label><input type="color" id="c" value="#111111"></div></div><label><input type="checkbox" id="x" checked> Altına değeri yaz</label><div class="prev" id="pv"></div><small id="inf"></small><div class="r" style="margin-top:8px"><button class="p" id="add">Sayfaya ekle</button><button id="dl">SVG indir</button></div>';
  function $(i){return document.getElementById(i)}
  function svg(){var col=$('c').value,Q=10,mods,txt,w;if($('k').value=='c'){var bars=code128($('v').value),m=[],dk=true;bars.forEach(function(b){for(var i=0;i<b;i++)m.push(dk?1:0);dk=!dk});mods=m;txt=$('v').value}else{var e=ean13($('v').value);mods=e.modules.split('').map(Number);txt=e.digits;$('v').title='Kontrol hanesi: '+e.digits[12]}
   w=mods.length+2*Q;var h=60,r='',x=0;while(x<mods.length){if(mods[x]){var s=x;while(x<mods.length&&mods[x])x++;r+='<rect x="'+(s+Q)+'" y="0" width="'+(x-s)+'" height="'+h+'" fill="'+col+'"/>'}else x++}
@@ -93,9 +93,9 @@ function pBar(){var T=document.body;T.innerHTML='<div class="r"><div><label>Tür
   var H=h+($('x').checked?20:4);return{svg:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+w+' '+H+'" width="'+w*6+'" height="'+H*6+'" shape-rendering="crispEdges"><rect width="'+w+'" height="'+H+'" fill="#fff"/>'+r+tx+'</svg>',n:mods.length}}
  var cur=null;function upd(){try{cur=svg();$('pv').innerHTML=cur.svg;$('inf').textContent=cur.n+' modül';$('add').disabled=$('dl').disabled=false}catch(e){cur=null;$('pv').textContent=e.message;$('add').disabled=$('dl').disabled=true}}
  ['k','v','c','x'].forEach(function(i){$(i).addEventListener('input',upd);$(i).addEventListener('change',upd)});
- $('k').addEventListener('change',function(){$('v').value=$('k').value=='e'?'590123412345':'EDITRA-2026';upd()});
- $('add').onclick=function(){if(cur)editra.insertSVG(cur.svg,{w:.4,name:'Barkod'}).then(function(){editra.toast('Barkod eklendi')},function(e){editra.toast(e.message)})};
- $('dl').onclick=function(){if(cur)editra.download('barkod.svg','image/svg+xml',cur.svg)};upd()}
+ $('k').addEventListener('change',function(){$('v').value=$('k').value=='e'?'590123412345':'VYBBLE-2026';upd()});
+ $('add').onclick=function(){if(cur)vybble.insertSVG(cur.svg,{w:.4,name:'Barkod'}).then(function(){vybble.toast('Barkod eklendi')},function(e){vybble.toast(e.message)})};
+ $('dl').onclick=function(){if(cur)vybble.download('barkod.svg','image/svg+xml',cur.svg)};upd()}
 function pCal(){var T=document.body,now=new Date(),MN=['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
  T.innerHTML='<div class="r"><div><label>Ay</label><select id="m">'+MN.map(function(n,i){return'<option value="'+i+'"'+(i==now.getMonth()?' selected':'')+'>'+n+'</option>'}).join('')+'</select></div><div><label>Yıl</label><input type="number" id="y" value="'+now.getFullYear()+'" min="1900" max="2200"></div><div><label>Stil</label><select id="s"><option value="m">Minimal</option><option value="b">Kutulu</option></select></div><div><label>Renk</label><input type="color" id="c" value="#111111"></div></div><label><input type="checkbox" id="w" checked> Hafta sonlarını soluk göster</label><label><input type="checkbox" id="n"> Hafta numaraları</label><div class="prev" id="pv"></div><div class="r"><button class="p" id="add">Sayfaya ekle</button><button id="dl">SVG indir</button></div>';
  function $(i){return document.getElementById(i)}
@@ -110,15 +110,15 @@ function pCal(){var T=document.body,now=new Date(),MN=['Ocak','Şubat','Mart','N
   return o+'</svg>'}
  var cur='';function upd(){try{cur=svg();$('pv').innerHTML=cur}catch(e){cur=''}}
  ['m','y','s','c','w','n'].forEach(function(i){$(i).addEventListener('input',upd);$(i).addEventListener('change',upd)});
- $('add').onclick=function(){editra.insertSVG(cur,{w:.8,name:'Takvim'}).then(function(){editra.toast('Takvim eklendi')},function(e){editra.toast(e.message)})};
- $('dl').onclick=function(){editra.download('takvim.svg','image/svg+xml',cur)};upd()}
+ $('add').onclick=function(){vybble.insertSVG(cur,{w:.8,name:'Takvim'}).then(function(){vybble.toast('Takvim eklendi')},function(e){vybble.toast(e.message)})};
+ $('dl').onclick=function(){vybble.download('takvim.svg','image/svg+xml',cur)};upd()}
 function pIG(){var T=document.body;T.innerHTML='<div class="r"><button id="t1" class="p">Grid planlayıcı</button><button id="t2">Carousel böl</button></div><div id="b"></div>';function $(i){return document.getElementById(i)}
  function grid(){$('b').innerHTML='<div class="r"><div><label>Satır</label><input type="number" id="r" value="3" min="1" max="8"></div><div><label>Kare oranı</label><select id="a"><option value="1">1:1</option><option value="1.25" selected>4:5</option><option value="1.3333">3:4</option></select></div><div><label>Boşluk (%)</label><input type="number" id="g" value="1" min="0" max="6" step=".5"></div></div><label><input type="checkbox" id="n" checked> Kareleri numarala (1 = en yeni)</label><small>3 sütunluk profil gridi için boş görsel kutuları yerleştirir; sonra görsellerini kutulara bırakırsın.</small><div class="r" style="margin-top:8px"><button class="p" id="go">Sayfaya yerleştir</button></div>';
-  $('go').onclick=function(){var R=+$('r').value,a=+$('a').value,g=+$('g').value/100,cw=(1-4*g)/3,ctx;editra.getContext().then(function(c){var ar=c.page.w_mm/c.page.h_mm;var h=cw*a*(c.page.w_mm/c.page.h_mm);var list=[];if(h*R+g*(R+1)>1.0001){h=(1-g*(R+1))/R}
+  $('go').onclick=function(){var R=+$('r').value,a=+$('a').value,g=+$('g').value/100,cw=(1-4*g)/3,ctx;vybble.getContext().then(function(c){var ar=c.page.w_mm/c.page.h_mm;var h=cw*a*(c.page.w_mm/c.page.h_mm);var list=[];if(h*R+g*(R+1)>1.0001){h=(1-g*(R+1))/R}
     for(var i=0;i<R*3;i++){var r=Math.floor(i/3),k=i%3;list.push({k:'frame',o:{x:g+k*(cw+g),y:g+r*(h+g),w:cw,h:h,name:'Gönderi '+(i+1)}});if($('n').checked)list.push({k:'text',text:String(i+1),o:{x:g+k*(cw+g)+.01,y:g+r*(h+g)+.01,w:.08,h:.04,fs:2.5,col:'#ffffff',name:'No '+(i+1)}})}
-    return editra.batch(list)}).then(function(){editra.toast('Grid yerleştirildi');editra.close()},function(e){editra.toast(e.message)})}}
+    return vybble.batch(list)}).then(function(){vybble.toast('Grid yerleştirildi');vybble.close()},function(e){vybble.toast(e.message)})}}
  function car(){$('b').innerHTML='<div class="r"><div><label>Slayt sayısı</label><input type="number" id="n" value="3" min="2" max="10"></div><div><label>Slayt oranı</label><select id="a"><option value="1">1:1 (1080×1080)</option><option value="1.25" selected>4:5 (1080×1350)</option></select></div></div><small>Sayfan yan yana N slayt genişliğinde olmalı (örn. özel boyut 3240×1350 px oranında). Sayfa PNG olarak dilimlenir ve zip indirilir.</small><div class="r" style="margin-top:8px"><button class="p" id="go">Dilimle ve indir</button></div>';
-  $('go').onclick=function(){var N=+$('n').value,a=+$('a').value,Wd=1080*N;editra.getPageImage(Wd).then(function(url){return new Promise(function(res,rej){var im=new Image();im.onload=function(){res(im)};im.onerror=function(){rej(new Error('Sayfa görseli okunamadı'))};im.src=url})}).then(function(im){var files=[],sw=im.naturalWidth/N,H=Math.round(1080*a);for(var i=0;i<N;i++){var c=document.createElement('canvas');c.width=1080;c.height=H;c.getContext('2d').drawImage(im,i*sw,0,sw,im.naturalHeight,0,0,1080,H);files.push({name:'slayt-'+(i+1)+'.png',data:c.toDataURL('image/png')})}return editra.downloadZip('carousel.zip',files)}).then(function(){editra.toast('Carousel zip indirildi')},function(e){editra.toast(e.message)})}}
+  $('go').onclick=function(){var N=+$('n').value,a=+$('a').value,Wd=1080*N;vybble.getPageImage(Wd).then(function(url){return new Promise(function(res,rej){var im=new Image();im.onload=function(){res(im)};im.onerror=function(){rej(new Error('Sayfa görseli okunamadı'))};im.src=url})}).then(function(im){var files=[],sw=im.naturalWidth/N,H=Math.round(1080*a);for(var i=0;i<N;i++){var c=document.createElement('canvas');c.width=1080;c.height=H;c.getContext('2d').drawImage(im,i*sw,0,sw,im.naturalHeight,0,0,1080,H);files.push({name:'slayt-'+(i+1)+'.png',data:c.toDataURL('image/png')})}return vybble.downloadZip('carousel.zip',files)}).then(function(){vybble.toast('Carousel zip indirildi')},function(e){vybble.toast(e.message)})}}
  $('t1').onclick=function(){$('t1').className='p';$('t2').className='';grid()};$('t2').onclick=function(){$('t2').className='p';$('t1').className='';car()};grid()}
 function pAnim(){var T=document.body;T.innerHTML='<label>SVG kodu (yapıştır) ya da dosya seç</label><textarea id="s" rows="4" placeholder="&lt;svg ...&gt;"></textarea><div class="r"><div><input type="file" id="f" accept=".svg,image/svg+xml"></div><div><label>Hareket</label><select id="a"><option value="draw">Çizgi çizilsin</option><option value="fade">Belirme</option><option value="pulse">Nabız</option><option value="spin">Dönme</option><option value="bounce">Zıplama</option><option value="float">Süzülme</option></select></div><div><label>Süre (sn)</label><input type="number" id="d" value="3" min=".5" max="20" step=".5"></div><div><label>Kademe (sn)</label><input type="number" id="g" value=".15" min="0" max="2" step=".05"></div></div><label><input type="checkbox" id="l" checked> Sonsuz döngü</label><div class="prev" id="pv">Önizleme burada</div><small id="inf"></small><div class="r" style="margin-top:8px"><button id="pr" class="p">Önizle</button><button id="dl">Animasyonlu SVG indir</button><button id="add">İlk kareyi sayfaya ekle</button></div>';
  function $(i){return document.getElementById(i)}
@@ -132,16 +132,16 @@ function pAnim(){var T=document.body;T.innerHTML='<label>SVG kodu (yapıştır) 
   var st=root.ownerDocument.createElementNS('http://www.w3.org/2000/svg','style');st.textContent=css+'@media (prefers-reduced-motion:reduce){.ea{animation:none!important}}';root.insertBefore(st,root.firstChild);if(!root.getAttribute('xmlns'))root.setAttribute('xmlns','http://www.w3.org/2000/svg');
   return{anim:new XMLSerializer().serializeToString(root),n:els.length}}
  function still(){var root=clean($('s').value.trim());if(!root.getAttribute('xmlns'))root.setAttribute('xmlns','http://www.w3.org/2000/svg');return new XMLSerializer().serializeToString(root)}
- var cur=null;function run(f){try{cur=build();f&&f(cur)}catch(e){cur=null;editra.toast(e.message)}}
+ var cur=null;function run(f){try{cur=build();f&&f(cur)}catch(e){cur=null;vybble.toast(e.message)}}
  $('pr').onclick=function(){run(function(c){$('pv').innerHTML=c.anim;$('inf').textContent=c.n+' öğe hareketlendi'})};
- $('dl').onclick=function(){run(function(c){editra.download('animasyon.svg','image/svg+xml',c.anim)})};
- $('add').onclick=function(){try{editra.insertSVG(still(),{w:.5,name:'SVG (ilk kare)'}).then(function(){editra.toast('Eklendi (sayfada hareketsiz, animasyon indirilen dosyada)')},function(e){editra.toast(e.message)})}catch(e){editra.toast(e.message)}}}
+ $('dl').onclick=function(){run(function(c){vybble.download('animasyon.svg','image/svg+xml',c.anim)})};
+ $('add').onclick=function(){try{vybble.insertSVG(still(),{w:.5,name:'SVG (ilk kare)'}).then(function(){vybble.toast('Eklendi (sayfada hareketsiz, animasyon indirilen dosyada)')},function(e){vybble.toast(e.message)})}catch(e){vybble.toast(e.message)}}}
 const BUILTIN=[
- {id:'qr',name:'QR Kod Üretici',desc:'Metin ya da bağlantıdan QR kod üretir (sürüm 1-40, 4 hata düzeltme düzeyi). Vektör olarak sayfaya ekler.',author:'Editra',needs:['insert','read','download'],main:pQR,deps:[qrEncode]},
- {id:'barcode',name:'Barkod',desc:'Code 128 ve EAN-13 barkod üretir; EAN-13 kontrol hanesini doğrular.',author:'Editra',needs:['insert','download'],main:pBar,deps:[code128,ean13]},
- {id:'calendar',name:'Takvim',desc:'Türkçe, pazartesi başlangıçlı aylık takvim çizer; hafta numarası ve kutulu stil seçenekleri.',author:'Editra',needs:['insert','download'],main:pCal,deps:[]},
- {id:'instagram',name:'Instagram Grid',desc:'Profil gridi için boş görsel kutuları yerleştirir; geniş sayfayı carousel slaytlarına bölüp zip indirir.',author:'Editra',needs:['insert','read','download'],main:pIG,deps:[]},
- {id:'svganim',name:'SVG Animatör',desc:'Yapıştırdığın SVG’ye çizgi çizme, belirme, nabız, dönme, zıplama gibi hareketler ekler; animasyonlu SVG indirir.',author:'Editra',needs:['insert','download'],main:pAnim,deps:[]}];
+ {id:'qr',name:'QR Kod Üretici',desc:'Metin ya da bağlantıdan QR kod üretir (sürüm 1-40, 4 hata düzeltme düzeyi). Vektör olarak sayfaya ekler.',author:'Vybble',needs:['insert','read','download'],main:pQR,deps:[qrEncode]},
+ {id:'barcode',name:'Barkod',desc:'Code 128 ve EAN-13 barkod üretir; EAN-13 kontrol hanesini doğrular.',author:'Vybble',needs:['insert','download'],main:pBar,deps:[code128,ean13]},
+ {id:'calendar',name:'Takvim',desc:'Türkçe, pazartesi başlangıçlı aylık takvim çizer; hafta numarası ve kutulu stil seçenekleri.',author:'Vybble',needs:['insert','download'],main:pCal,deps:[]},
+ {id:'instagram',name:'Instagram Grid',desc:'Profil gridi için boş görsel kutuları yerleştirir; geniş sayfayı carousel slaytlarına bölüp zip indirir.',author:'Vybble',needs:['insert','read','download'],main:pIG,deps:[]},
+ {id:'svganim',name:'SVG Animatör',desc:'Yapıştırdığın SVG’ye çizgi çizme, belirme, nabız, dönme, zıplama gibi hareketler ekler; animasyonlu SVG indirir.',author:'Vybble',needs:['insert','download'],main:pAnim,deps:[]}];
 const NEEDS={insert:'Sayfaya öğe ekler',read:'Seçili metni ve sayfa görselini okur',download:'Dosya indirir'};
 const BASECSS=':root{color-scheme:light dark}body{font:14px system-ui,Segoe UI,Helvetica,Arial,sans-serif;margin:12px;color:CanvasText;background:Canvas}input,select,textarea,button{font:inherit;color:inherit;background:Field;border:1px solid #8886;border-radius:8px;padding:6px 8px;box-sizing:border-box;max-width:100%}textarea{width:100%}button{cursor:pointer}button.p{background:#5b3df5;color:#fff;border-color:transparent}button:disabled{opacity:.5;cursor:default}label{display:block;margin:8px 0 3px;font-size:12px;opacity:.75}.r{display:flex;gap:8px;flex-wrap:wrap;align-items:end}.r>div{flex:1;min-width:110px}.prev{background:repeating-conic-gradient(#8882 0 25%,transparent 0 50%) 0 0/14px 14px;border-radius:10px;padding:10px;text-align:center;margin:10px 0;overflow:auto}.prev svg{max-width:100%;max-height:260px;height:auto}small{opacity:.7}';
 const CSP="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:";
@@ -199,22 +199,22 @@ function runPl(pl){if(!PROJ)return toast('Önce bir proje aç');
  const f=p.querySelector('#v18f');CUR={pl,win:null};f.srcdoc=frameDoc(pl);CUR.win=f.contentWindow;f.addEventListener('load',()=>{if(CUR&&CUR.pl===pl)CUR.win=f.contentWindow})}
 async function openMarket(){const cust=await store.list();
  const card=(pl,own)=>`<div class="v18c"><h5>${X(pl.name)}</h5><p>${X(pl.desc)}</p><div class="v18b">${pl.needs.map(n=>`<span>${X(NEEDS[n]||n)}</span>`).join('')||'<span>İzin istemez</span>'}</div><small class="mut">${X(pl.author)}${own?' · senin eklentin':' · yerleşik'}</small><div class="v18b"><button class="b pr" data-run="${X(pl.id)}">Aç</button>${own?`<button class="b" data-del="${X(pl.id)}">Kaldır</button>`:''}</div></div>`;
- const p=MD('v18mk','Eklenti Pazarı','Editra’ya özellik ekleyen küçük araçlar',`<div class="v18w"><h5>Yerleşik eklentiler</h5><div class="v18g">${BUILTIN.map(b=>card(b,false)).join('')}</div>
+ const p=MD('v18mk','Eklenti Pazarı','Vybble’a özellik ekleyen küçük araçlar',`<div class="v18w"><h5>Yerleşik eklentiler</h5><div class="v18g">${BUILTIN.map(b=>card(b,false)).join('')}</div>
   <h5 style="margin-top:14px">Kendi eklentilerin</h5><div class="v18g">${cust.map(c=>card(c,true)).join('')||'<small class="mut">Henüz eklenti yüklemedin.</small>'}</div>
   <details style="margin-top:14px"><summary><b>Eklenti yaz / yükle</b></summary>
-   <p class="mut">Eklenti, tek bir HTML parçasıdır (içinde kendi &lt;script&gt; ve &lt;style&gt; etiketleri olabilir). Kod, <b>sandbox</b>’lı bir kutuda çalışır ve ağ erişimi yoktur (CSP). Dışarıdan kütüphane yükleyemez, her şeyi satır içi yazmalısın. Projeyle yalnızca aşağıdaki <code>editra</code> nesnesi üzerinden konuşur; her yöntem Promise döner. İzin vermediğin işlemler reddedilir.</p>
-   <pre>editra.insertSVG(svg, {x,y,w,h,name})   // x,y,w,h: sayfaya göre 0–1
-editra.insertImage(dataUrl, {...})       // base64 png/jpg/webp/gif
-editra.insertText(metin, {x,y,w,fs,col})
-editra.insertFrame({x,y,w,h})            // boş görsel kutusu
-editra.batch([{k:'svg'|'text'|'frame'|'image', ...}])
-editra.getContext()    // {project,page,selection[]}  (izin: read)
-editra.getPageImage(px)  // PNG dataURL (izin: read)
-editra.download(ad, mime, veri) / editra.downloadZip(ad, [{name,data}])
-editra.toast(msg) / editra.close()</pre>
+   <p class="mut">Eklenti, tek bir HTML parçasıdır (içinde kendi &lt;script&gt; ve &lt;style&gt; etiketleri olabilir). Kod, <b>sandbox</b>’lı bir kutuda çalışır ve ağ erişimi yoktur (CSP). Dışarıdan kütüphane yükleyemez, her şeyi satır içi yazmalısın. Projeyle yalnızca aşağıdaki <code>vybble</code> nesnesi üzerinden konuşur; her yöntem Promise döner. İzin vermediğin işlemler reddedilir.</p>
+   <pre>vybble.insertSVG(svg, {x,y,w,h,name})   // x,y,w,h: sayfaya göre 0–1
+vybble.insertImage(dataUrl, {...})       // base64 png/jpg/webp/gif
+vybble.insertText(metin, {x,y,w,fs,col})
+vybble.insertFrame({x,y,w,h})            // boş görsel kutusu
+vybble.batch([{k:'svg'|'text'|'frame'|'image', ...}])
+vybble.getContext()    // {project,page,selection[]}  (izin: read)
+vybble.getPageImage(px)  // PNG dataURL (izin: read)
+vybble.download(ad, mime, veri) / vybble.downloadZip(ad, [{name,data}])
+vybble.toast(msg) / vybble.close()</pre>
    <label>Ad <input type="text" id="v18n" maxlength="60" placeholder="Eklentimin adı"></label><label>Açıklama <input type="text" id="v18d" maxlength="240"></label><label>Yazar <input type="text" id="v18a" maxlength="40"></label>
    <div class="v18b" id="v18p">${Object.entries(NEEDS).map(([k,v])=>`<label><input type="checkbox" value="${k}"${k==='insert'?' checked':''}> ${X(v)}</label>`).join('')}</div>
-   <label>HTML + betik</label><textarea id="v18c" rows="8" placeholder="&lt;button id=b&gt;Merhaba ekle&lt;/button&gt;&lt;script&gt;b.onclick=()=&gt;editra.insertText('Merhaba',{x:.1,y:.1})&lt;/script&gt;"></textarea>
+   <label>HTML + betik</label><textarea id="v18c" rows="8" placeholder="&lt;button id=b&gt;Merhaba ekle&lt;/button&gt;&lt;script&gt;b.onclick=()=&gt;vybble.insertText('Merhaba',{x:.1,y:.1})&lt;/script&gt;"></textarea>
    <div class="v18b" style="margin-top:6px"><button class="b pr" id="v18add">Yükle</button><label class="b" for="v18file" style="margin:0">.html dosyasından</label><input type="file" id="v18file" accept=".html,text/html" hidden></div>
    <p class="mut">Not: Herkese açık bir eklenti kayıt sunucusu henüz yok; eklentiler bu tarayıcıda saklanır. Başkasından aldığın eklentinin kodunu çalıştırmadan önce oku.</p></details></div>${CSS}`);
  p.onclick=async e=>{const r=e.target.closest('[data-run]'),d=e.target.closest('[data-del]');

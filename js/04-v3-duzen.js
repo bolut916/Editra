@@ -170,11 +170,11 @@ V3.nd=v=>{const els=selEls().filter(e=>!e.lock);if(!els.length)return toast('Ön
 var DEFI=null;
 const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform=='MacIntel'&&navigator.maxTouchPoints>1),isApp=()=>(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true;
 function instUI(){const c=$('inst');if(!c)return;if(isApp()){c.hidden=true;return}const p=$('insp'),b=$('instb');
- if(DEFI){c.hidden=false;p.textContent='Editra’yı telefonuna veya bilgisayarına uygulama gibi kur. Çevrimdışı da açılır.';b.hidden=false}
- else if(isIOS){c.hidden=false;p.innerHTML='Safari’de <b>Paylaş</b> düğmesine, sonra <b>Ana Ekrana Ekle</b>’ye dokun. Editra uygulama gibi açılır.';b.hidden=true}
+ if(DEFI){c.hidden=false;p.textContent='Vybble’ı telefonuna veya bilgisayarına uygulama gibi kur. Çevrimdışı da açılır.';b.hidden=false}
+ else if(isIOS){c.hidden=false;p.innerHTML='Safari’de <b>Paylaş</b> düğmesine, sonra <b>Ana Ekrana Ekle</b>’ye dokun. Vybble uygulama gibi açılır.';b.hidden=true}
  else c.hidden=true}
 addEventListener('beforeinstallprompt',e=>{e.preventDefault();DEFI=e;instUI()});
-addEventListener('appinstalled',()=>{DEFI=null;instUI();toast('Editra kuruldu')});
+addEventListener('appinstalled',()=>{DEFI=null;instUI();toast('Vybble kuruldu')});
 $('instb').onclick=async()=>{if(!DEFI)return;DEFI.prompt();try{await DEFI.userChoice}catch(e){}DEFI=null;instUI()};
 instUI();
 if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))addEventListener('load',()=>{const h=!!navigator.serviceWorker.controller;let rl=0;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(h&&!rl){rl=1;location.reload()}});navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(g=>g.update()).catch(()=>{})});

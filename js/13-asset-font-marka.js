@@ -74,7 +74,7 @@ const PAIRS={'Geometrik sans':['Lora','Playfair Display','Source Serif 4','Fraun
 const SYS=['Helvetica Neue','Arial','Georgia'];
 const grpOf=f=>Object.keys(GRP).find(g=>GRP[g].includes(f))||null;
 function licOf(f,own){if(own)return{k:'own',t:'Sen yükledin: lisans sorumluluğu sende. Ticari baskıda kullanmadan önce font dosyasının lisansını doğrula.'};
- if(SYS.includes(f))return{k:'sys',t:'Sistem fontu (telifli). Editra yazıyı görüntüye çevirerek dışa aktarır, font dosyası PDF’e gömülmez; yine de matbaaya verilecek işte kullanımın lisansını doğrula.'};
+ if(SYS.includes(f))return{k:'sys',t:'Sistem fontu (telifli). Vybble yazıyı görüntüye çevirerek dışa aktarır, font dosyası PDF’e gömülmez; yine de matbaaya verilecek işte kullanımın lisansını doğrula.'};
  if([].concat(...Object.values(FC)).includes(f))return{k:'ofl',t:'Google Fonts: açık lisans (SIL Open Font License ya da Apache 2.0). Ticari baskı, PDF’e gömme ve dağıtım serbest; fontu tek başına satamazsın.'};
  return{k:'?',t:'Lisans bilgisi bilinmiyor.'}}
 const TR='ğĞıİşŞçÇöÖüÜ';
@@ -129,7 +129,7 @@ function openBrand(){const b=B2();if(!b)return toast('Önce bir proje aç');cons
   <label>Yasaklı sözcükler (virgülle)<input type="text" id="b-ban" value="${X(b.ban)}" placeholder="ucuz, bedava, kampanya"></label>
   <div class="v15r"><label>Başlık fontu<select id="b-hf">${fs(b.hf)}</select></label><label>Gövde fontu<select id="b-bf">${fs(b.bf)}</select></label></div>
   <div><b>Kullanılmayacak renkler</b><div id="b-chips">${chips()}</div><div class="v15r"><input type="color" id="b-fc" value="#00ff00"><button class="b" id="b-fa">Yasaklıya ekle</button></div></div>
-  <div class="v15r"><label><input type="checkbox" id="b-em"${b.noEmoji?' checked':''}> Emoji kullanma</label><label>Metin sınırı (karakter, 0 = yok) <input type="number" id="b-mc" min="0" max="5000" value="${+b.maxChars||0}" style="width:90px"></label><label>Zorunlu etiket <input type="text" id="b-tag" value="${X(b.tag)}" placeholder="#editra" style="width:130px"></label></div>
+  <div class="v15r"><label><input type="checkbox" id="b-em"${b.noEmoji?' checked':''}> Emoji kullanma</label><label>Metin sınırı (karakter, 0 = yok) <input type="number" id="b-mc" min="0" max="5000" value="${+b.maxChars||0}" style="width:90px"></label><label>Zorunlu etiket <input type="text" id="b-tag" value="${X(b.tag)}" placeholder="#vybble" style="width:130px"></label></div>
   <label>Minimum boşluk (mm): öğeler arası ve metnin sayfa kenarına uzaklığı <input type="number" id="b-gap" min="0" max="30" step=".5" value="${+b.gap||0}" style="width:90px"></label>
   <label>Sosyal medya ve diğer kurallar (serbest not)<textarea id="b-ex" rows="2" placeholder="Örn. Instagram: logo sağ altta, story’de üst 14% boş">${X(b.extra)}</textarea></label>
   <div class="row"><button class="b pr" id="b-save">Kaydet</button><button class="b" id="b-aud">Tasarımı denetle</button></div><div id="b-res"></div></div>${CSSX}`);
