@@ -1073,3 +1073,33 @@ body.ined .cv-top{display:none}
 @media(prefers-reduced-motion:reduce){.vlogo *,.vlogo,#sp-logo .vlogo,.vy-big svg{animation:none!important}.logo b i.vw{transition:none!important}}
 :root[data-motion=reduce] .vlogo *,:root[data-motion=reduce] .vlogo,:root[data-motion=reduce] #sp-logo .vlogo,:root[data-motion=reduce] .vy-big svg{animation:none!important}
 :root[data-motion=reduce] .logo b i.vw{transition:none!important}
+
+/* =====================================================================
+   DOKUNMATİK HAREKET (v25): yalnız dokunmatik ekranlar (js/28-dokunmatik.js)
+   ===================================================================== */
+.vt-tilt .lp-hin{perspective:1400px}
+.vt-tiltbtn{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:10px 16px;border:1px solid color-mix(in srgb,var(--pr) 40%,var(--ln));border-radius:999px;background:color-mix(in srgb,var(--pr) 8%,var(--pn));color:var(--tx);font:700 14px var(--fb);cursor:pointer;animation:vtbtn 2.6s ease-in-out infinite}
+.vt-tiltbtn[hidden]{display:none}
+.vt-tiltbtn span{display:inline-block;animation:vtwob 2.6s ease-in-out infinite}
+@keyframes vtbtn{50%{box-shadow:0 0 0 6px color-mix(in srgb,var(--pr) 12%,transparent)}}
+@keyframes vtwob{0%,60%,100%{rotate:0deg}70%{rotate:-14deg}80%{rotate:12deg}90%{rotate:-6deg}}
+/* dokunulan yerden halkalar */
+.vt-tap{position:fixed;width:0;height:0;z-index:9992;pointer-events:none}
+.vt-tap i{position:absolute;left:-30px;top:-30px;width:60px;height:60px;border-radius:50%;border:2.5px solid var(--pr);opacity:0;animation:vttap .75s var(--cv-out) forwards}
+.vt-tap i:nth-child(2){border-color:#ff5c9a;animation-delay:.08s}
+.vt-tap i:nth-child(3){border-color:#ff9a3c;animation-delay:.16s}
+@keyframes vttap{0%{transform:scale(.15);opacity:.9}100%{transform:scale(1.5);opacity:0}}
+/* ortadaki kart öne çıkar */
+.vt-touch.js-rv #home .cv-deal[data-rv]{transition-property:opacity,translate,rotate,transform,box-shadow,border-color,scale}
+.vt-touch #home .lp-il li{transition:scale .45s var(--cv-spring),background .3s}
+.vt-touch #home .vt-focus{scale:1.025;border-color:color-mix(in srgb,var(--pr) 45%,var(--ln));box-shadow:0 22px 44px -24px color-mix(in srgb,var(--pr) 55%,#0007)}
+.vt-touch #home .cv-beam.vt-focus::after{opacity:1;animation:cvbeam 2.4s linear infinite}
+.vt-touch #home .lp-il li.vt-focus{background:color-mix(in srgb,var(--pr) 7%,transparent);border-radius:14px}
+/* hızlı kaydırınca esneme */
+.vt-sk{transform:skewY(var(--vt-skew,0deg));transform-origin:50% 50%}
+/* dokunmatikte basılı durum */
+.vt-touch #home .lp-card:active,.vt-touch #home .lp-ai:active{scale:.98}
+/* hareketi azalt */
+@media(prefers-reduced-motion:reduce){.vt-tiltbtn,.vt-tiltbtn span,.vt-tap i,.vt-touch #home .cv-beam.vt-focus::after{animation:none!important}.vt-tap{display:none!important}.vt-sk{transform:none!important}}
+:root[data-motion=reduce] .vt-tiltbtn,:root[data-motion=reduce] .vt-tiltbtn span,:root[data-motion=reduce] .vt-touch #home .cv-beam.vt-focus::after{animation:none!important}
+:root[data-motion=reduce] .vt-tap{display:none!important}:root[data-motion=reduce] .vt-sk{transform:none!important}
