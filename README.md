@@ -53,6 +53,12 @@ Tek dosyada (`js/25-canli.js`) toplanmış, her biri ayrı korumalı blokta çal
 - **Editör:** araç şeridi ve panel sekmelerinde seçili olana kayan gösterge, artboard değişince parlayan çerçeve, otomatik tasarımda öğelerin eski yerlerinden yenilerine akması, "Tasarla" düğmesinde denenen aday sayısının canlı akışı ve bitince kıvılcım.
 - **Performans ve erişilebilirlik:** nokta alanı tek seferde 8 toplu çizimle boyanır (kare başına ≈1 ms işlemci), imleç durunca ≈0,8 sn'de sakinleşip tamamen durur, ekran dışındayken, sekme gizliyken ve editördeyken çalışmaz. Sistemdeki ya da Ayarlar'daki "Hareketi azalt" açıksa sürekli animasyonlar kapanır ve içerik hemen görünür. Dokunmatik cihazlarda imleç efektleri devre dışıdır.
 
+### Animasyon ayarı (v26)
+Windows'ta **Ayarlar → Erişilebilirlik → Görsel efektler → Animasyon efektleri** kapalıysa (bazı dizüstülerde, performans modunda ya da uzak masaüstünde varsayılan olarak kapalı gelir) tarayıcı "hareketi azalt" bildirir ve Vybble animasyonları buna uyarak kapatır.
+- **Ayarlar → Animasyonlar:** *Sisteme göre* (varsayılan) · *Her zaman açık* (sistem kapatmış olsa bile Vybble'da açık) · *Azaltılmış*. Eski "Hareketi azalt" ayarı *Azaltılmış* olarak korunur.
+- Bilgisayarda hareket kapalıysa ve seçim *Sisteme göre* ise ana sayfada bir kez öneri çıkar: "Bilgisayarında animasyonlar kapalı. Açayım mı?" (*Aç* / *Kapalı kalsın*); seçim hatırlanır.
+- Teknik: `html[data-motion=on]` iken CSS'teki `prefers-reduced-motion` kuralları uygulanmaz; JS'teki tüm `reduced()` denetimleri aynı kurala bağlıdır.
+
 ### Dokunmatik hareket (v25)
 `js/28-dokunmatik.js`; yalnız telefon ve tablette çalışır, bilgisayarda hiçbir şey değişmez; "Hareketi azalt" açıkken kapalı.
 - **Eğim:** telefonu eğince ana sahnenin katmanları (dev V, noktalar, renk bulutları, rozetler) farklı derinlikte kayar, demo kartı 3D döner. Telefonu nasıl tutarsan tut o duruş "düz" kabul edilir. iPhone izin ister: "📱 Hareketi aç" düğmesi; sensörü veri gönderen telefonlarda (Android) izinsiz, kendiliğinden başlar.

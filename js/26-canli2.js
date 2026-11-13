@@ -6,7 +6,7 @@
 'use strict';
 const D=document,R=D.documentElement,$=id=>D.getElementById(id);
 const RM=(()=>{try{return matchMedia('(prefers-reduced-motion: reduce)')}catch(e){return{matches:false}}})();
-const reduced=()=>RM.matches||R.dataset.motion=='reduce';
+const reduced=()=>(RM.matches&&R.dataset.motion!='on')||R.dataset.motion=='reduce';
 const fine=()=>{try{return matchMedia('(hover: hover) and (pointer: fine)').matches}catch(e){return false}};
 const homeOn=()=>{const h=$('home');return!!h&&!h.hidden};
 const edOn=()=>{const e=$('edw');return!!e&&!e.hidden};

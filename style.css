@@ -82,7 +82,7 @@ h3{margin:4px 0 0;font-size:11px;letter-spacing:.08em;text-transform:uppercase;c
 .m.bot{background:var(--bg);border-bottom-left-radius:4px;align-self:flex-start}.m.me{background:var(--lm);color:#141414;border-bottom-right-radius:4px;align-self:flex-end}.m.typ{letter-spacing:3px;animation:bob 1s infinite}.b.mini{padding:5px 10px;font-size:12px;box-shadow:0 2px 10px #0000001a;justify-self:start}
 #cf{display:flex;gap:8px}#cf input{flex:1;font:inherit;padding:9px 10px;border:1px solid var(--ln);border-radius:12px;background:var(--bg);color:var(--tx)}#cf .pb{padding:8px 12px}
 @media(max-width:700px){#tabs button{padding:7px 6px;font-size:11.5px}.logo b{display:none}.fab{bottom:calc(env(safe-area-inset-bottom,0px) + 70px)}}
-@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+@media(prefers-reduced-motion:reduce){:root:not([data-motion=on]) *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 
 [hidden]{display:none!important}
 html[data-motion=reduce] *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
@@ -450,7 +450,7 @@ body.cropping .th,body.cropping .th-rot{display:none}
 /* v4 stage F */
 :focus-visible{outline:2px solid var(--pr);outline-offset:2px}
 .v4b hr{border:0;border-top:1px solid var(--soft);margin:2px 0;width:100%}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+@media(prefers-reduced-motion:reduce){:root:not([data-motion=on]) *,:root:not([data-motion=on]) *::before,:root:not([data-motion=on]) *::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
 
 /* v4 stage G */
 body[data-tool=n] #cvw,body[data-tool=u] #cvw,body[data-tool=o] #cvw,body[data-tool=x] #cvw{cursor:crosshair;touch-action:none}
@@ -696,9 +696,7 @@ body[data-tool=a] #cvw{cursor:default;touch-action:none}
 }
 
 /* ---- hareketi azalt ---- */
-@media(prefers-reduced-motion:reduce){
- .lp-mesh i,.lp-marq>div,.lp-h1 em,.lpd-float,.lpm-vid i,.lpm-vid::after,.lpm-sp span i,.lpm-map i,.lpm-cube,.lp-end::before,.lpd-live i{animation:none!important}
- .js-rv #home [data-rv]{opacity:1;translate:none;transition:none}
+@media(prefers-reduced-motion:reduce){:root:not([data-motion=on]) .lp-mesh i,:root:not([data-motion=on]) .lp-marq>div,:root:not([data-motion=on]) .lp-h1 em,:root:not([data-motion=on]) .lpd-float,:root:not([data-motion=on]) .lpm-vid i,:root:not([data-motion=on]) .lpm-vid::after,:root:not([data-motion=on]) .lpm-sp span i,:root:not([data-motion=on]) .lpm-map i,:root:not([data-motion=on]) .lpm-cube,:root:not([data-motion=on]) .lp-end::before,:root:not([data-motion=on]) .lpd-live i{animation:none!important}:root:not([data-motion=on]) .js-rv #home [data-rv]{opacity:1;translate:none;transition:none}
 }
 :root[data-motion=reduce] .lp-mesh i,:root[data-motion=reduce] .lp-marq>div,:root[data-motion=reduce] .lp-h1 em,:root[data-motion=reduce] .lpd-float,:root[data-motion=reduce] .lpm-vid i,:root[data-motion=reduce] .lpm-vid::after,:root[data-motion=reduce] .lpm-sp span i,:root[data-motion=reduce] .lpm-map i,:root[data-motion=reduce] .lpm-cube,:root[data-motion=reduce] .lp-end::before,:root[data-motion=reduce] .lpd-live i{animation:none!important}
 :root[data-motion=reduce].js-rv #home [data-rv]{opacity:1;translate:none;transition:none}
@@ -807,7 +805,7 @@ body[data-tool=a] #cvw{cursor:default;touch-action:none}
 }
 @media(max-width:420px){.rb{width:42px;height:44px}#rail{padding-left:4px;padding-right:4px}}
 
-@media(prefers-reduced-motion:reduce){.rfly{animation:none}#edw .pb{transition:none}}
+@media(prefers-reduced-motion:reduce){:root:not([data-motion=on]) .rfly{animation:none}:root:not([data-motion=on]) #edw .pb{transition:none}}
 :root[data-motion=reduce] .rfly{animation:none}:root[data-motion=reduce] #edw .pb{transition:none}
 
 /* sağ panel: uzun seçenekli açılır listeler kartları panelden taşırmasın */
@@ -849,7 +847,7 @@ body.abdrag .abt{opacity:.9}
 .abadd:hover,.abadd:focus-visible{border-color:var(--pr);color:var(--pr);background:color-mix(in srgb,var(--pr) 6%,var(--pn));outline:none}
 #mini .mab{position:absolute;display:block;background:#fff;border:1px solid #0002;opacity:.6}
 .abxn{margin:8px 0 0;font-size:12px;line-height:1.4}
-@media(prefers-reduced-motion:reduce){.abo,.abadd,.abt .abn,.abt button{transition:none}}
+@media(prefers-reduced-motion:reduce){:root:not([data-motion=on]) .abo,:root:not([data-motion=on]) .abadd,:root:not([data-motion=on]) .abt .abn,:root:not([data-motion=on]) .abt button{transition:none}}
 :root[data-motion=reduce] .abo,:root[data-motion=reduce] .abadd,:root[data-motion=reduce] .abt .abn,:root[data-motion=reduce] .abt button{transition:none}
 .abt.xs .abw{display:none}
 /* uzaklaşınca küçücük artboardda boyutlandırma tutamaçları tuvali kapatmasın; seçim çerçevesi kalır */
@@ -949,11 +947,7 @@ input[type=checkbox]:focus-visible{outline:2px solid var(--pr);outline-offset:2p
 .cv-beam:hover::after{opacity:1;animation:cvbeam 2.4s linear infinite}
 @keyframes cvbeam{to{--cv-a:360deg}}
 /* hareketi azalt: her şey durur, içerik hemen görünür */
-@media(prefers-reduced-motion:reduce){
- .cv-ring,.cv-dot,.cv-field,.cv-cur,.cv-rip,.cv-spark{display:none!important}
- .lp-h1.cv-split .cv-ch,.lp-h1.cv-split .cv-em,.cv-words .cv-w>span{opacity:1!important;transform:none!important;translate:none!important;scale:none!important;transition:none!important}
- #splash h1 .cv-sp,.cv-beam:hover::after,.adbox button.cv-busy,#cv.cv-pulse{animation:none!important}
- .cv-ind,.cv-mag,#toast{transition:none!important}::view-transition-new(root){animation:none}
+@media(prefers-reduced-motion:reduce){:root:not([data-motion=on]) .cv-ring,:root:not([data-motion=on]) .cv-dot,:root:not([data-motion=on]) .cv-field,:root:not([data-motion=on]) .cv-cur,:root:not([data-motion=on]) .cv-rip,:root:not([data-motion=on]) .cv-spark{display:none!important}:root:not([data-motion=on]) .lp-h1.cv-split .cv-ch,:root:not([data-motion=on]) .lp-h1.cv-split .cv-em,:root:not([data-motion=on]) .cv-words .cv-w>span{opacity:1!important;transform:none!important;translate:none!important;scale:none!important;transition:none!important}:root:not([data-motion=on]) #splash h1 .cv-sp,:root:not([data-motion=on]) .cv-beam:hover::after,:root:not([data-motion=on]) .adbox button.cv-busy,:root:not([data-motion=on]) #cv.cv-pulse{animation:none!important}:root:not([data-motion=on]) .cv-ind,:root:not([data-motion=on]) .cv-mag,:root:not([data-motion=on]) #toast{transition:none!important}:root:not([data-motion=on])::view-transition-new(root){animation:none}
 }
 :root[data-motion=reduce] .cv-ring,:root[data-motion=reduce] .cv-dot,:root[data-motion=reduce] .cv-field,:root[data-motion=reduce] .cv-cur,:root[data-motion=reduce] .cv-rip,:root[data-motion=reduce] .cv-spark{display:none!important}
 :root[data-motion=reduce] .lp-h1.cv-split .cv-ch,:root[data-motion=reduce] .lp-h1.cv-split .cv-em,:root[data-motion=reduce] .cv-words .cv-w>span{opacity:1!important;transform:none!important;translate:none!important;scale:none!important;transition:none!important}
@@ -1016,11 +1010,7 @@ body.ined .cv-top{display:none}
 .fab:hover{animation-play-state:paused}
 @keyframes cvbob{50%{translate:0 -5px}}
 /* hareketi azalt */
-@media(prefers-reduced-motion:reduce){
- .js-rv #home .cv-deal[data-rv]{rotate:none!important;transition:none!important}
- .cv-burst{display:none!important}
- .pop:not([hidden]),.mdl:not([hidden]),.kpl:not([hidden]),.mdl:not([hidden])>*,.kpl:not([hidden])>*,#cv .sbox.cv-pop,.sv.cv-saved,#un.cv-spinl,#re.cv-spinr,#cv .e.ph,.cvw.dz-on~.dz,.fab,#toast.cv-tb::after{animation:none!important}
- .cv-top,.lp-marq span{transition:none!important}
+@media(prefers-reduced-motion:reduce){:root:not([data-motion=on]) .js-rv #home .cv-deal[data-rv]{rotate:none!important;transition:none!important}:root:not([data-motion=on]) .cv-burst{display:none!important}:root:not([data-motion=on]) .pop:not([hidden]),:root:not([data-motion=on]) .mdl:not([hidden]),:root:not([data-motion=on]) .kpl:not([hidden]),:root:not([data-motion=on]) .mdl:not([hidden])>*,:root:not([data-motion=on]) .kpl:not([hidden])>*,:root:not([data-motion=on]) #cv .sbox.cv-pop,:root:not([data-motion=on]) .sv.cv-saved,:root:not([data-motion=on]) #un.cv-spinl,:root:not([data-motion=on]) #re.cv-spinr,:root:not([data-motion=on]) #cv .e.ph,:root:not([data-motion=on]) .cvw.dz-on~.dz,:root:not([data-motion=on]) .fab,:root:not([data-motion=on]) #toast.cv-tb::after{animation:none!important}:root:not([data-motion=on]) .cv-top,:root:not([data-motion=on]) .lp-marq span{transition:none!important}
 }
 :root[data-motion=reduce].js-rv #home .cv-deal[data-rv]{rotate:none!important;transition:none!important}
 :root[data-motion=reduce] .cv-burst{display:none!important}
@@ -1070,7 +1060,7 @@ body.ined .cv-top{display:none}
 @media(prefers-color-scheme:dark){:root:not([data-theme=light]) .vy-big{opacity:.13}}
 @media(max-width:899px){.vy-big{width:90vmin;left:-20vmin;bottom:-10vmin}}
 /* hareketi azalt */
-@media(prefers-reduced-motion:reduce){.vlogo *,.vlogo,#sp-logo .vlogo,.vy-big svg{animation:none!important}.logo b i.vw{transition:none!important}}
+@media(prefers-reduced-motion:reduce){:root:not([data-motion=on]) .vlogo *,:root:not([data-motion=on]) .vlogo,:root:not([data-motion=on]) #sp-logo .vlogo,:root:not([data-motion=on]) .vy-big svg{animation:none!important}:root:not([data-motion=on]) .logo b i.vw{transition:none!important}}
 :root[data-motion=reduce] .vlogo *,:root[data-motion=reduce] .vlogo,:root[data-motion=reduce] #sp-logo .vlogo,:root[data-motion=reduce] .vy-big svg{animation:none!important}
 :root[data-motion=reduce] .logo b i.vw{transition:none!important}
 
@@ -1100,6 +1090,18 @@ body.ined .cv-top{display:none}
 /* dokunmatikte basılı durum */
 .vt-touch #home .lp-card:active,.vt-touch #home .lp-ai:active{scale:.98}
 /* hareketi azalt */
-@media(prefers-reduced-motion:reduce){.vt-tiltbtn,.vt-tiltbtn span,.vt-tap i,.vt-touch #home .cv-beam.vt-focus::after{animation:none!important}.vt-tap{display:none!important}.vt-sk{transform:none!important}}
+@media(prefers-reduced-motion:reduce){:root:not([data-motion=on]) .vt-tiltbtn,:root:not([data-motion=on]) .vt-tiltbtn span,:root:not([data-motion=on]) .vt-tap i,:root:not([data-motion=on]) .vt-touch #home .cv-beam.vt-focus::after{animation:none!important}:root:not([data-motion=on]) .vt-tap{display:none!important}:root:not([data-motion=on]) .vt-sk{transform:none!important}}
 :root[data-motion=reduce] .vt-tiltbtn,:root[data-motion=reduce] .vt-tiltbtn span,:root[data-motion=reduce] .vt-touch #home .cv-beam.vt-focus::after{animation:none!important}
 :root[data-motion=reduce] .vt-tap{display:none!important}:root[data-motion=reduce] .vt-sk{transform:none!important}
+
+/* =====================================================================
+   HAREKET AYARI (v26): bilgisayarda hareket kapalıysa tek tıkla açma önerisi
+   ===================================================================== */
+.vy-mask{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);z-index:80;translate:-50% 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;max-width:calc(100vw - 32px);padding:10px 12px 10px 16px;border:1px solid color-mix(in srgb,var(--pr) 35%,var(--ln));border-radius:16px;background:color-mix(in srgb,var(--pn) 94%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 20px 50px -20px #0008;color:var(--tx);font:500 13.5px/1.35 var(--fb)}
+.vy-mask-t b{font-weight:700}
+.vy-mask button{border:0;border-radius:10px;padding:8px 14px;font:700 13px var(--fb);cursor:pointer}
+.vy-mask-on{background:linear-gradient(135deg,var(--pr),#8b5cff);color:#fff}
+.vy-mask-no{background:var(--soft);color:var(--tx)}
+.vy-mask button:focus-visible{outline:2px solid var(--pr);outline-offset:2px}
+body.ined .vy-mask{display:none}
+#cfgm .seg2 button.on{background:var(--pr);color:#fff}

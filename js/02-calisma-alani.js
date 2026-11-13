@@ -11,7 +11,7 @@ let memWarned=0;const memW=()=>{if(!memWarned){memWarned=1;toast('Tarayıcı dep
 const dbPut=async(r,m)=>{try{await DB.put(r,m)}catch(e){MEM.set(r.id,[r,m]);memW()}},dbGet=async id=>{try{return await DB.get(id)}catch(e){return(MEM.get(id)||[])[0]}},dbAll=async()=>{try{return await DB.all()}catch(e){return[...MEM.values()].map(v=>v[1])}},dbDel=async id=>{try{await DB.del(id)}catch(e){MEM.delete(id)}};
 let CFG={theme:'auto',autosave:true,splash:true,motion:false,dpi:300,grid:false,free:false,bot:true};try{Object.assign(CFG,JSON.parse(localStorage.getItem('editra.cfg')||'{}'))}catch(e){}
 const cfgSave=()=>{try{localStorage.setItem('editra.cfg',JSON.stringify(CFG))}catch(e){}};
-function applyCfg(){const r=document.documentElement;CFG.theme=='auto'?r.removeAttribute('data-theme'):r.setAttribute('data-theme',CFG.theme);r.dataset.motion=CFG.motion?'reduce':'';$('bot').style.display=CFG.bot?'':'none';const ic={auto:'🌓',light:'☀️',dark:'🌙'}[CFG.theme];$('th2').textContent=ic;$('th3').textContent=ic}
+function applyCfg(){const r=document.documentElement;CFG.theme=='auto'?r.removeAttribute('data-theme'):r.setAttribute('data-theme',CFG.theme);r.dataset.motion=CFG.motion===true?'reduce':CFG.motion==='on'?'on':'';$('bot').style.display=CFG.bot?'':'none';const ic={auto:'🌓',light:'☀️',dark:'🌙'}[CFG.theme];$('th2').textContent=ic;$('th3').textContent=ic}
 function cycleTheme(){CFG.theme={auto:'light',light:'dark',dark:'auto'}[CFG.theme];cfgSave();applyCfg();toast('Tema: '+{auto:'Otomatik',light:'Açık',dark:'Koyu'}[CFG.theme])}
 // projeler
 let PROJ=null;
@@ -133,13 +133,14 @@ $('tips').innerHTML=TIPS.map(t=>`<li>${t}</li>`).join('');
 // ayarlar penceresi
 function cfgr(){const sw=(k,l,sub)=>`<label class="srow"><span>${l}<small>${sub}</small></span><input type="checkbox" data-cfg="${k}"${CFG[k]?' checked':''}></label>`;
  $('cfgm').innerHTML=`<div class="wz-box cb"><div class="wz-h"><h2>Ayarlar</h2><button class="ib" id="cx2" aria-label="Kapat">✕</button></div><div class="cfb"><div class="srow"><span>Tema<small>Görünüm modu</small></span><div class="seg2">${[['auto','Otomatik'],['light','Açık'],['dark','Koyu']].map(t=>`<button data-th="${t[0]}"${CFG.theme==t[0]?' class="on"':''}>${t[1]}</button>`).join('')}</div></div>
- ${sw('autosave','Otomatik kaydet','Değişiklikler kendiliğinden saklanır')}${sw('splash','Açılış animasyonu','Vybble logosu ile başla')}${sw('motion','Hareketi azalt','Animasyonları en aza indir')}${sw('bot','Asistan balonu','Sağ alttaki robotu göster')}${sw('grid','Grid çizgileri','Yeni açılan çalışmalarda göster')}${sw('free','Serbest taşıma','Öğeler gride oturmadan taşınsın')}
+ ${sw('autosave','Otomatik kaydet','Değişiklikler kendiliğinden saklanır')}${sw('splash','Açılış animasyonu','Vybble logosu ile başla')}<div class="srow"><span>Animasyonlar<small>${(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)?'Bilgisayarında hareket kapalı; “Her zaman açık” ile Vybble’da açabilirsin':'Sistem ayarına göre'}</small></span><div class="seg2">${[['auto','Sisteme göre'],['on','Her zaman açık'],['reduce','Azaltılmış']].map(([k,l])=>`<button data-mo="${k}"${(CFG.motion===true?'reduce':CFG.motion==='on'?'on':'auto')==k?' class="on"':''}>${l}</button>`).join('')}</div></div>${sw('bot','Asistan balonu','Sağ alttaki robotu göster')}${sw('grid','Grid çizgileri','Yeni açılan çalışmalarda göster')}${sw('free','Serbest taşıma','Öğeler gride oturmadan taşınsın')}
  <div class="srow"><span>Varsayılan çözünürlük<small>Yeni tasarımlarda</small></span><select id="cdpi">${DPIS.map(d=>`<option value="${d[0]}"${CFG.dpi==d[0]?' selected':''}>${d[0]} dpi · ${d[1]}</option>`).join('')}</select></div>
  <div class="srow"><span>Depolama<small>Tüm çalışmaları bu cihazdan sil</small></span><button class="b" id="cclr">Tümünü sil</button></div></div></div>`}
 function openCfg(){cfgr();$('cfgm').hidden=false}
 $('hset').onclick=$('set3').onclick=openCfg;
 $('cfgm').addEventListener('click',async e=>{const t=e.target;if(t.id=='cfgm'||t.closest('#cx2'))return $('cfgm').hidden=true;
  const th=t.closest('[data-th]');if(th){CFG.theme=th.dataset.th;cfgSave();applyCfg();return cfgr()}
+ const mo=t.closest('[data-mo]');if(mo){CFG.motion=mo.dataset.mo=='reduce'?true:mo.dataset.mo=='on'?'on':false;cfgSave();applyCfg();return cfgr()}
  if(t.id=='cclr'){if(t.dataset.s){for(const m of await dbAll())await dbDel(m.id);toast('Tüm çalışmalar silindi');$('cfgm').hidden=true;renderHome()}else{t.dataset.s=1;t.textContent='Emin misin?';t.classList.add('danger')}}});
 $('cfgm').addEventListener('change',e=>{const t=e.target;if(t.dataset.cfg){CFG[t.dataset.cfg]=t.checked}else if(t.id=='cdpi')CFG.dpi=+t.value;else return;cfgSave();applyCfg()});
 document.addEventListener('keydown',e=>{if(e.key=='Escape'){closeWiz();$('cfgm').hidden=true;$('pmenu').hidden=true}

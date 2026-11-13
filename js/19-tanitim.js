@@ -2,7 +2,7 @@
 (function(){
 const home=$('home');if(!home||!$('lpdemo'))return;
 const root=document.documentElement;
-const RM=()=>root.dataset.motion==='reduce'||(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
+const RM=()=>root.dataset.motion==='reduce'||(root.dataset.motion!=='on'&&window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
 const onHome=()=>!home.hidden;
 root.classList.add('js-rv');
 

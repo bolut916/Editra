@@ -8,7 +8,7 @@
 const D=document,R=D.documentElement,$=id=>D.getElementById(id);
 const mq=q=>{try{return matchMedia(q)}catch(e){return{matches:false,addEventListener(){}}}};
 const RM=mq('(prefers-reduced-motion: reduce)'),FINE=mq('(hover: hover) and (pointer: fine)');
-const reduced=()=>RM.matches||R.dataset.motion=='reduce';
+const reduced=()=>(RM.matches&&R.dataset.motion!='on')||R.dataset.motion=='reduce';
 const fine=()=>FINE.matches;
 const homeOn=()=>{const h=$('home');return!!h&&!h.hidden};
 const lerp=(a,b,t)=>a+(b-a)*t,clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
