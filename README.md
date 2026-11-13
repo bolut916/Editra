@@ -53,15 +53,15 @@ Tek dosyada (`js/25-canli.js`) toplanmış, her biri ayrı korumalı blokta çal
 - **Editör:** araç şeridi ve panel sekmelerinde seçili olana kayan gösterge, artboard değişince parlayan çerçeve, otomatik tasarımda öğelerin eski yerlerinden yenilerine akması, "Tasarla" düğmesinde denenen aday sayısının canlı akışı ve bitince kıvılcım.
 - **Performans ve erişilebilirlik:** nokta alanı tek seferde 8 toplu çizimle boyanır (kare başına ≈1 ms işlemci), imleç durunca ≈0,8 sn'de sakinleşip tamamen durur, ekran dışındayken, sekme gizliyken ve editördeyken çalışmaz. Sistemdeki ya da Ayarlar'daki "Hareketi azalt" açıksa sürekli animasyonlar kapanır ve içerik hemen görünür. Dokunmatik cihazlarda imleç efektleri devre dışıdır.
 
-### Kategori sahneleri (v28)
-Ana sayfadaki **Kategoriler** bölümünde her tür (Dergi, Katalog, Broşür, Kapak, Afiş, Kartvizit, Menü, Sosyal medya) altı hareketli galeride gezilir:
-1. **Klasör**: kapak klasörden dışarı çıkar, numara büyür.
-2. **Ayraç**: kartlar yaylı yükselir ve renklenir, şeritler akar (boyut ve dpi bilgileri uygulamanın kendisinden gelir).
-3. **Yay**: kartlar bir yay üzerinde dizilir, ortadaki öne çıkar; sürükle, dokun ya da oklarla geç.
-4. **Halka**: kendi kendine dönen 3B kart halkası; parmakla çevrilir.
-5. **Spot**: ortadaki kart büyür, yanlar geri çekilir; kendiliğinden ilerler.
-6. **Çember**: fırlatılabilen 3B çember; çift dokunuşla yakınlaşır.
-Kartlar gerçek şablonları ya da o türün yeni tasarım sihirbazını açar. Döngüler yalnız bölüm ekrandayken çalışır; "Hareketi azalt" açıkken hiçbir şey kendiliğinden oynamaz.
+### Bölüm sahneleri (v28)
+Menüdeki altı bölümün her biri kendi hareketli galerisine dönüştü (içerik aynı, kartlar yerinde dönüşür):
+- **Neden Vybble → Klasör**: kapak klasörden dışarı çıkar, numara büyür.
+- **Özellikler → Ayraç**: kartlar yaylı yükselip renklenir, şeritler akar; “Hazır / Yakında” etiketi ayracın sekmesinde.
+- **Yapay zekâ → Halka**: araçlar kendi kendine dönen 3B halkada; sürükle ya da oklarla çevir, öndeki aracın açıklaması altta.
+- **Hareket → Spot**: ortadaki anahtar öne çıkar; yandakine dokununca öne gelir (yandaki anahtar yanlışlıkla değişmez).
+- **İnteraktif → Yay**: video, Spotify, harita… yay üzerinde; sürükle, dokun ya da oklarla geç.
+- **Çalışmalarım → Çember**: çalışmaların (az ise şablonlarla tamamlanır) fırlatılabilen 3B çemberde; öndekine dokun, aç; çift dokun, yakınlaş.
+Fareyle oynayan noktalar artık yalnız giriş sahnesinde değil, tüm ana sayfanın arkasında. Döngüler yalnız bölüm ekrandayken çalışır; "Hareketi azalt" açıkken hiçbir şey kendiliğinden oynamaz.
 
 ### Sahne anahtarları (v27)
 `js/29-sahne.js`: her açma-kapama küçük bir dünya; hepsi gerçek bir ayarı değiştirir, `role=switch` ve klavye ile çalışır.

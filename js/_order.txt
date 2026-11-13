@@ -27,5 +27,5 @@
 27-vybble
 28-dokunmatik
 29-sahne
-30-kategori
+30-sahneler
 99-baslat
