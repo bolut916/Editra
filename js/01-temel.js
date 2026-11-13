@@ -234,7 +234,7 @@ function draw(Wd){const H=Math.round(Wd/S.fmt),c=document.createElement('canvas'
  return c}
 async function save(n,b){const dl=await cap('downloads');if(dl)try{await dl.save({filename:n,data:b})}catch(e){}else{const a=document.createElement('a'),u=URL.createObjectURL(b);a.href=u;a.download=n;a.style.display='none';document.body.appendChild(a);a.click();setTimeout(()=>{a.remove();URL.revokeObjectURL(u)},5000)}}
 async function exp(kind){const bt=$(kind);bt.disabled=true;bt.classList.add('busy');
- let L=+$('px').value,done=0;const slug=(PROJ.name||'editra').toLowerCase().replace(/[^a-z0-9çğıöşü]+/gi,'-').replace(/^-|-$/g,'')||'editra';
+ let L=+$('px').value,done=0;const slug=(window.v4slug?v4slug(PROJ.name).toLowerCase():(PROJ.name||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''))||'editra';
  while(!done&&L>=1000){try{const Wd=Math.round(S.fmt>=1?L:L*S.fmt);
   if(kind=='png'){toast('Sayfa hazırlanıyor…');await loadF();const c=drawB(Wd,S.bleed,S.marks),b=await new Promise(r=>c.toBlob(r));if(!b)throw 0;await save(slug+'-sayfa'+(PROJ.cur+1)+'.png',b)}
   else{const ex2=(S.bleed||0)+(S.marks?6:0),pw=S.mm[0]+2*ex2,ph=S.mm[1]+2*ex2,N=PROJ.pages.length;let doc;

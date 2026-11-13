@@ -819,3 +819,38 @@ body[data-tool=a] #cvw{cursor:default;touch-action:none}
 #dockp #pn,#dockp #rp{overflow-x:hidden}
 #dockp .cta{color:var(--tx)}#dockp .cta p,#dockp .cta small{color:var(--mu)}
 #dockp .el.on{color:var(--tx)}#dockp .el.on button{color:inherit}
+
+/* =====================================================================
+   ARTBOARD'LAR (v19): tüm sayfalar çalışma alanında; alttaki sayfa şeridi yok
+   ===================================================================== */
+body.abm #edw .cvp{display:block;position:relative;padding:0;box-sizing:content-box}
+body.abm #edw #cv{position:absolute;left:0;top:0;margin:0}
+body.abm #edw .sth,body.abm #edw .stw{display:none!important}
+#abh{position:absolute;inset:0;pointer-events:none}
+.abo{position:absolute;pointer-events:auto;cursor:pointer;overflow:hidden;box-shadow:0 0 0 1px #0000000f,0 2px 8px #00000012,0 34px 80px -34px #0007;transition:box-shadow .15s}
+.abo img{display:block;width:100%;height:100%;pointer-events:none;-webkit-user-drag:none;user-select:none}
+.abo:hover{box-shadow:0 0 0 2px color-mix(in srgb,var(--pr) 55%,transparent),0 34px 80px -34px #0007}
+body[data-tool=z] .abo{cursor:zoom-in}
+.abt{position:absolute;pointer-events:auto;display:flex;align-items:center;gap:2px;height:26px;color:var(--mu);font:600 12px/1 var(--fb);cursor:grab;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.abt .abn{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:5px 7px;border-radius:7px;transition:background .15s,color .15s}
+.abt:hover .abn{background:var(--soft);color:var(--tx)}
+.abt.on .abn{color:var(--pr);background:color-mix(in srgb,var(--pr) 12%,transparent)}
+.abt button{flex:none;width:26px;height:26px;border:0;border-radius:7px;background:none;color:var(--mu);font-size:14px;line-height:1;cursor:pointer;opacity:0;transition:opacity .15s,background .15s}
+.abt:hover button,.abt.on button,.abt button:focus-visible{opacity:1}
+.abt button:hover{background:var(--soft);color:var(--tx)}
+.abt button[data-aa=dup]{margin-left:auto}
+.abt.sm button{display:none}
+@media(pointer:coarse){.abt button{opacity:1;width:32px;height:30px}}
+body.abdrag,body.abdrag *{cursor:grabbing!important}
+body.abcopy,body.abcopy *{cursor:copy!important}
+body.abdrag .abt{opacity:.9}
+.abadd{position:absolute;pointer-events:auto;display:grid;place-content:center;justify-items:center;gap:4px;border:2px dashed var(--ln);border-radius:14px;background:color-mix(in srgb,var(--pn) 55%,transparent);color:var(--mu);font:600 12.5px var(--fb);cursor:pointer;transition:border-color .15s,color .15s,background .15s}
+.abadd b{font-size:24px;font-weight:500;line-height:1}
+.abadd:hover,.abadd:focus-visible{border-color:var(--pr);color:var(--pr);background:color-mix(in srgb,var(--pr) 6%,var(--pn));outline:none}
+#mini .mab{position:absolute;display:block;background:#fff;border:1px solid #0002;opacity:.6}
+.abxn{margin:8px 0 0;font-size:12px;line-height:1.4}
+@media(prefers-reduced-motion:reduce){.abo,.abadd,.abt .abn,.abt button{transition:none}}
+:root[data-motion=reduce] .abo,:root[data-motion=reduce] .abadd,:root[data-motion=reduce] .abt .abn,:root[data-motion=reduce] .abt button{transition:none}
+.abt.xs .abw{display:none}
+/* uzaklaşınca küçücük artboardda boyutlandırma tutamaçları tuvali kapatmasın; seçim çerçevesi kalır */
+body.abtiny #cv .sbox .th,body.abtiny #cv .sbox [data-hd]{display:none}

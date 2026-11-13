@@ -38,16 +38,25 @@ Editra kurulabilir bir web uygulamasıdır (PWA). Bunun için sitenin **HTTPS** 
 - App Store / Google Play için bu klasör Capacitor veya PWABuilder ile paketlenebilir; geliştirici hesabı ve imzalama gerekir.
 
 ## Yeni arayüz (Stüdyo)
-Sol araç şeridi (V seç · T metin · M dikdörtgen · L elips · \ çizgi · I görsel · H el · Z yakınlaştır), seçime göre değişen tek satırlık çubuk, tek sağ panel (Düzen / Öğe / Stil / Asistan). Ctrl+K komut paleti, `?` kısayol kılavuzu. Photoshop/Illustrator/InDesign kısayolları: Ctrl+Z/Shift+Z, Ctrl+C/X/V, Ctrl+J, Ctrl+G, Ctrl+] [ , Ctrl+2/3, Ctrl+0/1/=/-, Space ile kaydırma, Tab panelleri gizler, F önizleme, 0–9 opaklık.
+Sol araç şeridi (V seç · T metin · M dikdörtgen · L elips · \ çizgi · I görsel · Z yakınlaştır), seçime göre değişen tek satırlık çubuk, tek sağ panel (Düzen / Öğe / Stil / Asistan). Ctrl+K komut paleti, `?` kısayol kılavuzu. Photoshop/Illustrator/InDesign kısayolları: Ctrl+Z/Shift+Z, Ctrl+C/X/V, Ctrl+J, Ctrl+G, Ctrl+] [ , Ctrl+2/3, Ctrl+0/1/=/-, Space basılı tutup sürükleyerek gezinme, Tab panelleri gizler, F önizleme, 0–9 opaklık.
 
 ### Gruplu araç şeridi ve seçim (v18)
-- **Araç grupları:** Seçim (V, A) · Metin (T) · Şekiller (M, L, \, U) · Çizim (P, B, X) · Görsel (I) · Renk ve ölçü (E, O) · Gezinme (H, Z). Grup düğmesi son kullanılan aracı gösterir ve hatırlar.
+- **Araç grupları:** Seçim (V, A) · Metin (T) · Şekiller (M, L, \, U) · Çizim (P, B, X) · Görsel (I) · Renk ve ölçü (E, O) · Yakınlaştır (Z). Grup düğmesi son kullanılan aracı gösterir ve hatırlar.
 - **Grubu açmak:** sağ tık, basılı tutma (telefonda), düğmenin köşesindeki üçgen ya da Shift+F10. Şekiller grubunda 13 hazır şekil önizlemeli olarak seçilir.
 - **Seçimi bırakma:** Seç aracındayken sayfanın boş bir yerine ya da gri çalışma alanına tıklamak seçimi kaldırır (Esc de aynı işi yapar). Sürükleme, kaydırma ve iki parmakla yakınlaştırma seçimi bozmaz.
 - Kod: `js/21-calisma-duzeni.js`; dışarıya `window.v4groups` ve `window.v4desel` açılır.
 
+### Artboard'lar (v19)
+- Alttaki sayfa şeridi kaldırıldı; projedeki bütün sayfalar çalışma alanında yan yana **artboard** olarak durur. Etkin artboard düzenlenir, diğerleri gerçek çizim motoruyla çizilmiş önizlemelerdir; tıklayınca düzenlenebilir olur.
+- **Taşı:** artboardın üstündeki ad etiketini (ya da masaüstünde önizlemenin kendisini) sürükle. Kenarlar diğer artboardlara mıknatıslanır, üst üste binmez.
+- **Kopyala:** **Alt** basılıyken sürükle · etiketteki ⧉ · sağ tık menüsü (Sağa / Aşağı kopyala) · Ctrl+Shift+D.
+- **Ekle / sil:** son artboardın yanındaki ＋ Artboard kutusu · sağ tık → Sil.
+- **Tümünü göster:** Shift+0. **Gezinme:** Space basılı tut + sürükle (El aracı ve H kısayolu kaldırıldı).
+- **Sıra:** sayfa sırası her zaman artboardların konumundan gelir: yukarıdan aşağı, soldan sağa. PDF tek dosyada, PNG `ad-01.png, ad-02.png…` olarak tek zip içinde bu sırayla kaydedilir; "Yalnız bu artboard · PNG" tek sayfayı indirir. Sıra değişince yorum iğneleri ve "sayfaya git" bağlantıları yeni sıraya taşınır.
+- Konumlar projeyle birlikte `pages[i].ab = {x, y}` (sayfa genişliği biriminde) olarak saklanır. Kod: `js/22-artboard.js`.
+
 ### Geniş çalışma alanı
-Sayfanın etrafında her yöne kayan sonsuz hissi veren çalışma alanı: Space/H ile sürükle, tekerlek, Shift+tekerlek, seçim yokken ok tuşları, mini harita (Ctrl+Shift+M), Shift+1 ortala, Shift+2 seçime yakınlaştır, Ctrl+\ yan paneli gizle, Ctrl+Alt+P sayfa şeridini gizle, Alt+Shift+L/C/R/T/M/B hizala.
+Sayfanın etrafında her yöne kayan sonsuz hissi veren çalışma alanı: Space basılı tutup sürükle, tekerlek, Shift+tekerlek, seçim yokken ok tuşları, mini harita (Ctrl+Shift+M), Shift+1 ortala, Shift+2 seçime yakınlaştır, Ctrl+\ yan paneli gizle, Ctrl+Alt+P sayfa şeridini gizle, Alt+Shift+L/C/R/T/M/B hizala.
 
 ### Çizim, efekt, tipografi ve sunum araçları (v9)
 **Çizim ve vektör:** Kalem (P: tık=köşe, sürükle=eğri, ilk noktaya tık=kapat), Düğüm düzenleme (A), Şekiller (U: yıldız, çokgen, patlama, ok, kalp, konuşma balonu, halka, artı, baklava, kurdele, şimşek), Ölçü (O), Silgi (X). Ctrl+Shift+O "Yola çevir". Birleştir/Çıkar/Kesiştir/Dışla (pathfinder; sonuç çokgen yoldur). Çizgi stilleri: kesikli, noktalı, uç ve köşe biçimi, oklar.
