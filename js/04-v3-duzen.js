@@ -177,4 +177,4 @@ addEventListener('beforeinstallprompt',e=>{e.preventDefault();DEFI=e;instUI()});
 addEventListener('appinstalled',()=>{DEFI=null;instUI();toast('Editra kuruldu')});
 $('instb').onclick=async()=>{if(!DEFI)return;DEFI.prompt();try{await DEFI.userChoice}catch(e){}DEFI=null;instUI()};
 instUI();
-if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{})});
+if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))addEventListener('load',()=>{const h=!!navigator.serviceWorker.controller;let rl=0;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(h&&!rl){rl=1;location.reload()}});navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(g=>g.update()).catch(()=>{})});
