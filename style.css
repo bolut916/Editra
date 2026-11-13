@@ -467,3 +467,18 @@ body[data-tool=a] #cvw{cursor:default;touch-action:none}
 
 /* yedekleme kartı */
 .bakr{display:flex;flex-wrap:wrap;gap:8px}.bakr>*{flex:1 1 140px;justify-content:center;text-align:center}.bakst{font-size:13px}.bakst.warn{color:#b45309!important;font-weight:700}:root[data-theme=dark] .bakst.warn{color:#fbbf24!important}@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .bakst.warn{color:#fbbf24!important}}
+/* telefon: menüler ve pencereler ekrana sığsın, taşan kısım kaydırılsın (dvh = Safari çubukları hariç görünür yükseklik) */
+.pop{max-height:calc(100vh - 90px);max-height:calc(100dvh - 90px);overflow-y:auto;overscroll-behavior:contain}
+.kbox.kwide,.v4o .kwide{max-height:78dvh}.v4f{max-height:86dvh}#kpr{max-height:48dvh}.chat{max-height:min(620px,78dvh)}
+@media(max-width:899px){
+ .pop{max-height:calc(100vh - 70px - env(safe-area-inset-bottom,0px));max-height:calc(100dvh - 70px - env(safe-area-inset-bottom,0px))}
+ .kpl{padding:max(10px,env(safe-area-inset-top,0px)) 10px 10px}
+ .kbox.kwide,.v4o .kwide,.v4f{max-height:calc(100vh - 20px);max-height:calc(100dvh - 20px)}
+ #dockp{height:58dvh}
+}
+@media(pointer:coarse){.pitem kbd{display:none}}
+/* telefon: panel düğmesi araç çubuğunun sağında hep görünsün */
+@media(max-width:899px){
+ #rail .rdk{position:sticky;right:-8px;flex:none;margin-left:auto;background:var(--pr);color:#fff;border-radius:12px;box-shadow:-10px 0 12px -4px var(--pn)}
+ body.dk-open #rail .rdk{background:var(--tx);color:var(--bg)}
+}
