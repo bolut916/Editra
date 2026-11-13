@@ -40,6 +40,12 @@ Editra kurulabilir bir web uygulamasıdır (PWA). Bunun için sitenin **HTTPS** 
 ## Yeni arayüz (Stüdyo)
 Sol araç şeridi (V seç · T metin · M dikdörtgen · L elips · \ çizgi · I görsel · H el · Z yakınlaştır), seçime göre değişen tek satırlık çubuk, tek sağ panel (Düzen / Öğe / Stil / Asistan). Ctrl+K komut paleti, `?` kısayol kılavuzu. Photoshop/Illustrator/InDesign kısayolları: Ctrl+Z/Shift+Z, Ctrl+C/X/V, Ctrl+J, Ctrl+G, Ctrl+] [ , Ctrl+2/3, Ctrl+0/1/=/-, Space ile kaydırma, Tab panelleri gizler, F önizleme, 0–9 opaklık.
 
+### Gruplu araç şeridi ve seçim (v18)
+- **Araç grupları:** Seçim (V, A) · Metin (T) · Şekiller (M, L, \, U) · Çizim (P, B, X) · Görsel (I) · Renk ve ölçü (E, O) · Gezinme (H, Z). Grup düğmesi son kullanılan aracı gösterir ve hatırlar.
+- **Grubu açmak:** sağ tık, basılı tutma (telefonda), düğmenin köşesindeki üçgen ya da Shift+F10. Şekiller grubunda 13 hazır şekil önizlemeli olarak seçilir.
+- **Seçimi bırakma:** Seç aracındayken sayfanın boş bir yerine ya da gri çalışma alanına tıklamak seçimi kaldırır (Esc de aynı işi yapar). Sürükleme, kaydırma ve iki parmakla yakınlaştırma seçimi bozmaz.
+- Kod: `js/21-calisma-duzeni.js`; dışarıya `window.v4groups` ve `window.v4desel` açılır.
+
 ### Geniş çalışma alanı
 Sayfanın etrafında her yöne kayan sonsuz hissi veren çalışma alanı: Space/H ile sürükle, tekerlek, Shift+tekerlek, seçim yokken ok tuşları, mini harita (Ctrl+Shift+M), Shift+1 ortala, Shift+2 seçime yakınlaştır, Ctrl+\ yan paneli gizle, Ctrl+Alt+P sayfa şeridini gizle, Alt+Shift+L/C/R/T/M/B hizala.
 

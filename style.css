@@ -733,3 +733,89 @@ body[data-tool=a] #cvw{cursor:default;touch-action:none}
  #home .qs::-webkit-scrollbar,#home .tpls::-webkit-scrollbar{display:none}
 }
 #v5int [data-back]{flex:0 0 auto}
+
+/* =====================================================================
+   ÇALIŞMA ALANI (v18): tanıtım sayfasının görünümü + gruplu araç şeridi
+   ===================================================================== */
+#edw{font-family:var(--fb)}
+#edw .top{background:color-mix(in srgb,var(--pn) 88%,transparent);-webkit-backdrop-filter:saturate(1.3) blur(14px);backdrop-filter:saturate(1.3) blur(14px)}
+#edw .pni{font:600 15px var(--fh);letter-spacing:-.01em}
+#edw .pb{background:linear-gradient(135deg,var(--pr),#8b5cff);border-radius:12px;font-family:var(--fb);box-shadow:0 10px 24px -12px color-mix(in srgb,var(--pr) 85%,transparent);transition:transform .2s var(--lp-ease),box-shadow .2s}
+#edw .pb:hover{filter:none;transform:translateY(-1px);box-shadow:0 14px 28px -12px color-mix(in srgb,var(--pr) 95%,transparent)}
+#edw .pb:active{transform:scale(.98)}
+
+/* tuval zemini: tanıtımdaki noktalı sahne, sayfa yüzen kâğıt gibi */
+#edw .cvw{background:var(--bg) radial-gradient(color-mix(in srgb,var(--tx) 13%,transparent) 1px,transparent 1.2px) 0 0/16px 16px;background-attachment:local}
+#edw #cv{box-shadow:0 0 0 1px #0000000f,0 2px 8px #00000012,0 34px 80px -34px #0007}
+#mini{border-radius:14px;box-shadow:0 18px 40px -18px #0006,0 2px 6px #00000012;background:color-mix(in srgb,var(--pn) 90%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+
+/* sağ panel sekmeleri: tanıtımdaki kapsül sekmeler */
+.dtabs{position:relative;gap:2px;padding:14px 16px;align-items:center}
+.dtabs::before{content:"";position:absolute;left:12px;right:12px;top:10px;bottom:10px;background:var(--soft);border-radius:12px;pointer-events:none}
+.dtabs [role=tab]{position:relative;background:none;border:0;margin:0;padding:8px 4px;border-radius:9px;font:600 13px var(--fb);color:var(--mu);transition:color .2s,background .2s,box-shadow .2s}
+.dtabs [role=tab][aria-selected=true]{color:var(--tx);background:var(--pn);box-shadow:0 1px 3px #0000002a}
+@media(max-width:899px){.dtabs::before{right:54px}}
+.dtabs [role=tab]:focus-visible{outline:2px solid var(--pr);outline-offset:1px}
+.dclose{background:none;border:0;color:var(--mu);cursor:pointer;font-size:15px;height:36px;border-radius:10px;margin-left:6px}
+
+/* panel kartları: yumuşak, yuvarlak */
+#dockp details,#dockp .cta{border-radius:16px}
+#dockp .b,.prow .b,.prow button{border-radius:11px}
+#dockp h3,#dockp h5{font-family:var(--fb)}
+#cbar{gap:6px}
+.cbb.wide,#cbar select,#cbar .cbn,#cbar .cbc{border-radius:10px}
+.cbb[aria-pressed=true],.cbb.on{box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--pr) 30%,transparent)}
+
+/* ---- gruplu araç şeridi ---- */
+.rgs{display:flex;flex-direction:column;align-items:center;gap:3px;flex:none}
+.rsep{display:block;flex:none;width:26px;height:1px;margin:5px 0;background:var(--ln)}
+.rb{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+.rb[aria-pressed=true]{background:linear-gradient(135deg,var(--pr),#8b5cff);color:#fff;box-shadow:0 8px 18px -8px color-mix(in srgb,var(--pr) 90%,transparent)}
+.rg kbd{top:3px;right:4px;bottom:auto}
+.rgc{position:absolute;right:4px;bottom:4px;width:0;height:0;border-left:5px solid transparent;border-bottom:5px solid currentColor;opacity:.5;pointer-events:none}
+.rg:hover .rgc{opacity:.9}
+.rg[aria-expanded=true]{background:var(--soft);color:var(--tx)}
+.rg[aria-expanded=true][aria-pressed=true]{background:linear-gradient(135deg,var(--pr),#8b5cff);color:#fff}
+
+/* grup menüsü: tanıtımdaki cam kart */
+.rfly{position:fixed;z-index:90;min-width:220px;max-width:min(320px,calc(100vw - 16px));max-height:calc(100dvh - 16px);overflow-y:auto;overscroll-behavior:contain;padding:8px;
+ background:color-mix(in srgb,var(--pn) 92%,transparent);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid var(--ln);border-radius:16px;
+ box-shadow:0 30px 70px -30px #0008,0 2px 8px #00000014;font-family:var(--fb);color:var(--tx);animation:rfin .18s var(--lp-ease)}
+@keyframes rfin{from{opacity:0;transform:translateY(4px) scale(.98)}to{opacity:1;transform:none}}
+.rfh{padding:6px 8px 4px;font:700 11px var(--fb);letter-spacing:.06em;text-transform:uppercase;color:var(--mu)}
+.rfh:not(:first-child){margin-top:4px;border-top:1px solid var(--ln);padding-top:10px}
+.rfly>button{display:flex;align-items:center;gap:10px;width:100%;min-height:40px;padding:6px 8px;border:0;background:none;border-radius:10px;color:var(--tx);font:600 13.5px var(--fb);text-align:left;cursor:pointer}
+.rfly>button span{flex:1}
+.rfly>button svg{flex:none;color:var(--mu)}
+.rfly>button:hover,.rfly button:focus-visible{background:var(--soft);outline:none}
+.rfly>button[aria-checked=true]{background:var(--lm);color:var(--pr)}
+.rfly>button[aria-checked=true] svg{color:var(--pr)}
+.rfly kbd{font:600 11px/1 ui-monospace,monospace;padding:4px 6px;border:1px solid var(--ln);border-bottom-width:2px;border-radius:6px;background:var(--bg);color:var(--mu)}
+.rfs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:2px}
+.rfs button{display:grid;justify-items:center;gap:3px;padding:8px 2px 6px;border:1px solid transparent;background:none;border-radius:10px;color:var(--tx);cursor:pointer}
+.rfs button:hover{background:var(--soft)}
+.rfs button[aria-checked=true]{background:var(--lm);color:var(--pr);border-color:color-mix(in srgb,var(--pr) 30%,transparent)}
+.rfs small{font:600 10.5px/1.15 var(--fb);color:var(--mu);text-align:center;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(pointer:coarse){.rfly kbd{display:none}.rfly>button{min-height:46px}}
+
+/* telefon: şerit tek satır, grup ayraçları dikey; yeni sayfa ve komut paleti zaten başka yerde */
+@media(max-width:899px){
+ .rgs{flex-direction:row;gap:2px}
+ .rsep{width:1px;height:26px;margin:0 3px}
+ #rail [data-rc=pg],#rail [data-rc=k]{display:none}
+ #rail{scrollbar-width:none}#rail::-webkit-scrollbar{display:none}
+}
+@media(max-width:420px){.rb{width:42px;height:44px}#rail{padding-left:4px;padding-right:4px}}
+
+@media(prefers-reduced-motion:reduce){.rfly{animation:none}#edw .pb{transition:none}}
+:root[data-motion=reduce] .rfly{animation:none}:root[data-motion=reduce] #edw .pb{transition:none}
+
+/* sağ panel: uzun seçenekli açılır listeler kartları panelden taşırmasın */
+#dockp .pt>*,#dockp #rp>*,#dockp #rp .seg,#dockp details,#dockp .bd>*,#dockp .f,#dockp .f>*{min-width:0;max-width:100%}
+#dockp select{max-width:100%;min-width:0}
+#dockp select,#dockp input[type=text],#dockp input[type=number],#dockp textarea{box-sizing:border-box}
+#dockp .v3bar>*{min-width:0}
+#dockp .row{flex-wrap:wrap}#dockp .row>*{flex:1 1 auto}
+#dockp #pn,#dockp #rp{overflow-x:hidden}
+#dockp .cta{color:var(--tx)}#dockp .cta p,#dockp .cta small{color:var(--mu)}
+#dockp .el.on{color:var(--tx)}#dockp .el.on button{color:inherit}
