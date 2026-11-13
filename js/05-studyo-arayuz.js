@@ -17,7 +17,7 @@ const IC={
  pn:svg('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16"/>'),
  al:{l:svg('<path d="M4 3v18M8 7h12v4H8zM8 14h7v4H8z"/>',16),ch:svg('<path d="M12 3v18M5 7h14v4H5zM8 14h8v4H8z"/>',16),r:svg('<path d="M20 3v18M4 7h12v4H4zM9 14h7v4H9z"/>',16),t:svg('<path d="M3 4h18M7 8v12h4V8zM14 8v7h4V8z"/>',16),cv:svg('<path d="M3 12h18M7 5h4v14H7zM14 8h4v8h-4z"/>',16),b:svg('<path d="M3 20h18M7 4v12h4V4zM14 9v7h4V9z"/>',16)}
 };
-const TOOLS=[['v','Seç','V'],['t','Metin','T'],['m','Dikdörtgen','M'],['l','Elips','L'],['b','Çizgi','\\'],['i','Görsel yerleştir','I'],['h','El · kaydır','H'],['p','Fırça · karalama','B'],['z','Yakınlaştır','Z']];
+const TOOLS=[['v','Seç','V'],['t','Metin','T'],['m','Dikdörtgen','M'],['l','Elips','L'],['b','Çizgi','\\'],['i','Görsel yerleştir','I'],['p','Fırça · karalama','B'],['z','Yakınlaştır','Z']];
 const TT=[['t','Başlık'],['s','Alt başlık'],['b','Paragraf'],['m','Künye'],['q','Alıntı']];
 const inField=e=>/INPUT|TEXTAREA|SELECT/.test((e.target&&e.target.tagName)||'')||(e.target&&e.target.isContentEditable);
 const q=s=>document.querySelector(s);
@@ -94,7 +94,7 @@ const CMD=[
  ['Araçlar','Elips aracı',['L'],()=>useTool('l')],
  ['Araçlar','Çizgi aracı',['\\'],()=>useTool('b')],
  ['Araçlar','Görsel yerleştir',['I'],()=>useTool('i')],
- ['Araçlar','El aracı (geçici: Space)',['H','Space'],()=>useTool('h')],
+ ['Görünüm','Gezin: Space basılı tut + sürükle',['Space'],()=>toast('Space tuşunu basılı tutup sürükleyerek gezin')],
  ['Araçlar','Fırça (karalama) aracı',['B'],()=>useTool('p')],
  ['Araçlar','Yakınlaştırma aracı',['Z'],()=>useTool('z')],
  ['Görünüm','Yakınlaştır',['Ctrl+=','Ctrl+Plus'],()=>nudgeZ(1)],
@@ -138,7 +138,7 @@ function stKey(e){
  if(document.querySelector('.mdl:not([hidden])')&&!(e.target&&e.target.closest&&e.target.closest('#kpl')))return;
  const kp=$('kpl');if(kp&&!kp.hidden){if(e.key=='Escape'){e.preventDefault();e.stopImmediatePropagation();stPalClose()}return}
  const ks=$('kcs');if(ks&&!ks.hidden){if(e.key=='Escape'||e.key=='?'||e.key=='F1'){e.preventDefault();e.stopImmediatePropagation();ks.hidden=true}return}
- if(e.key==' '&&!inField(e)&&e.target.tagName!='BUTTON'){e.preventDefault();if(!SDK.space){SDK.space=true;document.body.classList.add('spc')}return}
+ if(e.key==' '&&!inField(e)&&!(e.target.closest&&e.target.closest('.kpl,.mdl,.pop,.rfly,.chat,#home'))&&!$('edw').hidden){e.preventDefault();if(e.target.tagName=='BUTTON')e.target.blur();if(!SDK.space){SDK.space=true;document.body.classList.add('spc')}return}
  const fld=inField(e);
  if(!fld&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!hasSel()&&/^Arrow/.test(e.key)){e.preventDefault();e.stopImmediatePropagation();const s=e.shiftKey?300:80;stPanRel(e.key=='ArrowLeft'?-s:e.key=='ArrowRight'?s:0,e.key=='ArrowUp'?-s:e.key=='ArrowDown'?s:0);return}
  if(!fld&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!e.shiftKey&&/^[0-9]$/.test(e.key)&&hasSel()){e.preventDefault();e.stopImmediatePropagation();stOpacity(+e.key);return}
@@ -155,12 +155,13 @@ function stKey(e){
   e.preventDefault();e.stopImmediatePropagation();c[3]();return}
 }
 window.addEventListener('keydown',stKey,true);
-window.addEventListener('keyup',e=>{if(e.key==' '&&SDK.space){SDK.space=false;document.body.classList.remove('spc')}},true);
+window.addEventListener('keyup',e=>{if(e.key==' '&&SDK.space){e.preventDefault();SDK.space=false;document.body.classList.remove('spc')}},true);
+window.addEventListener('blur',()=>{if(SDK.space){SDK.space=false;document.body.classList.remove('spc')}});
 
 /* ---------- yakınlaştırma / kaydırma ---------- */
 function stFit(){const w=$('cvw');if(!w||!w.clientWidth)return 0;const aw=w.clientWidth-64,ah=w.clientHeight-64;return Math.max(80,Math.min(aw,ah*S.fmt))}
-function stSize(){const f=stFit();if(!f)return;const w=$('cvw');w.style.setProperty('--px',Math.round(w.clientWidth*.7)+'px');w.style.setProperty('--py',Math.round(w.clientHeight*.7)+'px');$('cv').style.width=Math.round(f*SDK.zm)+'px';stZl();stMini()}
-function stCenter(){const w=$('cvw');w.scrollLeft=(w.scrollWidth-w.clientWidth)/2;w.scrollTop=(w.scrollHeight-w.clientHeight)/2;stMini()}
+function stSize(){const f=stFit();if(!f)return;const w=$('cvw');w.style.setProperty('--px',Math.round(w.clientWidth*.7)+'px');w.style.setProperty('--py',Math.round(w.clientHeight*.7)+'px');$('cv').style.width=Math.round(f*SDK.zm)+'px';if(window.abLayout)abLayout();stZl();stMini()}
+function stCenter(){if(window.abCenter)return abCenter();const w=$('cvw');w.scrollLeft=(w.scrollWidth-w.clientWidth)/2;w.scrollTop=(w.scrollHeight-w.clientHeight)/2;stMini()}
 function stZl(){const b=$('zlab');if(b)b.textContent=Math.round(SDK.zm*100)+'%'}
 function stZoom(z,cx,cy){z=Math.max(.1,Math.min(8,+z||1));const w=$('cvw'),cv=$('cv'),r0=cv.getBoundingClientRect(),wr=w.getBoundingClientRect();
  const px=cx==null?wr.left+wr.width/2:cx,py=cy==null?wr.top+wr.height/2:cy,fx=(px-r0.left)/r0.width,fy=(py-r0.top)/r0.height;
@@ -171,7 +172,7 @@ let miniRaf=0;
 function stMini(){cancelAnimationFrame(miniRaf);miniRaf=requestAnimationFrame(()=>{const m=$('mini'),w=$('cvw'),cv=$('cv');if(!m||m.hidden||!w||!w.scrollWidth)return;const k=m.clientWidth/w.scrollWidth;m.style.height=Math.max(40,w.scrollHeight*k)+'px';
  const pg=m.firstChild,vw=m.lastChild,cr=cv.getBoundingClientRect(),wr=w.getBoundingClientRect();
  pg.style.cssText=`left:${(cr.left-wr.left+w.scrollLeft)*k}px;top:${(cr.top-wr.top+w.scrollTop)*k}px;width:${cr.width*k}px;height:${cr.height*k}px`;
- vw.style.cssText=`left:${w.scrollLeft*k}px;top:${w.scrollTop*k}px;width:${w.clientWidth*k}px;height:${w.clientHeight*k}px`})}
+ vw.style.cssText=`left:${w.scrollLeft*k}px;top:${w.scrollTop*k}px;width:${w.clientWidth*k}px;height:${w.clientHeight*k}px`;if(window.abMini)abMini(m,k)})}
 function stPrefGet(k,d){try{const v=localStorage.getItem('ed_'+k);return v===null?d:v}catch(e){return d}}
 function stPrefSet(k,v){try{localStorage.setItem('ed_'+k,v)}catch(e){}}
 function stToggle(cls,key){const on=document.body.classList.toggle(cls);stPrefSet(key,on?1:0);const b=$('dkt');if(b)b.setAttribute('aria-pressed',!document.body.classList.contains('dk-off'));setTimeout(stSize,30);return on}
@@ -377,8 +378,8 @@ stShell();
 document.addEventListener('click',e=>{const g=e.target.closest('[data-cbg]');if(g&&g.closest('#cbar'))return});
 document.addEventListener('pointerdown',e=>{if(e.target.closest&&e.target.closest('#cv .e'))setTimeout(stBar,0)});
 setTool('v');stTab(1);
-window.v4ui={setTool:t=>setTool(t),useTool:t=>useTool(t),stBar:()=>stBar(),IC,TOOLS,svg,inField};
-const _enter=enter;enter=function(){const r=_enter.apply(this,arguments);SDK.zm=1;SDK.fm=0;stSize();stCenter();stBar();return r};
+window.v4ui={setTool:t=>setTool(t),useTool:t=>useTool(t),stBar:()=>stBar(),IC,TOOLS,svg,inField,stSize:()=>stSize(),stZoom:(z,x,y)=>stZoom(z,x,y),stFit:()=>stFit(),stMini:()=>stMini()};
+const _enter=enter;enter=function(){const r=_enter.apply(this,arguments);SDK.fm=0;if(window.abEnter)abEnter();else{SDK.zm=1;stSize();stCenter()}stBar();return r};
 const _openEditor=openEditor;openEditor=function(){const r=_openEditor.apply(this,arguments);document.body.classList.add('ined');setTimeout(()=>{stSize();stCenter();stBar()},30);return r};
 const _showHome=showHome;showHome=function(){document.body.classList.remove('ined','prev','dk-open');return _showHome.apply(this,arguments)};
 })();

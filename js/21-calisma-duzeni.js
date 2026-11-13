@@ -6,7 +6,7 @@ const ui=window.v4ui;
 /* ---------- 1) Çalışma alanında boş bir yere tıklayınca seçim boşa düşsün ---------- */
 /* Seç aracındayken öğe dışındaki her yer (sayfanın boş kısmı ya da gri çalışma alanı) seçimi kaldırır.
    Sürükleme, kaydırma ve iki parmakla yakınlaştırma seçimi bozmaz. */
-const SKIP='.e,[data-hd],[data-th],.th,.th-rot,#nes,.gd,#mini,#rlh,#rlv,#rlc,.rband,.pin,textarea,input,select,button,a';
+const SKIP='#abh .abt,#abh .abadd,.e,[data-hd],[data-th],.th,.th-rot,#nes,.gd,#mini,#rlh,#rlv,#rlc,.rband,.pin,textarea,input,select,button,a';
 const act=new Set();let dn=null;
 function canDesel(ev){
  if(ev.button||ev.shiftKey||ev.ctrlKey||ev.metaKey||ev.altKey)return false;
@@ -34,7 +34,7 @@ const GROUPS=[
  {id:'ciz',n:'Çizim araçları',t:['n','p','x']},
  {id:'gor',n:'Görsel',t:['i']},
  {id:'olc',n:'Renk ve ölçü',t:['e','o']},
- {id:'gez',n:'Gezinme',t:['h','z']}
+ {id:'gez',n:'Yakınlaştır',t:['z']}
 ];
 /* mevcut düğmelerden ad, simge ve kısayolu topla (yeni eklenen araçlar da kaybolmasın) */
 const INFO={};
