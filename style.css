@@ -1105,3 +1105,118 @@ body.ined .cv-top{display:none}
 .vy-mask button:focus-visible{outline:2px solid var(--pr);outline-offset:2px}
 body.ined .vy-mask{display:none}
 #cfgm .seg2 button.on{background:var(--pr);color:#fff}
+
+/* =====================================================================
+   SAHNE ANAHTARLARI (v27): her açma-kapama küçük bir dünya (js/29-sahne.js)
+   ===================================================================== */
+.sct{--w:92px;--h:40px;position:relative;display:inline-block;flex:none;width:var(--w);height:var(--h);padding:0;border:0;border-radius:999px;background:none;cursor:pointer;vertical-align:middle;-webkit-tap-highlight-color:transparent}
+button.sct:focus-visible{outline:3px solid color-mix(in srgb,var(--pr) 60%,transparent);outline-offset:3px}
+.sct *{pointer-events:none}
+.sct.sc-land{animation:scland .6s var(--cv-spring)}
+@keyframes scland{0%{scale:1}35%{scale:1.07,.93}70%{scale:.97,1.03}100%{scale:1}}
+.sc-burst{position:fixed;width:0;height:0;z-index:9993;pointer-events:none}
+.sc-burst i{position:absolute;left:-3px;top:-3px;width:6px;height:6px;border-radius:50%;background:#8b5cff;scale:var(--s);animation:scb .8s var(--cv-out) forwards}
+.sc-burst.ink i{background:#14121c;border-radius:45% 55% 50% 50%}
+@keyframes scb{60%{opacity:1}to{transform:translate(var(--dx),calc(var(--dy) + 8px));opacity:0}}
+
+/* 1) Gök: V tepeleri, güneş → gün batımı → ay */
+.sct-sky{overflow:hidden;box-shadow:inset 0 2px 6px #0005,0 0 0 1px #0000001f,0 6px 16px -8px #0006}
+.sc-sky{position:absolute;inset:0;transition:opacity .8s ease}
+.sc-sky.d{background:linear-gradient(#4fb0ff,#bfe7ff)}
+.sc-sky.k{background:linear-gradient(#5b3a8c 0%,#ff6a5a 55%,#ffc46b);opacity:0}
+.sc-sky.n{background:linear-gradient(#070b26,#251d5a);opacity:0}
+.sct-sky[data-s=dusk] .sc-sky.k,.sct-sky[data-s=night] .sc-sky.n{opacity:1}
+.sc-stars i{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;opacity:0;transition:opacity .8s;animation:sctw 2.2s ease-in-out infinite}
+.sc-stars i:nth-child(1){left:12%;top:18%}.sc-stars i:nth-child(2){left:28%;top:40%;animation-delay:-.6s}.sc-stars i:nth-child(3){left:44%;top:14%;animation-delay:-1.2s}.sc-stars i:nth-child(4){left:58%;top:34%;animation-delay:-.3s}.sc-stars i:nth-child(5){left:22%;top:62%;animation-delay:-1.6s}.sc-stars i:nth-child(6){left:50%;top:56%;animation-delay:-.9s}.sc-stars i:nth-child(7){left:8%;top:44%;animation-delay:-1.9s}
+.sct-sky[data-s=night] .sc-stars i{opacity:1}.sct-sky[data-s=dusk] .sc-stars i{opacity:.35}
+@keyframes sctw{50%{scale:.4;filter:brightness(.6)}}
+.sc-cloud{position:absolute;height:9px;border-radius:9px;background:#fff;opacity:.95;transition:translate .9s var(--cv-out),opacity .7s,background .7s}
+.sc-cloud::before,.sc-cloud::after{content:"";position:absolute;border-radius:50%;background:inherit}
+.sc-cloud.c1{left:52%;top:30%;width:22px}.sc-cloud.c1::before{width:11px;height:11px;left:3px;top:-6px}.sc-cloud.c1::after{width:8px;height:8px;left:11px;top:-3px}
+.sc-cloud.c2{left:70%;top:52%;width:16px;opacity:.8}.sc-cloud.c2::before{width:8px;height:8px;left:3px;top:-4px}
+.sct-sky[data-s=dusk] .sc-cloud{translate:12px 0;background:#ffd7c2;opacity:.75}
+.sct-sky[data-s=night] .sc-cloud{translate:40px 0;opacity:0}
+.sc-hills{position:absolute;left:0;bottom:0;width:100%;height:100%}
+.sc-hills path{transition:fill .8s}
+.sc-hills .h2{fill:#7fcf8e}.sc-hills .h1{fill:#3c9c5c}
+.sct-sky[data-s=dusk] .sc-hills .h2{fill:#a3506e}.sct-sky[data-s=dusk] .sc-hills .h1{fill:#6b2d4a}
+.sct-sky[data-s=night] .sc-hills .h2{fill:#2a2463}.sct-sky[data-s=night] .sc-hills .h1{fill:#151236}
+.sc-orb{position:absolute;left:6%;top:12%;width:calc(var(--h) * .62);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 32%,#fff9c4,#ffd23f 55%,#ffae00);box-shadow:0 0 12px 3px #ffd23f99;transition:translate .95s var(--cv-spring),background .7s,box-shadow .7s}
+.sct-sky[data-s=dusk] .sc-orb{translate:calc(var(--w) * .3) calc(var(--h) * .18);background:radial-gradient(circle at 35% 32%,#ffe2b0,#ff8a3d 60%,#ff5a3d);box-shadow:0 0 16px 5px #ff7a3d88}
+.sct-sky[data-s=night] .sc-orb{translate:calc(var(--w) * .58) 0;background:radial-gradient(circle at 35% 32%,#ffffff,#e7e4ff 60%,#bdb7ea);box-shadow:0 0 12px 2px #cbc5ff77}
+.sc-orb i{position:absolute;border-radius:50%;background:#b4addd;opacity:0;transition:opacity .6s .3s}
+.sc-orb i:nth-child(1){width:26%;height:26%;left:22%;top:26%}.sc-orb i:nth-child(2){width:16%;height:16%;left:58%;top:52%}.sc-orb i:nth-child(3){width:12%;height:12%;left:36%;top:66%}
+.sct-sky[data-s=night] .sc-orb i{opacity:.8}
+.sct-mini{--w:66px;--h:30px;cursor:inherit}
+#th2.sc-host{width:auto;padding:4px;border-radius:999px;line-height:0;font-size:0}
+
+/* 2) Neon: yuvarlanan top, mürekkep, akan mor ışık */
+.sc-trk{position:absolute;inset:0;border-radius:inherit;background:#17151f;box-shadow:inset 0 3px 8px #000b,0 0 0 1px #ffffff14;transition:box-shadow .5s}
+.sc-flow{position:absolute;inset:4px;border-radius:inherit;background:linear-gradient(90deg,#5b4bff,#b06bff,#ff5c9a,#5b4bff);background-size:220% 100%;opacity:0;transition:opacity .5s;animation:scflow 2.6s linear infinite}
+@keyframes scflow{to{background-position:-220% 0}}
+.sct-neon[data-on="1"] .sc-flow{opacity:1}
+.sct-neon[data-on="1"] .sc-trk{box-shadow:inset 0 3px 8px #000b,0 0 16px #8b5cffaa,0 0 34px #8b5cff55}
+.sc-knob{position:absolute;left:4px;top:4px;width:calc(var(--h) - 8px);height:calc(var(--h) - 8px);border-radius:50%;background:radial-gradient(circle at 35% 30%,#5a5866,#1d1b24 70%);box-shadow:0 3px 8px #0009,inset 0 1px 1px #fff3;transition:translate .75s cubic-bezier(.5,1.55,.45,1),background .45s,box-shadow .45s}
+.sc-knob i{position:absolute;left:42%;top:18%;width:16%;height:64%;border-radius:3px;background:#ffffff38;transition:rotate .75s cubic-bezier(.5,1.3,.45,1)}
+.sct-neon[data-on="1"] .sc-knob{translate:calc(var(--w) - var(--h)) 0;background:radial-gradient(circle at 35% 30%,#fff,#ece6ff 55%,#b49cff);box-shadow:0 0 12px #c3a8ff,0 0 28px #8b5cffcc}
+.sct-neon[data-on="1"] .sc-knob i{rotate:360deg;background:#8b5cff55}
+
+/* 3) Lamba: sıcak ışık yayılır, ışınlar döner */
+.sc-halo{position:absolute;inset:-60%;border-radius:50%;background:radial-gradient(circle at 70% 50%,#ffd76a 0,#ffb34755 22%,transparent 55%);opacity:0;transition:opacity .5s}
+.sct-lamp[data-on="1"] .sc-halo{opacity:1;animation:scflick 1s ease-out}
+@keyframes scflick{0%{opacity:0}12%{opacity:.8}20%{opacity:.15}34%{opacity:.9}44%{opacity:.4}100%{opacity:1}}
+.sc-plate{position:absolute;inset:0;border-radius:14px;background:linear-gradient(#f2efe8,#dcd7cc);box-shadow:inset 0 2px 5px #0003,inset 0 -2px 3px #fff8,0 4px 12px -6px #0006}
+:root[data-theme=dark] .sc-plate{background:linear-gradient(#3a3744,#25232c)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .sc-plate{background:linear-gradient(#3a3744,#25232c)}}
+.sc-key{position:absolute;left:4px;top:4px;width:calc(var(--h) - 8px + 6px);height:calc(var(--h) - 8px);border-radius:10px;background:linear-gradient(#fff,#e6e2d8);box-shadow:0 2px 4px #0004,inset 0 1px 0 #fff;display:grid;place-items:center;transition:translate .6s var(--cv-spring),background .4s}
+.sc-key svg{width:62%;height:62%;fill:none;stroke:#9a9488;stroke-width:2;stroke-linecap:round;transition:stroke .4s}
+.sc-key svg circle{fill:#cfc9bd;stroke:none;transition:fill .4s}
+.sct-lamp[data-on="1"] .sc-key{translate:calc(var(--w) - var(--h) - 6px) 0;background:linear-gradient(#fffbe8,#ffe9a8)}
+.sct-lamp[data-on="1"] .sc-key svg{stroke:#ff9d00}.sct-lamp[data-on="1"] .sc-key svg circle{fill:#ffb800}
+.sct-lamp[data-on="1"] .sc-key .rays{transform-origin:12px 12px;animation:scrays 6s linear infinite}
+@keyframes scrays{to{rotate:360deg}}
+
+/* 4) Lomboz: dalgalar, sallanan tekne, gece ↔ gündüz */
+.sct-port{--w:96px;--h:48px;border-radius:999px;background:linear-gradient(145deg,#f4f4f6,#9aa0ad 45%,#e9eaee 60%,#6d7380);box-shadow:0 6px 16px -8px #0007,inset 0 1px 1px #fff}
+.sc-win{position:absolute;inset:5px;border-radius:999px;overflow:hidden;box-shadow:inset 0 3px 8px #0007}
+.sc-pd{position:absolute;inset:0;background:linear-gradient(#69bfff,#cdeeff)}
+.sc-pn{position:absolute;inset:0;background:linear-gradient(#0a0f2c,#26306a);opacity:1;transition:opacity .9s}
+.sct-port[data-on="1"] .sc-pn{opacity:0}
+.sc-sun,.sc-moon{position:absolute;top:16%;width:26%;aspect-ratio:1;border-radius:50%;transition:translate 1s var(--cv-spring),opacity .7s}
+.sc-sun{left:16%;background:radial-gradient(circle at 35% 35%,#fff7b8,#ffc400);box-shadow:0 0 12px #ffd23faa;translate:0 160%;opacity:0}
+.sct-port[data-on="1"] .sc-sun{translate:0 0;opacity:1}
+.sc-moon{right:18%;background:radial-gradient(circle at 35% 35%,#fff,#d9d6f5);box-shadow:0 0 10px #d6d2ff88}
+.sct-port[data-on="1"] .sc-moon{translate:0 -160%;opacity:0}
+.sc-pst i{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;animation:sctw 2s ease-in-out infinite;transition:opacity .7s}
+.sc-pst i:nth-child(1){left:18%;top:20%}.sc-pst i:nth-child(2){left:36%;top:36%;animation-delay:-.7s}.sc-pst i:nth-child(3){left:54%;top:16%;animation-delay:-1.3s}.sc-pst i:nth-child(4){left:28%;top:52%;animation-delay:-.4s}.sc-pst i:nth-child(5){left:46%;top:46%;animation-delay:-1.7s}
+.sct-port[data-on="1"] .sc-pst i{opacity:0}
+.sc-waves{position:absolute;left:0;bottom:0;width:200%;height:46%;animation:scwave 4.5s linear infinite}
+.sc-waves .w1{fill:#2f7fd6;transition:fill .9s}.sc-waves .w2{fill:#7fc0ff;transition:fill .9s;animation:scwave2 3s ease-in-out infinite alternate}
+.sct-port[data-on="0"] .sc-waves .w1{fill:#1b2a63}.sct-port[data-on="0"] .sc-waves .w2{fill:#34478f}
+@keyframes scwave{to{translate:-50% 0}}@keyframes scwave2{to{translate:-6% 2px}}
+.sc-boat{position:absolute;left:52%;bottom:26%;width:22%;transform-origin:50% 90%;animation:scboat 2.4s ease-in-out infinite}
+.sc-boat .hull{fill:#3a2a22}.sc-boat .sail{fill:#fff}.sc-boat .sail2{fill:#ff5c9a}
+.sct-port[data-on="0"] .sc-boat .sail{fill:#c9c6e6}
+@keyframes scboat{0%,100%{rotate:-6deg;translate:0 0}50%{rotate:6deg;translate:0 -2px}}
+
+/* ana sayfa: Hareket dili bölümü */
+.vy-mgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;max-width:1120px;margin:0 auto}
+.vy-mc{position:relative;display:grid;justify-items:start;gap:4px;padding:22px;border:1px solid var(--ln);border-radius:20px;background:var(--pn);transition:translate .35s var(--lp-ease),box-shadow .35s,border-color .35s}
+.vy-mc:hover{translate:0 -4px;box-shadow:0 24px 46px -26px #0007;border-color:color-mix(in srgb,var(--pr) 40%,var(--ln))}
+.vy-mt{display:grid;place-items:center;width:100%;height:96px;margin-bottom:10px;border-radius:14px;background:var(--bg) radial-gradient(color-mix(in srgb,var(--tx) 12%,transparent) 1px,transparent 1.2px) 0 0/14px 14px}
+.vy-mc b{font:700 16px var(--fb)}.vy-mc small{color:var(--pr);font:600 11.5px var(--fb);letter-spacing:.04em;text-transform:uppercase}.vy-mc p{margin:6px 0 0;color:var(--mu);font-size:13.5px;line-height:1.5}
+.vy-rv{opacity:0;translate:0 24px;transition:opacity .7s var(--lp-ease),translate .8s var(--cv-out);transition-delay:calc(var(--i,0) * 90ms)}
+.vy-rv.in{opacity:1;translate:none}
+@media(max-width:899px){.vy-mgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:0 16px}.vy-mc{padding:16px}.vy-mt{height:84px}}
+@media(max-width:420px){.vy-mgrid{grid-template-columns:minmax(0,1fr)}}
+/* sitedeki anahtarlar: yaylı iniş; editör düğmelerinde pop */
+input[type=checkbox].sw-land::after{animation:swland .45s var(--cv-spring)}
+@keyframes swland{40%{scale:1.25 .8}75%{scale:.92 1.08}}
+.ib.ib-pop{animation:ibpop .42s var(--cv-spring)}
+@keyframes ibpop{40%{scale:1.18}}
+/* hareketi azalt: sahneler anında değişir, süreğen hareket durur */
+@media(prefers-reduced-motion:reduce){:root:not([data-motion=on]) .sct *,:root:not([data-motion=on]) .sct{animation:none!important;transition:none!important}:root:not([data-motion=on]) .sc-burst{display:none!important}:root:not([data-motion=on]) .vy-rv{opacity:1;translate:none;transition:none}:root:not([data-motion=on]) input[type=checkbox].sw-land::after,:root:not([data-motion=on]) .ib.ib-pop{animation:none!important}}
+:root[data-motion=reduce] .sct *,:root[data-motion=reduce] .sct{animation:none!important;transition:none!important}
+:root[data-motion=reduce] .sc-burst{display:none!important}
+:root[data-motion=reduce] .vy-rv{opacity:1;translate:none;transition:none}
+:root[data-motion=reduce] input[type=checkbox].sw-land::after,:root[data-motion=reduce] .ib.ib-pop{animation:none!important}

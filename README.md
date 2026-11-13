@@ -53,6 +53,15 @@ Tek dosyada (`js/25-canli.js`) toplanmış, her biri ayrı korumalı blokta çal
 - **Editör:** araç şeridi ve panel sekmelerinde seçili olana kayan gösterge, artboard değişince parlayan çerçeve, otomatik tasarımda öğelerin eski yerlerinden yenilerine akması, "Tasarla" düğmesinde denenen aday sayısının canlı akışı ve bitince kıvılcım.
 - **Performans ve erişilebilirlik:** nokta alanı tek seferde 8 toplu çizimle boyanır (kare başına ≈1 ms işlemci), imleç durunca ≈0,8 sn'de sakinleşip tamamen durur, ekran dışındayken, sekme gizliyken ve editördeyken çalışmaz. Sistemdeki ya da Ayarlar'daki "Hareketi azalt" açıksa sürekli animasyonlar kapanır ve içerik hemen görünür. Dokunmatik cihazlarda imleç efektleri devre dışıdır.
 
+### Sahne anahtarları (v27)
+`js/29-sahne.js`: her açma-kapama küçük bir dünya; hepsi gerçek bir ayarı değiştirir, `role=switch` ve klavye ile çalışır.
+- **Gök (tema):** V tepeleri üzerinde gündüz (açık) → gün batımı (otomatik) → gece (koyu); güneş aya dönüşerek kayar, bulutlar çekilir, yıldızlar yanar. Başlıktaki tema düğmesi de bu sahnedir: önce sahne dönüşür, sonra tıklanan noktadan dairesel açılımla tema değişir.
+- **Neon (animasyonlar):** top yuvarlanır, açılınca mor kıvılcım, kapanınca mürekkep sıçrar; açıkken mor ışık akar.
+- **Lamba (asistan balonu):** açılınca titreyerek yanan sıcak ışık, dönen ışınlar.
+- **Lomboz (açılış animasyonu):** oval pencerede akan dalgalar, sallanan tekne; güneş doğar ya da ay çıkar.
+- Ana sayfada bu dört anahtarın çalıştığı **Hareket dili** bölümü; Ayarlar penceresinden değişince sahneler kendini günceller.
+- Sitedeki tüm anahtarlar: mürekkep sıçraması ve yaylı iniş; editörde açılıp kapanan düğmelerde "pop".
+
 ### Animasyon ayarı (v26)
 Windows'ta **Ayarlar → Erişilebilirlik → Görsel efektler → Animasyon efektleri** kapalıysa (bazı dizüstülerde, performans modunda ya da uzak masaüstünde varsayılan olarak kapalı gelir) tarayıcı "hareketi azalt" bildirir ve Vybble animasyonları buna uyarak kapatır.
 - **Ayarlar → Animasyonlar:** *Sisteme göre* (varsayılan) · *Her zaman açık* (sistem kapatmış olsa bile Vybble'da açık) · *Azaltılmış*. Eski "Hareketi azalt" ayarı *Azaltılmış* olarak korunur.
