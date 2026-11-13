@@ -53,7 +53,7 @@ Tek dosyada (`js/25-canli.js`) toplanmış, her biri ayrı korumalı blokta çal
 - **Editör:** araç şeridi ve panel sekmelerinde seçili olana kayan gösterge, artboard değişince parlayan çerçeve, otomatik tasarımda öğelerin eski yerlerinden yenilerine akması, "Tasarla" düğmesinde denenen aday sayısının canlı akışı ve bitince kıvılcım.
 - **Performans ve erişilebilirlik:** nokta alanı tek seferde 8 toplu çizimle boyanır (kare başına ≈1 ms işlemci), imleç durunca ≈0,8 sn'de sakinleşip tamamen durur, ekran dışındayken, sekme gizliyken ve editördeyken çalışmaz. Sistemdeki ya da Ayarlar'daki "Hareketi azalt" açıksa sürekli animasyonlar kapanır ve içerik hemen görünür. Dokunmatik cihazlarda imleç efektleri devre dışıdır.
 
-### Bölüm sahneleri (v28)
+### Bölüm sahneleri (v29)
 Menüdeki altı bölümün her biri kendi hareketli galerisine dönüştü (içerik aynı, kartlar yerinde dönüşür):
 - **Neden Vybble → Klasör**: kapak klasörden dışarı çıkar, numara büyür.
 - **Özellikler → Ayraç**: kartlar yaylı yükselip renklenir, şeritler akar; “Hazır / Yakında” etiketi ayracın sekmesinde.

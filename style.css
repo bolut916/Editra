@@ -1222,7 +1222,7 @@ input[type=checkbox].sw-land::after{animation:swland .45s var(--cv-spring)}
 :root[data-motion=reduce] input[type=checkbox].sw-land::after,:root[data-motion=reduce] .ib.ib-pop{animation:none!important}
 
 /* =====================================================================
-   v28 · Bölüm sahneleri (30-sahneler.js): menüdeki 6 bölümün her biri kendi galerisinde
+   v29 · Bölüm sahneleri (30-sahneler.js): menüdeki 6 bölümün her biri kendi galerisinde
    Neden → Klasör · Özellikler → Ayraç · Yapay zekâ → Halka · Hareket → Spot · İnteraktif → Yay · Çalışmalarım → Çember
    ===================================================================== */
 @property --kb{syntax:'<color>';inherits:true;initial-value:#0d0d10}
