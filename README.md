@@ -1,4 +1,4 @@
-# Editra
+# Vybble
 
 Dergi ve Swiss grid düzenleri için tarayıcıda çalışan sayfa kompozisyon aracı. Sunucu, derleme adımı veya bağımlılık gerektirmez.
 
@@ -52,6 +52,12 @@ Tek dosyada (`js/25-canli.js`) toplanmış, her biri ayrı korumalı blokta çal
 - **Her yerde:** tema değişince tıklanan noktadan dairesel açılım, ana sayfa ↔ editör perde geçişi, düğmelerde tıklama dalgası, yaylı anahtarlar, harf harf beliren açılış logosu, yaylı bildirimler.
 - **Editör:** araç şeridi ve panel sekmelerinde seçili olana kayan gösterge, artboard değişince parlayan çerçeve, otomatik tasarımda öğelerin eski yerlerinden yenilerine akması, "Tasarla" düğmesinde denenen aday sayısının canlı akışı ve bitince kıvılcım.
 - **Performans ve erişilebilirlik:** nokta alanı tek seferde 8 toplu çizimle boyanır (kare başına ≈1 ms işlemci), imleç durunca ≈0,8 sn'de sakinleşip tamamen durur, ekran dışındayken, sekme gizliyken ve editördeyken çalışmaz. Sistemdeki ya da Ayarlar'daki "Hareketi azalt" açıksa sürekli animasyonlar kapanır ve içerik hemen görünür. Dokunmatik cihazlarda imleç efektleri devre dışıdır.
+
+### Vybble markası (v24)
+Uygulamanın adı Editra'dan **Vybble** olarak değişti: sekme başlığı, açıklama, arama motoru verisi, uygulama adı (PWA), logolar, açılış ekranı, asistan, tanıtım metinleri, "… ile hazırlandı" imzası ve dışa aktarılan dosya adları (`vybble-yedek-*.json`, `.vybble` proje dosyası, `*.vybble-sablon.json`).
+- **Logo:** yalnız V. İki kol ayrı çizilir (sol mor, sağ pembe-turuncu) ve köşe noktasından esneyebilir. İlk görünüşte kollar sırayla çizilip V yay gibi zıplar; üzerine gelince kollar esner; tıklayınca jöle; ana sayfada 7 sn'de bir kendiliğinden titreşir (editörde değil); açılış ekranında süzülür ve ritimle titreşir. Renk geçişleri tek ortak tanımda (`#vdefs`), böylece gizlenen bir kopya diğerlerini etkilemez. Simge dosyaları (`favicon.svg`, `icon-*.png`, `apple-touch-icon.png`, maskable sürüm) yeni V ile üretildi.
+- **Marka hareketleri** (`js/27-vybble.js`): ana sahnede imlece ve kaydırmaya tepki veren dev V, yapay zekâ kutusunda yazılıp silinen örnek istekler (kutuya tıklayınca durur), alt bilgide dalgalanan vybble yazısı.
+- **Veri uyumluluğu:** kayıtlar ve ayarlar aynı yerde kalır (IndexedDB `editra`, `editra-assets`; `editra.cfg` vb. anahtarlar bilerek değiştirilmedi, kullanıcı verisi kaybolmaz). Eski `editra-backup` yedekleri ve `.editra` proje dosyaları açılmaya devam eder. Eklentiler için asıl ad `window.vybble`; eski `window.editra` takma ad olarak çalışır.
 
 ### Canlı arayüz 2: ikinci hareket dalgası (v23)
 `js/26-canli2.js`; her efekt ayrı korumalı blokta, "Hareketi azalt" açıkken kapalı.

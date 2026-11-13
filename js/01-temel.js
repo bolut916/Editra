@@ -234,7 +234,7 @@ function draw(Wd){const H=Math.round(Wd/S.fmt),c=document.createElement('canvas'
  return c}
 async function save(n,b){const dl=await cap('downloads');if(dl)try{await dl.save({filename:n,data:b})}catch(e){}else{const a=document.createElement('a'),u=URL.createObjectURL(b);a.href=u;a.download=n;a.style.display='none';document.body.appendChild(a);a.click();setTimeout(()=>{a.remove();URL.revokeObjectURL(u)},5000)}}
 async function exp(kind){const bt=$(kind);bt.disabled=true;bt.classList.add('busy');
- let L=+$('px').value,done=0;const slug=(window.v4slug?v4slug(PROJ.name).toLowerCase():(PROJ.name||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''))||'editra';
+ let L=+$('px').value,done=0;const slug=(window.v4slug?v4slug(PROJ.name).toLowerCase():(PROJ.name||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''))||'vybble';
  while(!done&&L>=1000){try{const Wd=Math.round(S.fmt>=1?L:L*S.fmt);
   if(kind=='png'){toast('Sayfa hazırlanıyor…');await loadF();const c=drawB(Wd,S.bleed,S.marks),b=await new Promise(r=>c.toBlob(r));if(!b)throw 0;await save(slug+'-sayfa'+(PROJ.cur+1)+'.png',b)}
   else{const ex2=(S.bleed||0)+(S.marks?6:0),pw=S.mm[0]+2*ex2,ph=S.mm[1]+2*ex2,N=PROJ.pages.length;let doc;
@@ -328,7 +328,7 @@ function localAsk(q){q=q.toLowerCase();if(aiCmd(q))return;
  evaluate()}
 async function ask(q){me(q);const sm=await cap('sample');if(!sm)return localAsk(q);
  try{const st=JSON.stringify({tur:MODES[S.mode].n,mm:S.mm,bg:S.bg,ogeler:S.els.map(e=>({tip:e.type,ff:e.ff,fs:e.fs,col:e.col,uz:e.txt?e.txt.length:undefined})),sorunlar:review().map(r=>r[0])});
-  const r=await sm.json(`Sen Editra tasarım asistanısın. Samimi, kısa Türkçe konuş; "böyle yaparsan daha iyi olur" tarzında somut öneri ver. Tasarım durumu: ${st}. Kullanıcı: "${q}". Düzen aileleri: ${FL().map(i=>i+'='+FN[i]).join(', ')}. Yalnızca JSON döndür: {"reply":"...","actions":[{"do":"palette","i":0-${PALS.length-1}},{"do":"style","i":0-${STY.length-1}},{"do":"layout","fam":listedeki sayı,"seed":1-400,"fx":0|1,"fy":0|1},{"do":"set","type":"t|s|b|m|q","prop":"fs|fw|lh|ls|col","value":sayı veya #rrggbb},{"do":"page","grain":0-100,"vig":0-100}]} en fazla 3 eylem.`,{modelTier:'quick',cache:false});
+  const r=await sm.json(`Sen Vybble tasarım asistanısın. Samimi, kısa Türkçe konuş; "böyle yaparsan daha iyi olur" tarzında somut öneri ver. Tasarım durumu: ${st}. Kullanıcı: "${q}". Düzen aileleri: ${FL().map(i=>i+'='+FN[i]).join(', ')}. Yalnızca JSON döndür: {"reply":"...","actions":[{"do":"palette","i":0-${PALS.length-1}},{"do":"style","i":0-${STY.length-1}},{"do":"layout","fam":listedeki sayı,"seed":1-400,"fx":0|1,"fy":0|1},{"do":"set","type":"t|s|b|m|q","prop":"fs|fw|lh|ls|col","value":sayı veya #rrggbb},{"do":"page","grain":0-100,"vig":0-100}]} en fazla 3 eylem.`,{modelTier:'quick',cache:false});
   const A=(r.actions||[]).slice(0,3).map(a=>[({palette:'Paleti uygula',style:'Stili uygula',layout:'Düzeni uygula',set:'Ayarı uygula',page:'Efekti uygula'})[a.do]||'Uygula',()=>run(a)]);bot(String(r.reply||'Şunu deneyebilirsin:'),A)}catch(e){localAsk(q)}}
 function run(a){if(a.do=='palette'){const p=PALS[a.i|0];if(p)pal(p[1],p[2],p[3])}else if(a.do=='style')sty(cl(a.i,0,STY.length-1)|0);else if(a.do=='layout')apply([FL().includes(a.fam|0)?a.fam|0:FL()[0],cl(a.seed,1,SEEDS)|0,a.fx?1:0,a.fy?1:0]);
  else if(a.do=='page'){S.grain=cl(a.grain||0,0,100);S.vig=cl(a.vig||0,0,100);render();hist()}
@@ -336,10 +336,15 @@ function run(a){if(a.do=='palette'){const p=PALS[a.i|0];if(p)pal(p[1],p[2],p[3])
 const CHIPS=[['🔍 Değerlendir',evaluate],['✨ Daha modern',()=>localAsk('modern')],['👓 Daha okunur',()=>localAsk('okunur')],['🎨 Renk öner',()=>localAsk('renk')],['🔤 Font öner',()=>localAsk('font')],['🎞 Efekt öner',()=>localAsk('efekt')],['📕 Kapak yap',()=>localAsk('kapak')]];
 $('chips').innerHTML=CHIPS.map((c,i)=>`<button class="chip" data-c="${i}">${c[0]}</button>`).join('');
 $('chips').onclick=e=>{const b=e.target.closest('[data-c]');if(b){me(CHIPS[+b.dataset.c][0]);CHIPS[+b.dataset.c][1]()}};
-let greeted=0;function chat(o){if(DOCK)o=1;$('chat').hidden=!o;$('bot').hidden=o||DOCK;if(o&&!greeted){greeted=1;bot('Merhaba, ben Editra Asistan 👋 Tasarımına bakıp “şunu böyle yaparsan daha iyi olur” diye öneriler veririm. Aşağıdan seçebilir ya da bana yazabilirsin.');setTimeout(evaluate,900)}}
+let greeted=0;function chat(o){if(DOCK)o=1;$('chat').hidden=!o;$('bot').hidden=o||DOCK;if(o&&!greeted){greeted=1;bot('Merhaba, ben Vybble Asistan 👋 Tasarımına bakıp “şunu böyle yaparsan daha iyi olur” diye öneriler veririm. Aşağıdan seçebilir ya da bana yazabilirsin.');setTimeout(evaluate,900)}}
 $('bot').onclick=()=>chat(1);$('cx').onclick=()=>chat(0);
 $('cf').onsubmit=e=>{e.preventDefault();const v=$('ci').value.trim();if(v){$('ci').value='';ask(v)}};
-const ELOGO=`<svg class="elogo" viewBox="0 0 64 64" aria-hidden="true"><g stroke="#141414" stroke-width="3" stroke-linejoin="round"><rect class="eb b0" x="8" y="8" width="16" height="48" rx="4" fill="#6c47ff"/><rect class="eb b1" x="26" y="8" width="30" height="12" rx="4" fill="#d7ff3f"/><rect class="eb b2" x="26" y="26" width="22" height="12" rx="4" fill="#ff4f9a"/><rect class="eb b3" x="26" y="44" width="30" height="12" rx="4" fill="#d7ff3f"/></g></svg>`;
-$('lg').innerHTML=ELOGO+'<b>editra</b>';$('hlg').innerHTML=ELOGO+'<b>editra</b>';$('sp-logo').innerHTML=ELOGO;
+/* Vybble logosu: yalnız V. İki kol ayrı (sol mor, sağ pembe-turuncu), uçları yuvarlak; kollar köşe noktasından esneyebilir.
+   Renk geçişleri tek bir ortak tanımda (her zaman görünür), böylece gizlenen bir kopya diğerlerini etkilemez. */
+const ELOGO=`<svg class="elogo vlogo" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><g class="vv"><path class="va" d="M15 12.5 32 51.5"/><path class="vb" d="M49 12.5 32 51.5"/><path class="vs" d="M17.6 17.6 23.6 31.4"/></g></svg>`;
+(function(){if(document.getElementById('vdefs'))return;const d=document.createElement('div');d.id='vdefs';d.setAttribute('aria-hidden','true');d.style.cssText='position:absolute;width:0;height:0;overflow:hidden';
+ d.innerHTML='<svg width="0" height="0" focusable="false"><defs><linearGradient id="vgA" gradientUnits="userSpaceOnUse" x1="15" y1="12" x2="32" y2="52"><stop offset="0" stop-color="#a98bff"/><stop offset="1" stop-color="#5b4bff"/></linearGradient><linearGradient id="vgB" gradientUnits="userSpaceOnUse" x1="49" y1="12" x2="32" y2="52"><stop offset="0" stop-color="#ffb347"/><stop offset=".55" stop-color="#ff5c9a"/><stop offset="1" stop-color="#ff3d7f"/></linearGradient></defs></svg>';
+ document.body.insertBefore(d,document.body.firstChild)})();
+$('lg').innerHTML=ELOGO+'<b>vybble</b>';$('hlg').innerHTML=ELOGO+'<b>vybble</b>';$('sp-logo').innerHTML=ELOGO;
 function hideSplash(){const sp=$('splash');if(!sp||sp.classList.contains('out'))return;sp.classList.add('out');setTimeout(()=>sp.remove(),700)}
 $('go').onclick=hideSplash;setTimeout(hideSplash,3200);

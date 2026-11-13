@@ -108,7 +108,7 @@ function tpl(){if(!PROJ)return;const L=tplGet(),
  p.querySelector('#v4tf').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const o=JSON.parse(await f.text()),A=Array.isArray(o)?o:[o];let n=0;const cur2=tplGet();A.forEach(r=>{if(r&&r.s&&Array.isArray(r.s.els)&&r.mm){r.id='t'+Date.now().toString(36)+n++;cur2.push(r)}});if(!n)throw new Error('geçersiz');if(!tplSet(cur2))return toast('Depo dolu');toast(n+' şablon içe aktarıldı');tpl()}catch(err){toast('Şablon dosyası okunamadı')}};
  p.querySelector('.v4tg').onclick=e=>{const b=e.target.closest('button');if(!b)return;const d=b.dataset;
   if(d.td!==undefined){const a=tplGet();a.splice(+d.td,1);tplSet(a);return tpl()}
-  if(d.te!==undefined){const t=L[+d.te];return dl((window.v4slug(t.name)||'sablon')+'.editra-sablon.json',JSON.stringify(t),'application/json')}
+  if(d.te!==undefined){const t=L[+d.te];return dl((window.v4slug(t.name)||'sablon')+'.vybble-sablon.json',JSON.stringify(t),'application/json')}
   if(d.ta!==undefined){const t=L[+d.ta];if(!t||!tplCompat(t))return;p.hidden=true;const s=remap(JSON.parse(JSON.stringify(t.s)));s.els.forEach(e=>{if(e.type=='img'&&!e.src)e.src=''});insertPages([s],PROJ.cur+1);hist();toast('Şablon sayfası eklendi');fillThumbs()}}}
 
 /* ---------- komutlar ve menü ---------- */
@@ -125,7 +125,7 @@ window.v4bulk=bulk;window.v4csv=csvCat;window.v4find=find;window.v4tpl=tpl;windo
 (function(){
 const E=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fx=n=>+(+n).toFixed(3);
-const slug=()=>window.v4slug(PROJ&&PROJ.name)||'editra';
+const slug=()=>window.v4slug(PROJ&&PROJ.name)||'vybble';
 function modal(id,title,body,sub){let p=$(id);if(!p){p=document.createElement('div');p.id=id;p.className='kpl v4o';document.body.appendChild(p);p.addEventListener('mousedown',e=>{if(e.target===p)p.hidden=true});p.addEventListener('click',e=>{if(e.target.closest('[data-x]'))p.hidden=true})}
  p.innerHTML=`<div class="kbox kwide v4f"><div class="kh"><b>${title}</b><small>${sub||''}</small><button class="cbb" data-x aria-label="Kapat">✕</button></div><div class="v4b">${body}</div></div>`;p.hidden=false;return p}
 

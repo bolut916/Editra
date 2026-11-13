@@ -1,4 +1,4 @@
-/* ===== Tanıtım sayfası: Editra motoruyla canlı demo, hareket, sayaçlar ===== */
+/* ===== Tanıtım sayfası: Vybble motoruyla canlı demo, hareket, sayaçlar ===== */
 (function(){
 const home=$('home');if(!home||!$('lpdemo'))return;
 const root=document.documentElement;
@@ -7,7 +7,7 @@ const onHome=()=>!home.hidden;
 root.classList.add('js-rv');
 
 /* ---------- logo kopyaları ---------- */
-try{const f=$('lpflg');if(f&&typeof ELOGO!=='undefined')f.innerHTML=ELOGO+'<b>editra</b>'}catch(e){}
+try{const f=$('lpflg');if(f&&typeof ELOGO!=='undefined')f.innerHTML=ELOGO+'<b>vybble</b>'}catch(e){}
 
 /* ---------- kaydırınca belirme ---------- */
 const RV=[...home.querySelectorAll('[data-rv]')];
@@ -40,7 +40,7 @@ try{STAT.lay=Math.max(...Object.values(MODES).map(m=>m.f.length))*4*SEEDS}catch(
 try{STAT.font=Object.values(FC).reduce((a,l)=>a+l.length,0)}catch(e){STAT.font=0}
 try{STAT.tpl=TPLS.length}catch(e){STAT.tpl=0}
 try{STAT.sty=STY.length+PALS.length}catch(e){STAT.sty=0}
-STAT.fmt=['PNG','PDF','CMYK PDF','SVG','ZIP (boyutlar)','Flipbook HTML','Önizleme HTML','İnteraktif HTML','.editra proje'].length;
+STAT.fmt=['PNG','PDF','CMYK PDF','SVG','ZIP (boyutlar)','Flipbook HTML','Önizleme HTML','İnteraktif HTML','.vybble proje'].length;
 home.querySelectorAll('[data-stat]').forEach(el=>{const v=STAT[el.dataset.stat];if(v)el.textContent=nTR(v)});
 const cnt=[...home.querySelectorAll('[data-count]')];
 function countUp(el){const v=STAT[el.dataset.count]||0;if(RM()||!v){el.textContent=nTR(v);return}const t0=performance.now(),D=1400;
@@ -54,14 +54,14 @@ try{const q=home.querySelector('.lpm-qr');if(q&&window.qrcode){const qr=qrcode(0
 const bi=window.bakInfo;window.bakInfo=function(n){home.classList.toggle('noproj',!n);if(bi)return bi.apply(this,arguments)};
 
 /* =====================================================================
-   CANLI DEMO: Editra'nın kendi düzen motoru (gen/place/draw) ile çizer.
+   CANLI DEMO: Vybble’ın kendi düzen motoru (gen/place/draw) ile çizer.
    Editör durumu (S) her çizimden önce saklanır, sonra aynen geri konur.
    ===================================================================== */
 const MD=[
  {k:'katalog',n:'Katalog',mode:'katalog',mm:[210,297],st:[7,1,9,5],c:{img:6,t:1,s:1,b:6,m:1},t:'Yaz Koleksiyonu',s:'Seramik · Cam · Keten',m:['Katalog · 2026'],b:['Kil kupa · 240 ₺','Cam sürahi · 420 ₺','Keten örtü · 680 ₺','Taş tabak · 310 ₺','Mum seti · 190 ₺','Vazo No.4 · 560 ₺']},
  {k:'dergi',n:'Dergi',mode:'dergi',mm:[230,300],st:[0,9,5,2],c:{img:2,t:1,s:1,b:2,m:1,q:1},t:'Şehrin Ritmi',s:'Mimarlık, tasarım ve kültür',m:['Sayı 12 · Mayıs'],q:'“İyi bir sayfa okuru bir yerden başka bir yere taşır.”'},
  {k:'kapak',n:'Kapak',mode:'kapak',mm:[230,300],st:[2,6,4,0],c:{img:1,t:1,s:1,b:0,m:2},t:'EDİTRA',s:'Tasarımın yeni sesi',m:['Sayı 07','Sonbahar 2026']},
- {k:'afis',n:'Afiş',mode:'baski',mm:[297,420],st:[3,8,4,6],c:{img:1,t:1,s:2,b:0,m:2,r:1},t:'Tasarım Haftası',s:['12–18 Mayıs','İstanbul'],m:['Ücretsiz giriş','editra']}];
+ {k:'afis',n:'Afiş',mode:'baski',mm:[297,420],st:[3,8,4,6],c:{img:1,t:1,s:2,b:0,m:2,r:1},t:'Tasarım Haftası',s:['12–18 Mayıs','İstanbul'],m:['Ücretsiz giriş','vybble']}];
 const D={i:0,st:MD[0].st[0],sp:null,title:'',custom:false,auto:true,pause:0,tick:0,front:0,busy:false};
 
 /* yapay "ürün fotoğrafları": görsel yüklemeden de sayfalar dolu görünsün */

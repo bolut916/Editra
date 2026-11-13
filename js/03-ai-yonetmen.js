@@ -1,4 +1,4 @@
-// ===== EDITRA AI SANAT YÖNETMENİ =====
+// ===== VYBBLE AI SANAT YÖNETMENİ =====
 let DOCK=false,HEAT=false,HD=null,CM=false,RT='a',AN=null,heatT=0,rpT=0,stT=0,ALLP=false,FIXES=[],BK=null;
 const hex2rgb=h=>{const n=parseInt(h.slice(1),16);return[n>>16,n>>8&255,n&255]};
 const rgb2hsl=([r,g,b])=>{r/=255;g/=255;b/=255;const mx=Math.max(r,g,b),mn=Math.min(r,g,b),l=(mx+mn)/2,d=mx-mn;let h=0,s=0;if(d){s=d/(1-Math.abs(2*l-1));h=mx==r?((g-b)/d)%6:mx==g?(b-r)/d+2:(r-g)/d+4;h*=60;if(h<0)h+=360}return{h,s,l}};
@@ -84,11 +84,11 @@ const BKW=[[/kahve|cafe|kafe|barista/,{sec:3,st:4,kick:'Kahve'}],[/lüks|premium
 const BKK=[[/katalog/,'katalog',12],[/dergi|mecmua/,'dergi',8],[/afiş|poster/,'afis',1],[/menü/,'menu',2],[/broşür/,'brosur',2],[/kapak/,'kapak',1],[/kartvizit/,'kartvizit',2],[/instagram|sosyal/,'sosyal',1]];
 const BTXT=['Zamansız bir zarafet; her ayrıntıda özenle seçilmiş malzeme ve ustalık.','Sade çizgiler ve güçlü bir tipografiyle anlatılan, kendine özgü bir hikâye.','Doğadan ilham alan, dengeli ve sıcak bir dünya. Her sayfada yeni bir keşif.'];
 const tcase=s=>s.split(/\s+/).slice(0,5).map(w=>w.charAt(0).toLocaleUpperCase('tr-TR')+w.slice(1)).join(' ');
-function briefCfg(text){const t=text.toLocaleLowerCase('tr-TR'),cf={kind:'dergi',n:8,st:7,sec:null,kick:'Editra',title:tcase(text.replace(/[.!?]+$/,'')),body:BTXT[text.length%3]};
+function briefCfg(text){const t=text.toLocaleLowerCase('tr-TR'),cf={kind:'dergi',n:8,st:7,sec:null,kick:'Vybble',title:tcase(text.replace(/[.!?]+$/,'')),body:BTXT[text.length%3]};
  BKK.some(k=>k[0].test(t)&&(cf.kind=k[1],cf.n=k[2],true));BKW.forEach(k=>{if(k[0].test(t)){if(k[1].st!=null)cf.st=k[1].st;if(k[1].sec!=null)cf.sec=k[1].sec;if(k[1].kick)cf.kick=k[1].kick}});
  cf.sub=cf.kick+' · '+({dergi:'Sayı 01',katalog:'2026 Koleksiyonu',afis:'Etkinlik',menu:'Menü',brosur:'Broşür',kapak:'Kapak',kartvizit:'Kartvizit',sosyal:'Paylaşım'})[cf.kind];return cf}
 async function runBrief(text){text=(text||'').trim();if(!text)return toast('Önce ne istediğini yaz');{const lt=text.toLocaleLowerCase('tr-TR');if(/menü/.test(lt)&&/katalog/.test(lt)){const mi=TPLS.findIndex(x=>x.name=='Menü tarzı katalog');if(mi>=0){tplGo(mi);return}}}toast('✨ Düzenler hazırlanıyor…');let cf=null;const sm=await cap('sample');
- if(sm)try{const r=await sm.json(`Editra tasarım asistanısın. İstek: "${text}". Türkçe, kısa ve etkileyici içerik üret. Yalnızca JSON: {"kind":"dergi|katalog|afis|menu|brosur|kapak|kartvizit|sosyal","st":0-14 (stiller: ${ST15.map((s,i)=>i+'='+s[0]).join(', ')}),"sec":0-7 (sektörler: ${SECT.map((s,i)=>i+'='+s[0]).join(', ')}),"title":"başlık","sub":"alt başlık","kick":"kısa künye","body":"iki cümlelik gövde metni"}`,{modelTier:'quick',cache:false});
+ if(sm)try{const r=await sm.json(`Vybble tasarım asistanısın. İstek: "${text}". Türkçe, kısa ve etkileyici içerik üret. Yalnızca JSON: {"kind":"dergi|katalog|afis|menu|brosur|kapak|kartvizit|sosyal","st":0-14 (stiller: ${ST15.map((s,i)=>i+'='+s[0]).join(', ')}),"sec":0-7 (sektörler: ${SECT.map((s,i)=>i+'='+s[0]).join(', ')}),"title":"başlık","sub":"alt başlık","kick":"kısa künye","body":"iki cümlelik gövde metni"}`,{modelTier:'quick',cache:false});
   const b=briefCfg(text);cf={...b,...r};cf.st=cl(cf.st,0,14)|0;cf.sec=cl(cf.sec,0,7)|0;if(!BKK.some(k=>k[1]==cf.kind))cf.kind=b.kind}catch(e){cf=null}
  cf=cf||briefCfg(text);const ki=KINDS.findIndex(k=>k[0]==cf.kind);
  if(!PROJ||$('edw').hidden){WZ=newW(Math.max(0,ki));WZ.n=BKK.find(k=>k[1]==cf.kind)?.[2]||WZ.n;WZ.name=cf.title;WZ.st=0;wizGo()}
@@ -112,7 +112,7 @@ function printChecks(){const R=[],T=S.els.filter(e=>e.txt!==undefined&&e.on),img
  const miss=[...new Set(T.filter(e=>{try{return!document.fonts.check(fnt(e,16),e.txt)}catch(x){return false}}).map(e=>e.ff))];miss.length?wn('Font yüklenmedi',miss.join(', ')+' henüz yüklenmemiş; çevrimdışıysan yedek font kullanılır.'):ok('Fontlar','Tüm fontlar yüklü; PDF’e gömülü (rasterize) çıkar.');
  const neon=S.els.filter(e=>/^#[0-9a-f]{6}$/i.test(e.col||'')).map(e=>rgb2hsl(hex2rgb(e.col))).some(a=>a.s>.85&&a.l>.4&&a.l<.7);neon?wn('RGB → CMYK','Çok doygun (neon) renkler CMYK’da sönükleşir; matbaa dönüşümü öncesinde kontrol et.'):inf('RGB → CMYK','Çıktı RGB üretilir; CMYK dönüşümü matbaada/Acrobat’ta yapılır.');
  /^#0{6}$/.test(S.bg)?wn('Siyah baskı','Saf siyah zemin baskıda soluk kalır; zengin siyah (C60 M40 Y40 K100) öner.'):ok('Siyah baskı','Büyük saf siyah alan yok.');
- inf('Overprint / PDF-X','Editra rasterize PDF üretir; overprint ve PDF/X-1a vektör ayarı desteklenmez. Gerekirse matbaa preflight’ı ile dönüştür.');return R}
+ inf('Overprint / PDF-X','Vybble rasterize PDF üretir; overprint ve PDF/X-1a vektör ayarı desteklenmez. Gerekirse matbaa preflight’ı ile dönüştür.');return R}
 // --- zip + duyarlı dışa aktarım
 const CRC=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return b=>{let c=~0;for(let i=0;i<b.length;i++)c=t[(c^b[i])&255]^(c>>>8);return(~c)>>>0}})();
 function zipStore(files){const en=new TextEncoder(),parts=[],cd=[];let off=0;files.forEach(f=>{const n=en.encode(f.name),crc=CRC(f.data),h=new DataView(new ArrayBuffer(30));h.setUint32(0,0x04034b50,true);h.setUint16(4,20,true);h.setUint16(6,0x0800,true);h.setUint32(14,crc,true);h.setUint32(18,f.data.length,true);h.setUint32(22,f.data.length,true);h.setUint16(26,n.length,true);parts.push(h.buffer,n,f.data);
@@ -121,9 +121,9 @@ function zipStore(files){const en=new TextEncoder(),parts=[],cd=[];let off=0;fil
 const RT2=[['Instagram 4:5',4,5,1350],['Story 9:16',9,16,1920],['LinkedIn',1200,627,1200],['Poster A2',420,594,3000],['Billboard 3:1',3,1,3000],['A3',297,420,2480],['A4',210,297,2480],['A5',148,210,1748],['Broşür yatay',297,210,2480],['Web 16:9',16,9,1920],['Mobil',9,19.5,1920],['Tablet 3:4',3,4,2048]];
 let RSEL=new Set(['Instagram 4:5','Story 9:16','A4','Web 16:9']);
 async function respExport(){const sel=RT2.filter(r=>RSEL.has(r[0]));if(!sel.length)return toast('Bir boyut seç');const s0=pageSnap(),f0=S.fmt,m0=[...S.mm],files=[],bt=$('rzip');if(bt){bt.disabled=true;bt.classList.add('busy')}
- try{for(const r of sel){toast(`${r[0]} hazırlanıyor…`);S.fmt=r[1]/r[2];S.mm=[r[1],r[2]];place(S.sp);await loadF();const c=draw(Math.round(S.fmt>=1?r[3]:r[3]*S.fmt)),b=await new Promise(q=>c.toBlob(q));files.push({name:`editra-${r[0].toLowerCase().replace(/[^a-z0-9]+/g,'-')}.png`,data:new Uint8Array(await b.arrayBuffer())})}}
+ try{for(const r of sel){toast(`${r[0]} hazırlanıyor…`);S.fmt=r[1]/r[2];S.mm=[r[1],r[2]];place(S.sp);await loadF();const c=draw(Math.round(S.fmt>=1?r[3]:r[3]*S.fmt)),b=await new Promise(q=>c.toBlob(q));files.push({name:`vybble-${r[0].toLowerCase().replace(/[^a-z0-9]+/g,'-')}.png`,data:new Uint8Array(await b.arrayBuffer())})}}
  finally{S.fmt=f0;S.mm=m0;pageLoad(s0);render();list();ed();if(bt){bt.disabled=false;bt.classList.remove('busy')}}
- await save('editra-boyutlar.zip',zipStore(files));toast(`✓ ${files.length} boyut ZIP olarak hazır`)}
+ await save('vybble-boyutlar.zip',zipStore(files));toast(`✓ ${files.length} boyut ZIP olarak hazır`)}
 function drawB(Wd,bl,mk2){const c0=draw(Wd);if(!bl&&!mk2)return c0;const k=Wd/S.mm[0],bp=Math.round(bl*k),sl=mk2?Math.round(6*k):0,o=bp+sl,W0=c0.width,H0=c0.height,c=document.createElement('canvas');c.width=W0+2*o;c.height=H0+2*o;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);
  if(bp){x.drawImage(c0,0,0,W0,1,sl+bp,sl,W0,bp);x.drawImage(c0,0,H0-1,W0,1,sl+bp,sl+bp+H0,W0,bp);x.drawImage(c0,0,0,1,H0,sl,sl+bp,bp,H0);x.drawImage(c0,W0-1,0,1,H0,sl+bp+W0,sl+bp,bp,H0);x.drawImage(c0,0,0,1,1,sl,sl,bp,bp);x.drawImage(c0,W0-1,0,1,1,sl+bp+W0,sl,bp,bp);x.drawImage(c0,0,H0-1,1,1,sl,sl+bp+H0,bp,bp);x.drawImage(c0,W0-1,H0-1,1,1,sl+bp+W0,sl+bp+H0,bp,bp)}
  x.drawImage(c0,o,o);if(mk2){x.strokeStyle='#000';x.lineWidth=Math.max(1,k*.15);const L=Math.round(4*k),g=Math.round(1*k);[[o,o,-1,-1],[o+W0,o,1,-1],[o,o+H0,-1,1],[o+W0,o+H0,1,1]].forEach(([px,py,sx,sy])=>{x.beginPath();x.moveTo(px+sx*g,py);x.lineTo(px+sx*(g+L),py);x.moveTo(px,py+sy*g);x.lineTo(px,py+sy*(g+L));x.stroke()})}return c}
@@ -151,10 +151,10 @@ async function buildPortfolio(){const all=(await dbAll()).filter(m=>m.kind!='por
  const ths=all.map(m=>{if(!m.thumb)return'';const u=URL.createObjectURL(d2b(m.thumb));DU[u]=m.thumb;getIm(u);return u}),pages=[];
  const mkp=(fam,cn,fill)=>{S.els=[];S.sel=null;setCounts(cn);styleNow(7);S.bg='#f6f1e9';place([fam,3,0,0]);fill&&fill();fitAll();pages.push({s:pageSnap()})},g=t=>S.els.find(e=>e.type==t);
  const imgSet=(u)=>{const e=g('img');if(e&&u){e.src=u;e.im=getIm(u)}};
- mkp(22,{img:1,t:1,s:1,m:2},()=>{imgSet(ths.find(Boolean));g('t').txt='Portfolyo';g('s').txt='Seçilmiş çalışmalar';S.els.filter(e=>e.type=='m').forEach((e,i)=>e.txt=i?new Date().getFullYear()+'':'Editra ile hazırlandı')});
+ mkp(22,{img:1,t:1,s:1,m:2},()=>{imgSet(ths.find(Boolean));g('t').txt='Portfolyo';g('s').txt='Seçilmiş çalışmalar';S.els.filter(e=>e.type=='m').forEach((e,i)=>e.txt=i?new Date().getFullYear()+'':'Vybble ile hazırlandı')});
  mkp(20,{t:1,b:1,m:1},()=>{g('t').txt='İçindekiler';g('b').txt=all.map((m,i)=>`${String(i+3).padStart(2,'0')}  ${m.name}`).join('\n');g('m').txt='Portfolyo'});
  all.forEach((m,i)=>mkp(i%2?1:0,{img:1,t:1,s:1,b:1,m:1},()=>{imgSet(ths[i]);g('t').txt=m.name;g('s').txt=(KINDS.find(k=>k[0]==m.kind)||['','Tasarım'])[1];g('b').txt=`${m.n} sayfalık çalışma. Boyut ${m.mm[0]}×${m.mm[1]} mm, ${m.dpi} dpi. Son düzenleme ${fmtD(m.updated)}.`;g('m').txt=String(i+3).padStart(2,'0')}));
- mkp(24,{t:1,s:1,m:1},()=>{g('t').txt='Teşekkürler';g('s').txt='Birlikte çalışalım';g('m').txt='editra'});
+ mkp(24,{t:1,s:1,m:1},()=>{g('t').txt='Teşekkürler';g('s').txt='Birlikte çalışalım';g('m').txt='vybble'});
  PROJ.pages=pages;PROJ.kind='portfoy';enter(0);initThumbs();saveNow();toast('📚 Portfolyo hazır: kapak, içindekiler ve '+all.length+' proje sayfası')}
 // --- sağ panel
 const RTABS=[['a','Analiz'],['s','Stil'],['u','Üret'],['p','Baskı'],['v','Proje']];
@@ -183,7 +183,7 @@ function tabP(){const R=printChecks(),ic={ok:'✓',warn:'⚠',err:'✗',info:'�
  return`<h5>Baskı asistanı</h5>${R.map(r=>{if(r.f)FIXES.push(r.f);return`<div class="pc2 ${r.s}"><b>${ic[r.s]}</b><span><b>${r.t}</b><br>${r.d}</span>${r.f?`<button class="b mini" data-fix="${FIXES.length-1}">Düzelt</button>`:''}</div>`}).join('')}
  <h5>Çıktı ayarı</h5><label class="f"><span>Taşma payı (bleed)</span><select id="bleed">${[0,3,5].map(v=>`<option value="${v}"${(S.bleed||0)==v?' selected':''}>${v} mm</option>`).join('')}</select></label>${chk('marks','Kesim işaretleri ekle',S.marks)}
  <h5>Duyarlı dışa aktarım</h5><p class="mut">Tek tasarım, seçtiğin boyutlarda ZIP.</p><div class="chips">${RT2.map(r=>`<button class="chip${RSEL.has(r[0])?' on':''}" data-rs="${r[0]}">${r[0]}</button>`).join('')}</div><button class="b ai" id="rzip" data-ra="zip">⬇ Seçili boyutları ZIP indir</button>
- <h5>Yedekleme</h5><div class="row"><button class="b" data-ra="exp2">📤 Proje dosyası (.editra)</button></div><p class="mut">Bulut yerine: dosyayı başka cihaza taşıyıp ana sayfadan açabilirsin.</p>`}
+ <h5>Yedekleme</h5><div class="row"><button class="b" data-ra="exp2">📤 Proje dosyası (.vybble)</button></div><p class="mut">Bulut yerine: dosyayı başka cihaza taşıyıp ana sayfadan açabilirsin.</p>`}
 function tabV(){const cm=PROJ.comments||[];
  return`<h5>Sürüm geçmişi</h5><button class="b" data-ra="vsave">＋ Sürüm kaydet</button>${(PROJ.versions||[]).map((v,i)=>`<div class="iss"><span>${v.label}<br><small class="mut">${new Date(v.t).toLocaleString('tr-TR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</small></span><button class="b mini" data-vcmp="${i}">Karşılaştır</button><button class="b mini" data-vnm="${i}" title="Sürüme ad ver">Adlandır</button><button class="b mini" data-vsum="${i}">Özet</button><button class="b mini" data-vres="${i}">Geri yükle</button></div>`).join('')||'<p class="mut">Henüz sürüm yok</p>'}<div id="vsum"></div>
  <h5>Yorumlar</h5><p class="mut">Üstteki 💬 düğmesiyle tuvale yorum iğnesi bırak.</p>${cm.map((c,i)=>`<div class="cmt${c.done?' done':''}"><b>${i+1} · Sayfa ${c.pg+1}</b><textarea data-cid="${c.id}" rows="2" placeholder="Yorum yaz…">${esc(c.t)}</textarea><div class="row"><button class="b mini" data-cdone="${c.id}">${c.done?'Aç':'Çözüldü'}</button><button class="b mini" data-cdel="${c.id}">Sil</button></div></div>`).join('')}
@@ -200,7 +200,7 @@ $('rp').addEventListener('click',async e=>{const t=e.target;let b;
   if(a=='brief')return runBrief($('brief').value);if(a=='insp')return inspire();if(a=='bapply')return brandApply();if(a=='port')return buildPortfolio();if(a=='zip')return respExport();
   if(a=='tok'){const tf=$('tkt').value,bf=$('tkb').value,tx=$('tkx').value,ac=$('tka').value,bg=$('tkg').value;mapPages(()=>{palQ(bg,tx,ac);S.els.forEach(e=>{if(e.txt!==undefined)e.ff=e.type=='t'||e.type=='q'?tf:bf});fitAll()});return toast('Global stiller uygulandı')}
   if(a=='comp'){return V3.mkc()}
-  if(a=='vsave')return verSave();if(a=='exp2'){PROJ.pages[PROJ.cur].s=pageSnap();const r=pack();return save((PROJ.name||'editra')+'.editra',new Blob([JSON.stringify(r)],{type:'application/json'}))}}
+  if(a=='vsave')return verSave();if(a=='exp2'){PROJ.pages[PROJ.cur].s=pageSnap();const r=pack();return save((PROJ.name||'vybble')+'.vybble',new Blob([JSON.stringify(r)],{type:'application/json'}))}}
  if(b=t.closest('[data-fix]')){const f=FIXES[+b.dataset.fix];if(f){f();toast('Düzeltildi ✓');if(RT=='a')setTimeout(runAnalysis,100);else rpr()}return}
  if(b=t.closest('[data-grid]'))return gridApply(b.dataset.grid);
  if(b=t.closest('[data-st15]'))return styUI(+b.dataset.st15);
@@ -242,7 +242,7 @@ function aiCmd(q){const sx=(i,m)=>{styleNow(i);render();thumbs();hist();bot(m,[[
  return false}
 // yerleşim: yanlara dock
 function dock(){const want=!$('edw').hidden&&innerWidth>=1280;if(want==DOCK&&!(want&&!$('rpc').contains($('chat'))))return;DOCK=want;const ch=$('chat');
- if(DOCK){$('rpc').appendChild(ch);ch.classList.add('docked');ch.hidden=false;$('bot').hidden=true;if(!greeted){greeted=1;bot('Merhaba, ben Editra Art Director 👋 Sağ panelde analiz, stil, üretim ve baskı araçları var. Bana “daha premium yap”, “İsviçre stiline çevir” gibi komutlar verebilirsin.')}}
+ if(DOCK){$('rpc').appendChild(ch);ch.classList.add('docked');ch.hidden=false;$('bot').hidden=true;if(!greeted){greeted=1;bot('Merhaba, ben Vybble Art Director 👋 Sağ panelde analiz, stil, üretim ve baskı araçları var. Bana “daha premium yap”, “İsviçre stiline çevir” gibi komutlar verebilirsin.')}}
  else{document.body.appendChild(ch);ch.classList.remove('docked');ch.hidden=true;$('bot').hidden=false}}
 addEventListener('resize',()=>{clearTimeout(stT);stT=setTimeout(dock,200)});
 $('strip').addEventListener('scroll',()=>{clearTimeout(stT);stT=setTimeout(lazyThumbs,350)});
