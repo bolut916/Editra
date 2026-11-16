@@ -7,6 +7,7 @@
    Hareket       → Spot     ortadaki anahtar öne çıkar, yanlar geri çekilir
    İnteraktif    → Yay      yay üzerinde dizilen gömme türleri
    Çalışmalarım  → Çember   çalışmaların ve şablonların fırlatılabilen çemberi
+   Şablonlar     → Vitrin   kavisli 3B duvarda zıt yönlere akan iki sıra şablon
    Döngüler yalnız ilgili bölüm ekrandayken çalışır. "Hareketi azalt"
    açıkken hiçbir şey kendiliğinden oynamaz; oklar, noktalar ve
    sürüklemeyle gezilir.
@@ -195,6 +196,36 @@ safe('çember',()=>{const grid=$('pgrid'),proj=$('proj');if(!grid||!proj)return;
   if(Math.abs(v)>.02){spin+=v*dt/16;v*=Math.pow(.955,dt/16);paint();return true}
   if(!reduced()&&t-idle>1600){spin-=4*dt/1000;paint();return true}return false});
  P.loop={build,open,state:()=>({N,front,zoom})}});
+
+/* ===== 7) Şablonlar → Vitrin: kavisli 3B duvarda iki sıra şablon, zıt yönlere akar ===== */
+safe('vitrin',()=>{const box=$('tpls');if(!box)return;let rows=[],W=0,busy=false;
+ const build=()=>{const items=[...box.children].filter(x=>x.classList&&x.classList.contains('tpl'));if(!items.length)return;busy=true;
+  box.classList.add('ktp','kt-st','kt-rv');box.setAttribute('role','group');box.setAttribute('aria-roledescription','kayan vitrin');box.setAttribute('aria-label','Şablonlar: sürükle ya da üzerine gelince yavaşlar');
+  box.innerHTML='';const half=Math.ceil(items.length/2);
+  rows=[items.slice(0,half),items.slice(half)].filter(s=>s.length).map((set,ri)=>{const row=D.createElement('div');row.className='ktp-row';const tr=D.createElement('div');tr.className='ktp-track';
+   set.forEach(x=>tr.appendChild(x));row.appendChild(tr);box.appendChild(row);
+   const r={row,tr,set,x:ri*60,v:0,dir:ri?1:-1,sp:1,hov:false,setW:0,cards:[],offs:[],idle:0};
+   row.addEventListener('pointerenter',e=>{if(e.pointerType=='mouse')r.hov=true});row.addEventListener('pointerleave',()=>{r.hov=false});
+   const dg=drag(row,{start:()=>{r.v=0},move:dd=>{r.x-=dd;paint(r)},end:vv=>{r.v=reduced()?0:clamp(-vv,-30,30);r.idle=performance.now()}});r.dg=dg;
+   row.addEventListener('pointerdown',()=>{r.idle=performance.now()+1e4},{passive:true});row.addEventListener('pointerup',()=>{r.idle=performance.now()},{passive:true});
+   return r});
+  reveal(box);fill();busy=false};
+ const fill=()=>{W=box.clientWidth;if(!W)return;rows.forEach(r=>{[...r.tr.children].forEach(c=>{if(c.dataset.clone)c.remove()});
+   const n=r.set.length;if(!n)return;
+   const w0=r.tr.scrollWidth||1,k=Math.max(1,Math.ceil(W*2/w0));
+   for(let j=0;j<k;j++)r.set.forEach(x=>{const c=x.cloneNode(true);c.dataset.clone='1';c.setAttribute('aria-hidden','true');c.tabIndex=-1;r.tr.appendChild(c)});
+   const ch=[...r.tr.children];r.setW=ch[n].offsetLeft-ch[0].offsetLeft;r.cards=ch;r.offs=ch.map(c=>c.offsetLeft+c.offsetWidth/2);paint(r)})};
+ const paint=r=>{if(!r.setW)return;r.x=((r.x%r.setW)+r.setW)%r.setW;r.tr.style.transform=`translateX(${(-r.x).toFixed(1)}px)`;const mid=W/2,flat=W<560;
+  for(let i=0;i<r.cards.length;i++){const cx=r.offs[i]-r.x,u=(cx-mid)/(mid||1),c=r.cards[i];if(cx<-200||cx>W+200){if(c._v){c.style.transform='';c._v=0}continue}c._v=1;
+   const a=clamp(u,-1.4,1.4);c.style.transform=flat?`scale(${(1-Math.abs(a)*.06).toFixed(3)})`:`perspective(900px) rotateY(${(-a*24).toFixed(2)}deg) translateZ(${(-Math.abs(a)*40).toFixed(1)}px)`}};
+ onLay(box,()=>{if(!busy)fill()});
+ build();try{D.fonts&&D.fonts.ready.then(()=>safe('vitrin',fill))}catch(e){}setTimeout(()=>safe('vitrin',fill),700);
+ /* şablonlar yeniden çizilirse vitrin yeniden kurulur */
+ new MutationObserver(()=>{if(busy)return;if([...box.children].some(x=>x.classList&&x.classList.contains('tpl')))safe('vitrin',build)}).observe(box,{childList:true});
+ addLoop(box,(t,dt)=>{let m=false;rows.forEach(r=>{if(!r.setW||r.dg.dragging()){m=true;return}
+   if(Math.abs(r.v)>.05){r.x+=r.v*dt/16;r.v*=Math.pow(.94,dt/16);paint(r);m=true;return}
+   if(reduced()||t<r.idle+1400)return;const tg=r.hov?.12:1;r.sp+=(tg-r.sp)*.06;r.x+=r.dir*-r.sp*38*dt/1000;paint(r);m=true});return m||!reduced()});
+ P.vitrin={rows:()=>rows,fill}});
 
 /* döngüyü uyandıranlar */
 D.addEventListener('visibilitychange',kick);

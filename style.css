@@ -1399,3 +1399,45 @@ input[type=checkbox].sw-land::after{animation:swland .45s var(--cv-spring)}
 :root[data-motion=reduce] .kt-st *,:root[data-motion=reduce] .kt-st *::before,:root[data-motion=reduce] .kt-st *::after,:root[data-motion=reduce] .kfx *,:root[data-motion=reduce] .kmx *,:root[data-motion=reduce] #home .kfx .kf,:root[data-motion=reduce] #home .kmx .km{transition:none!important;animation:none!important}
 :root[data-motion=reduce] .kt-rv{opacity:1;translate:none;transition:none}
 .kt-st,#home .kfx,#home .kmx{isolation:isolate}
+
+/* =====================================================================
+   v30 · Galeriler kutusuz: kartlar doğrudan sayfada (arkada yalnız noktalar);
+   kenarlar yumuşakça kaybolur. Şablonlar → Vitrin
+   ===================================================================== */
+#home .lp-aig.khx,#home .vy-mgrid.ksx,#home .kax,#home .kcx{background:none;border:0;border-radius:0;box-shadow:none;
+ -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+/* Halka: açık zeminde okunur kartlar */
+#home .khx .kh-w{background:var(--pn);color:var(--tx);box-shadow:inset 0 0 0 1px var(--ln)}#home .khx .kh-w p{color:var(--mu)}
+#home .khx .kh-d{background:#141416;color:#fff}
+#home .khx .kh-a{background:var(--pr);color:#fff;box-shadow:none}#home .khx .kh-a p{color:#ffffffd8}
+#home .khx .kh-a .lp-tag.ok{background:#ffffff26;color:#dcfce7}
+#home .khx .kh-front,#home .khx .kh-a.kh-front{box-shadow:0 0 0 2px var(--pr),0 22px 40px -16px #0007}
+#home .khx .kh-w.kh-front{box-shadow:inset 0 0 0 1px var(--ln),0 0 0 2px var(--pr),0 22px 40px -16px #0007}
+.kh-sc::after{background:radial-gradient(closest-side,color-mix(in srgb,var(--pr) 30%,transparent),transparent)}
+.kh-cap .kt-txt b{color:var(--tx)}
+.kh-cap .kt-txt small{color:var(--mu)}
+.kh-cap .kt-txt p{color:var(--mu)}
+.kh-cap .kt-txt .lp-tag.ok{background:color-mix(in srgb,#22c55e 16%,transparent);color:var(--lp-ok)}
+.kh-cap .kt-txt .lp-tag.soon{background:var(--soft);color:var(--mu)}
+.khx .kt-ar{background:var(--pn);border-color:var(--ln);color:var(--tx)}
+/* Spot: yandaki kartlar sayfa rengine doğru solar */
+#home .ksx .ks-c::after{background:var(--bg)}
+/* Yay ve Çember: zeminsiz */
+#home .kax{margin-bottom:12px}
+
+/* Şablonlar → Vitrin */
+#home .tpls.ktp{display:flex;flex-direction:column;gap:14px;overflow:hidden;margin:0 -18px;padding:14px 0;grid-auto-flow:initial;scroll-snap-type:none;
+ -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.ktp-row{position:relative;overflow:visible;touch-action:pan-y}
+.ktp-track{display:flex;gap:14px;width:max-content;will-change:transform}
+#home .ktp .tpl{flex:none;width:168px;transform-origin:50% 50%;transition:box-shadow .3s,border-color .3s,translate .45s var(--kt-spring);translate:0 0}
+#home .ktp .tpl .tp{transition:scale .5s var(--kt-spring)}
+#home .ktp .tpl .tp b{transition:translate .5s var(--kt-spring)}
+#home .ktp .tpl .tp em{transition:width .5s var(--kt-spring),height .5s var(--kt-spring)}
+@media(hover:hover) and (pointer:fine){#home .ktp .tpl:hover{translate:0 -10px;box-shadow:0 26px 40px -22px #0009;border-color:color-mix(in srgb,var(--pr) 55%,var(--ln))}
+ #home .ktp .tpl:hover .tp{scale:1.03}#home .ktp .tpl:hover .tp b{translate:0 4px}#home .ktp .tpl:hover .tp em{width:74%;height:30%}}
+#home .ktp .tpl:active{translate:0 -4px}
+#home .ktp .tpl:focus-visible{outline:2px solid var(--pr);outline-offset:3px}
+@media(max-width:640px){#home .tpls.ktp{margin:0 -16px;gap:10px;padding:10px 0;overflow:hidden}.ktp-track{gap:10px}#home .ktp .tpl{width:132px}}
+@media(prefers-reduced-motion:reduce){:root:not([data-motion=on]) #home .ktp .tpl,:root:not([data-motion=on]) #home .ktp .tpl *{transition:none!important}}
+:root[data-motion=reduce] #home .ktp .tpl,:root[data-motion=reduce] #home .ktp .tpl *{transition:none!important}
