@@ -22,7 +22,7 @@ Dergi ve Swiss grid düzenleri için tarayıcıda çalışan sayfa kompozisyon a
 
 ## Google'da yayına alma
 1. Klasörü Netlify, GitHub Pages veya Vercel ile yayınla; bir adres alırsın (örn. `https://dergi-atolyesi.netlify.app`). İstersen kendi alan adını bağla.
-2. `index.html`, `robots.txt` ve `sitemap.xml` içindeki `https://ALAN-ADIN.com/` ifadesini gerçek adresinle değiştir.
+2. Kendi alan adına geçmek için `ALAN-ADI.md` rehberini izle (önce çalışmalarını yedekle).
 3. search.google.com/search-console adresinde siteyi ekle ve sahipliği doğrula.
 4. Search Console'da "Sitemap'ler" bölümüne `sitemap.xml` ekle, ana sayfa için "URL denetimi > Dizine eklenmesini iste" de.
 5. Dizine girmesi genelde birkaç gün ile birkaç hafta sürer.
@@ -52,6 +52,10 @@ Tek dosyada (`js/25-canli.js`) toplanmış, her biri ayrı korumalı blokta çal
 - **Her yerde:** tema değişince tıklanan noktadan dairesel açılım, ana sayfa ↔ editör perde geçişi, düğmelerde tıklama dalgası, yaylı anahtarlar, harf harf beliren açılış logosu, yaylı bildirimler.
 - **Editör:** araç şeridi ve panel sekmelerinde seçili olana kayan gösterge, artboard değişince parlayan çerçeve, otomatik tasarımda öğelerin eski yerlerinden yenilerine akması, "Tasarla" düğmesinde denenen aday sayısının canlı akışı ve bitince kıvılcım.
 - **Performans ve erişilebilirlik:** nokta alanı tek seferde 8 toplu çizimle boyanır (kare başına ≈1 ms işlemci), imleç durunca ≈0,8 sn'de sakinleşip tamamen durur, ekran dışındayken, sekme gizliyken ve editördeyken çalışmaz. Sistemdeki ya da Ayarlar'daki "Hareketi azalt" açıksa sürekli animasyonlar kapanır ve içerik hemen görünür. Dokunmatik cihazlarda imleç efektleri devre dışıdır.
+
+### Gizlilik, koşullar ve adres (v31)
+- `gizlilik.html` ve `kosullar.html`: hesap yok, izleme yok, veriler cihazda; tasarımlar kullanıcıya ait. Alt bilgiden bağlantılı, çevrimdışı da açılır.
+- Sitedeki yer tutucu adresler gerçek adresle (`https://bolut916.github.io/Editra/`) değiştirildi. Kendi alan adına geçiş: `ALAN-ADI.md`.
 
 ### Kutusuz galeriler ve Şablon vitrini (v30)
 Galerilerin arkasındaki zemin kutuları kaldırıldı; kartlar doğrudan sayfada duruyor, kenarlarda yumuşakça kayboluyor. **Şablonlar** bölümü artık kavisli bir vitrin: iki sıra şablon zıt yönlere akar, üzerine gelince yavaşlar, sürüklenebilir, dokununca şablon açılır.
