@@ -76,5 +76,7 @@ Playwright ortamda hazır (`require('playwright')`, `chromium.launch()`).
 ## Bilinen eksikler / yol haritası
 - Bulut yapay zekâ (görsel büyütme, metin yeniden yazma, çeviri) için sunucu gerekir; henüz yok.
 - Ekip çalışma alanı ve bulut varlıkları yok (her şey cihazda; yedek dosyasıyla taşınır).
-- `index.html`, `robots.txt`, `sitemap.xml` içindeki `https://ALAN-ADIN.com/` henüz
-  gerçek adresle değiştirilmedi.
+- Kendi alan adı henüz yok; adresler `https://bolut916.github.io/Editra/`. Geçiş adımları `ALAN-ADI.md` içinde
+  (alan adı değişince tarayıcı verisi taşınmaz: kullanıcı önce yedek almalı).
+- Yasal sayfalar: `gizlilik.html`, `kosullar.html` (ortak stil `yasal.css`). Yeni bir dış servis eklenirse
+  `gizlilik.html` içindeki listeyi güncelle.
