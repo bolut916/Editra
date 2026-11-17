@@ -32,6 +32,7 @@ Kullanıcıya her zaman Türkçe, kısa ve teknik olmayan bir dille yanıt ver.
 | `23-oto-tasarim.js`, `24-oto-motor.js` | Otomatik tasarım motoru: görsel analizi, renk şemaları, 9 kalıptan 284 düzen, denetçi (`window.v4ad`) |
 | `25`–`29` | Hareket katmanları: canlı arayüz, ikinci dalga, Vybble logosu ve marka, dokunmatik, sahne anahtarları |
 | `30-sahneler.js` | Bölüm sahneleri: Neden→Klasör, Özellikler→Ayraç, Yapay zekâ→Halka, Hareket→Spot, İnteraktif→Yay, Çalışmalarım→Çember, Şablonlar→Vitrin; `window.v4sahne` |
+| `31-derin-baglanti.js` | `?yeni=menu` (KINDS anahtarı) ya da `?sablon=restoran-menusu` (TPLS adı) ile uygulamayı doğrudan açar; rehber sayfaları bunu kullanır |
 | `99-baslat.js` | Başlatma; her zaman en son yüklenir |
 
 ## Kurallar
@@ -78,5 +79,8 @@ Playwright ortamda hazır (`require('playwright')`, `chromium.launch()`).
 - Ekip çalışma alanı ve bulut varlıkları yok (her şey cihazda; yedek dosyasıyla taşınır).
 - Kendi alan adı henüz yok; adresler `https://bolut916.github.io/Editra/`. Geçiş adımları `ALAN-ADI.md` içinde
   (alan adı değişince tarayıcı verisi taşınmaz: kullanıcı önce yedek almalı).
+- Rehberler: `rehber/*.html` statik SEO sayfaları (ortak stil `rehber/stil.css`). Üretici betik yok, elle düzenlenir;
+  yeni rehberi `rehber/index.html`, diğer rehberlerin “Diğer rehberler” listesine ve `sitemap.xml`'e ekle.
+  Paylaşım görseli `og.jpg` (1200×630).
 - Yasal sayfalar: `gizlilik.html`, `kosullar.html` (ortak stil `yasal.css`). Yeni bir dış servis eklenirse
   `gizlilik.html` içindeki listeyi güncelle.
