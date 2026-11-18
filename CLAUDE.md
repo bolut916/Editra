@@ -37,6 +37,11 @@ Kullanıcıya her zaman Türkçe, kısa ve teknik olmayan bir dille yanıt ver.
 | `32-film.js` | Ana sayfadaki sessiz tanıtım filmi (`film/`): ekrana girince yüklenir/oynar, telefonda dikey |
 | `33-sayac.js` | Çerezsiz GoatCounter sayacı; `KOD` boşken kapalı. Açılırsa `gizlilik.html` güncellenmeli |
 | `34-metin-oneri.js` | Seçili yazı için “💡 Öneri”: türe ve role göre kural tabanlı hazır metinler (TR/EN) |
+| `35-paylas.js` | Paylaşım menüsü: global `save()` bir kerelik “gönder” moduna alınır (`v4paylas.viaShare`); yedek, dergi, önizleme, PNG, PDF; 7 gün yedek hatırlatması |
+| `36-tur.js` | İlk açılış rehberi (3 adım, bir kez; `navigator.webdriver` ise kendiliğinden açılmaz; “Nasıl çalışır?” ile yeniden) |
+| `37-qr-menu.js` + `menu.html` | Sunucusuz QR menü: menü metni sıkıştırılıp `menu.html#m=…` bağlantısına yazılır |
+| `38-logodan.js` | Ana sayfada “Logomdan başla”: sihirbaz sonrası `brandKit/brandApply` + logo yazısız köşeye |
+| `39-rozet.js` | Rozet (şekil+yazı, gruplu), ikon (PNG), çizgi ve çerçeve ekleme penceresi |
 | `99-baslat.js` | Başlatma; her zaman en son yüklenir |
 
 ## Kurallar
@@ -84,8 +89,10 @@ Playwright ortamda hazır (`require('playwright')`, `chromium.launch()`).
 - Kendi alan adı henüz yok; adresler `https://bolut916.github.io/Editra/`. Geçiş adımları `ALAN-ADI.md` içinde
   (alan adı değişince tarayıcı verisi taşınmaz: kullanıcı önce yedek almalı).
 - Android “Paylaş → Vybble”: `manifest.webmanifest` `share_target` → `sw.js` POST `/paylas` görselleri `vybble-paylas` önbelleğine koyar → `31-derin-baglanti.js` `?paylas=N` ile sihirbazı açar.
-- Rehberler: `rehber/*.html` statik SEO sayfaları (ortak stil `rehber/stil.css`). Üretici betik yok, elle düzenlenir;
-  yeni rehberi `rehber/index.html`, diğer rehberlerin “Diğer rehberler” listesine ve `sitemap.xml`'e ekle.
+- Rehberler: `rehber/*.html` (TR) ve `rehber/en/*.html` (EN) **`python3 araclar/rehber-uret.py` ile üretilir**; elle düzenleme,
+  içeriği betikte değiştir. Yeni sayfa eklersen `sitemap.xml`'e de ekle. Örnekler sayfası `ornekler.html` (görseller `ornek/`).
+- Bilinen tuzak: `eachPage()` sayfa küçük resimlerini üretirken sayfayı geçici değiştirip sonunda eski kopyayı geri yükler;
+  o sırada `S.els`'e yapılan ekleme kaybolur. Otomatik eklemelerde `PGOV===null` ve tüm `thumb`'lar hazır olana kadar bekle (38-logodan.js).
   Paylaşım görseli `og.jpg` (1200×630).
 - Yasal sayfalar: `gizlilik.html`, `kosullar.html` (ortak stil `yasal.css`). Yeni bir dış servis eklenirse
   `gizlilik.html` içindeki listeyi güncelle.

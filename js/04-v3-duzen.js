@@ -184,12 +184,19 @@ const TPLS=[
 {name:'Otel broşürü',k:'brosur',f:1,n:2,st:2,pal:'Altın',t:['DENİZE\nSIFIR','Odalar ve spa'],s:['Butik otel · 24 oda'],m:'Rezervasyon: ornek.com'},
 {name:'Modern kartvizit',k:'kartvizit',f:1,n:2,st:4,pal:'Gece',t:['STÜDYO\nNOKTA','İLETİŞİM'],s:['Tasarım ofisi'],m:'ornek.com'},
 {name:'Klasik kartvizit',k:'kartvizit',f:1,n:2,st:5,pal:'Kâğıt',t:['AV. AD SOYAD','İLETİŞİM'],s:['Hukuk bürosu'],m:'0 (212) 000 00 00'},
+{name:'Raf etiketi',k:'etiket',n:1,st:1,pal:'Güneş',t:['89,90 ₺'],s:['Organik zeytinyağı · 1 L'],m:'Birim fiyat: 89,90 ₺/L'},
+{name:'İndirimli fiyat kartı',k:'etiket',f:1,n:1,st:3,pal:'Mercan',t:['%30\nİNDİRİM'],s:['Kış montu · 1.299 ₺ yerine 909 ₺'],m:'Kampanya stoklarla sınırlıdır'},
+{name:'Kargo etiketi',k:'etiket',f:2,n:1,st:1,pal:'Mono',t:['ALICI'],s:['Ad Soyad · Adres satırı · İlçe / Şehir · 0 (5xx) 000 00 00'],m:'GÖNDEREN: Mağaza Adı · ornek.com'},
+{name:'Ürün etiketi',k:'etiket',f:3,n:1,st:5,pal:'Kâğıt',t:['EL YAPIMI\nSABUN'],s:['Lavanta · 100 g'],m:'Son kullanma: 12/2027'},
+{name:'Katılım sertifikası',k:'brosur',f:1,n:1,st:5,pal:'Altın',t:['SERTİFİKA'],s:['Ad Soyad · Grafik Tasarım Atölyesi’ni başarıyla tamamlamıştır.'],m:'18 Kasım 2026 · Eğitmen: Ad Soyad'},
+{name:'Teşekkür kartı',k:'kartvizit',n:1,st:9,pal:'Şeftali',t:['TEŞEKKÜRLER!'],s:['Siparişiniz için'],m:'@hesapadi'},
 {name:'Podcast kapağı',k:'kapak',f:3,n:1,st:4,pal:'Lavanta',t:['SES\nODASI'],s:['Haftalık podcast'],m:'Yeni bölüm her pazartesi'},
 {name:'Rapor kapağı',k:'kapak',f:1,n:1,st:1,pal:'Mono',t:['FAALİYET\nRAPORU'],s:['2026 · Kurumsal'],m:'Şirket Adı'}];
 function tplGo(i){const t=TPLS[i];if(!t)return;const ki=KINDS.findIndex(k=>k[0]==t.k);if(ki<0)return;
  WZ=newW(ki);WZ.n=t.n;WZ.name=t.name;WZ.ne=1;WZ.st=t.st;WZ.f=t.f||0;WZ.o=null;WZ.custom=false;WZ.start='auto';WZ.cover=!!t.cover&&t.n>1;wizGo();
  const p=palBy(t.pal);
- mapPages(pi=>{palQ(p[1],p[2],p[3]);const T=t.t[pi%t.t.length],Sx=(t.s||[])[pi%((t.s||['']).length)];let bi=0,tn=0;/* aynı başlık sayfada tekrar etmesin */S.els=S.els.filter(e=>!(e.type=='t'&&tn++>0));S.els.forEach(e=>{if(e.type=='q'){e.txt=t.q?t.q[pi%t.q.length]:(Sx?'“'+Sx+'”':T.replace(/\n/g,' '));return}if(e.type=='t')e.txt=T;else if(e.type=='s'&&Sx)e.txt=Sx;else if(e.type=='b'&&t.b)e.txt=t.b[(pi+bi++)%t.b.length];else if(e.type=='m'&&t.m)e.txt=t.m.replace('{n}',pi+1)});fitAll()});
+ let bc=0;/* fiyat satırları sayfalara sırayla dağıtılır; paragraf kutusu olmayan sayfaya kutu açılır */
+ mapPages(pi=>{if(t.b&&S.els.filter(e=>e.type=='b').length<Math.min(2,t.b.length)){const c={};Object.keys(TY).forEach(k=>c[k]=S.els.filter(e=>e.type==k).length);c.b=Math.min(2,t.b.length);c.r=0;setCounts(c);place(S.sp)}palQ(p[1],p[2],p[3]);const T=t.t[pi%t.t.length],Sx=(t.s||[])[pi%((t.s||['']).length)];let bi=0,tn=0;/* aynı başlık sayfada tekrar etmesin */S.els=S.els.filter(e=>!(e.type=='t'&&tn++>0));S.els.forEach(e=>{if(e.type=='q'){e.txt=t.q?t.q[pi%t.q.length]:(Sx?'“'+Sx+'”':T.replace(/\n/g,' '));return}if(e.type=='t')e.txt=T;else if(e.type=='s'&&Sx)e.txt=Sx;else if(e.type=='b'&&t.b){e.txt=t.b[bc++%t.b.length];bi++}else if(e.type=='m'&&t.m)e.txt=t.m.replace('{n}',pi+1)});fitAll()});
  if(t.pno&&t.n>1){const e=pnoEl();const c=saveCompFrom([e],'Sayfa numarası',true);V3.call(COMPS().indexOf(c),null,null,true)}
  /* yazı tipleri yüklenince tüm sayfaları gerçek ölçüyle yeniden sığdır (kelime bölünmesin) */
  try{const pid=PROJ.id;loadF().then(()=>{if(!PROJ||PROJ.id!==pid)return;mapPages(()=>fitAll());render();try{thumbs()}catch(x){}})}catch(x){}

@@ -69,6 +69,7 @@ const KINDS=[
 ['kartvizit','Kartvizit','💳','baski',[FM(85,55,'85×55'),FM(90,50,'90×50'),FM(85,54,'ISO 85×54')],2,600],
 ['menu','Menü','🍽','baski',[FM(100,210,'Dar menü'),FM(210,297,'A4'),FM(148,210,'A5')],2,300],
 ['sosyal','Sosyal medya','📱','sinirsiz',[FM(108,135,'Instagram 4:5'),FM(108,108,'Kare'),FM(108,192,'Story 9:16'),FM(192,108,'Yatay 16:9')],1,150],
+['etiket','Etiket / fiyat kartı','🏷','baski',[FM(70,40,'Raf etiketi'),FM(100,70,'Fiyat kartı'),FM(100,150,'Kargo etiketi'),FM(50,80,'Ürün etiketi')],1,300],
 ['bos','Boş tuval','✨','sinirsiz',[FM(210,297,'A4'),FM(200,200,'Kare'),FM(297,210,'A4 yatay'),FM(420,594,'A2')],1,300]];
 const DPIS=[[72,'Ekran'],[150,'Web / yüksek'],[300,'Baskı'],[600,'Ultra baskı']];
 let WZ=null,PEND=null;

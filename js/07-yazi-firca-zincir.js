@@ -128,7 +128,7 @@ async function share(){if(!PROJ)return;toast('Önizleme hazırlanıyor…');cons
 window.v4share=share;
 
 /* ---------- komutlar, menü, çubuk ---------- */
-v4cmd(['Dosya','Paylaşılabilir önizleme (HTML)',['Ctrl+Alt+H'],share]);
+v4cmd(['Dosya','Paylaşılabilir önizleme (HTML)',['Ctrl+Alt+H'],share]);window.v4preview=share;
 v4cmd(['Metin','Yazıyı yaya oturt / düzelt',[],()=>{const o=cur();if(!o||o.txt===undefined)return toast('Önce bir metin seç');if(+o.bend)o.bend=0;else{o.bend=40;o.al='center'}render();hist();ed()}]);
 v4cmd(['Metin','Nesne etrafında sar (aç/kapat)',[],()=>{const o=cur();if(!o||o.txt===undefined)return toast('Önce bir metin seç');o.wr=!o.wr;render();hist();ed()}]);
 const mm=$('mmenu');if(mm){const w=document.createElement('button');w.type='button';w.className='pitem wide';w.innerHTML='<span>Paylaşılabilir önizleme (HTML)</span><kbd>Ctrl+Alt+H</kbd>';w.onclick=()=>{mm.hidden=true;share()};mm.appendChild(w)}

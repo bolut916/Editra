@@ -53,6 +53,16 @@ Tek dosyada (`js/25-canli.js`) toplanmış, her biri ayrı korumalı blokta çal
 - **Editör:** araç şeridi ve panel sekmelerinde seçili olana kayan gösterge, artboard değişince parlayan çerçeve, otomatik tasarımda öğelerin eski yerlerinden yenilerine akması, "Tasarla" düğmesinde denenen aday sayısının canlı akışı ve bitince kıvılcım.
 - **Performans ve erişilebilirlik:** nokta alanı tek seferde 8 toplu çizimle boyanır (kare başına ≈1 ms işlemci), imleç durunca ≈0,8 sn'de sakinleşip tamamen durur, ekran dışındayken, sekme gizliyken ve editördeyken çalışmaz. Sistemdeki ya da Ayarlar'daki "Hareketi azalt" açıksa sürekli animasyonlar kapanır ve içerik hemen görünür. Dokunmatik cihazlarda imleç efektleri devre dışıdır.
 
+### Paylaş, rehber tur, QR menü, etiketler, rozetler (v44)
+- **📤 Gönder:** Yedek, sayfa çevirmeli dergi, önizleme, PNG ve PDF telefonun paylaşım menüsüyle iCloud Drive, Google Drive, WhatsApp ya da Mail'e gider. Yedek alınmadıysa ya da 7 günü geçtiyse ana sayfada hatırlatma çıkar.
+- **İlk açılış rehberi:** 3 adımlık kısa tur (bir kez; alt bilgide “Nasıl çalışır?”).
+- **📱 QR menü sayfası:** Menüdeki ürün ve fiyatlar telefonda açılan bir sayfaya dönüşür. Sunucu yok: menü QR bağlantısının içinde taşınır (`menu.html`).
+- **Etiket / fiyat kartı** türü (raf etiketi, fiyat kartı, kargo ve ürün etiketi) + sertifika ve teşekkür kartı şablonları (toplam 52).
+- **Arka plan silme:** akıllı mod (gölge ve renk geçişli zeminler) ve “Koru / Sil” fırçası. Kural tabanlıdır.
+- **🎨 Logomdan başla:** logodan renk ve yazı tipi; logo boş köşeye yerleşir.
+- **✦ Rozet & ikon:** YENİ, %50 İNDİRİM, Şefin önerisi gibi düzenlenebilir rozetler; 16 ikon; ayraç ve çerçeveler.
+- **İngilizce rehberler** (`rehber/en/`) ve **Örnekler** sayfası (`ornekler.html`).
+
 ### Dil, şablonlar, film ve öneriler (v38)
 - **İngilizce arayüz:** Tarayıcı dili Türkçe değilse İngilizce açılır; başlıktaki TR/EN düğmesi ve Ayarlar › Dil ile değişir (`?lang=en` bağlantısı da olur). Tasarımların içeriği çevrilmez.
 - **46 şablon** (14 → 46): kahvaltı, kafe, pizza, kokteyl menüsü; düğün, nişan, doğum günü davetiyesi; emlak; okul gazetesi, kurum bülteni, yıllık rapor; gezi ve yemek dergisi; sergi, tiyatro, koşu, indirim afişi; story serisi, kampanya, etkinlik, alıntı paylaşımı; mobilya, kozmetik kataloğu, lookbook; klinik, kurs, otel broşürü; kartvizit, podcast ve rapor kapağı.
