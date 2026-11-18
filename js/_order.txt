@@ -33,4 +33,9 @@
 32-film
 33-sayac
 34-metin-oneri
+35-paylas
+36-tur
+37-qr-menu
+38-logodan
+39-rozet
 99-baslat

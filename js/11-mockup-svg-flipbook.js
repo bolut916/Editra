@@ -275,7 +275,7 @@ async function flipbook(){if(!PROJ)return;toast('Flipbook hazırlanıyor…');co
 
 /* ---------- komutlar + menü ---------- */
 v4cmd(['Dosya','Mockup sahnesi (kitap, dergi, poster, telefon…)',[],mockupOpen]);
-v4cmd(['Dosya','Flipbook (sayfa çevirmeli HTML) indir',[],flipbook]);
+v4cmd(['Dosya','Flipbook (sayfa çevirmeli HTML) indir',[],flipbook]);window.v4flipbook=flipbook;
 v4cmd(['Dosya','SVG dosyası içe aktar',['Ctrl+Alt+V'],svgPick]);
 v4cmd(['Dosya','Sürümü şimdi kaydet',[],()=>verSave('Elle kaydedildi')]);
 const mm=document.getElementById('mmenu');if(mm){[['Mockup sahnesi',mockupOpen],['Flipbook (sayfa çevirmeli HTML)',flipbook],['SVG dosyası içe aktar',svgPick]].forEach(([t,f])=>{const w=document.createElement('button');w.type='button';w.className='pitem wide';w.innerHTML='<span>'+t+'</span>';w.onclick=()=>{mm.hidden=true;f()};mm.appendChild(w)})}

@@ -213,5 +213,5 @@ try{v4cmd(['Ekle','İnteraktif öğe (video, Spotify, harita, 3D, form, QR)',[],
 const mm=$('mmenu');if(mm){const w=document.createElement('button');w.type='button';w.className='pitem wide';w.innerHTML='<span>İnteraktif öğe ekle (video, harita, 3D, QR…)</span>';w.onclick=()=>{mm.hidden=true;open()};mm.insertBefore(w,mm.querySelector('.pitem.wide')||null)}
 const xm=$('xmenu');if(xm){const b=document.createElement('button');b.type='button';b.className='b';b.style.cssText='width:100%;margin-top:6px';b.textContent='İnteraktif yayın (HTML)';b.onclick=()=>{xm.hidden=true;exportHTML()};xm.appendChild(b)}
 const cvEl=$('cv');if(cvEl)cvEl.addEventListener('dblclick',e=>{const x=e.target.closest&&e.target.closest('[data-id]');if(!x)return;const el=S.els.find(z=>z.id==+x.dataset.id);if(el&&el.emb){e.stopPropagation();e.preventDefault();S.sel=el.id;open()}},true);
-window.v5int={open,exportHTML,resolve,KD};
+window.v5int={open,exportHTML,resolve,KD,place,qrCv};
 })();
