@@ -22,6 +22,7 @@ Kullanıcıya her zaman Türkçe, kısa ve teknik olmayan bir dille yanıt ver.
 ### Önemli modüller
 | Dosya | İçerik |
 |---|---|
+| `00-dil.js` | Türkçe/İngilizce arayüz. Sözlük `DICT` + kalıplar `PAT`; DOM metnini yerinde çevirir, tasarım içeriğine (`#cv`, artboard, giriş kutuları) dokunmaz. Dil: `?lang=`, `CFG.lang`, tarayıcı dili. Yeni görünür metin eklersen İngilizcesini `DICT`'e ekle |
 | `01-temel.js` | Durum `S`, stiller `STY`, modlar `MODES`, düzen üreteci `gen/lay`, çizim `draw(W)` |
 | `02-calisma-alani.js` | Ayarlar `CFG`, IndexedDB (`DB`, `dbPut/dbGet/dbAll`), proje `pack/unpack`, ana sayfa, yeni tasarım sihirbazı |
 | `05-studyo-arayuz.js` | Araç şeridi, sağ panel (`#dockp`), ⋯ menüsü (`#mmenu`), komut paleti (`v4cmd`) |
@@ -33,6 +34,9 @@ Kullanıcıya her zaman Türkçe, kısa ve teknik olmayan bir dille yanıt ver.
 | `25`–`29` | Hareket katmanları: canlı arayüz, ikinci dalga, Vybble logosu ve marka, dokunmatik, sahne anahtarları |
 | `30-sahneler.js` | Bölüm sahneleri: Neden→Klasör, Özellikler→Ayraç, Yapay zekâ→Halka, Hareket→Spot, İnteraktif→Yay, Çalışmalarım→Çember, Şablonlar→Vitrin; `window.v4sahne` |
 | `31-derin-baglanti.js` | `?yeni=menu` (KINDS anahtarı) ya da `?sablon=restoran-menusu` (TPLS adı) ile uygulamayı doğrudan açar; rehber sayfaları bunu kullanır |
+| `32-film.js` | Ana sayfadaki sessiz tanıtım filmi (`film/`): ekrana girince yüklenir/oynar, telefonda dikey |
+| `33-sayac.js` | Çerezsiz GoatCounter sayacı; `KOD` boşken kapalı. Açılırsa `gizlilik.html` güncellenmeli |
+| `34-metin-oneri.js` | Seçili yazı için “💡 Öneri”: türe ve role göre kural tabanlı hazır metinler (TR/EN) |
 | `99-baslat.js` | Başlatma; her zaman en son yüklenir |
 
 ## Kurallar
@@ -79,6 +83,7 @@ Playwright ortamda hazır (`require('playwright')`, `chromium.launch()`).
 - Ekip çalışma alanı ve bulut varlıkları yok (her şey cihazda; yedek dosyasıyla taşınır).
 - Kendi alan adı henüz yok; adresler `https://bolut916.github.io/Editra/`. Geçiş adımları `ALAN-ADI.md` içinde
   (alan adı değişince tarayıcı verisi taşınmaz: kullanıcı önce yedek almalı).
+- Android “Paylaş → Vybble”: `manifest.webmanifest` `share_target` → `sw.js` POST `/paylas` görselleri `vybble-paylas` önbelleğine koyar → `31-derin-baglanti.js` `?paylas=N` ile sihirbazı açar.
 - Rehberler: `rehber/*.html` statik SEO sayfaları (ortak stil `rehber/stil.css`). Üretici betik yok, elle düzenlenir;
   yeni rehberi `rehber/index.html`, diğer rehberlerin “Diğer rehberler” listesine ve `sitemap.xml`'e ekle.
   Paylaşım görseli `og.jpg` (1200×630).

@@ -150,14 +150,49 @@ const TPLS=[
 {name:'Restoran menüsü',k:'menu',n:2,st:5,pal:'Zeytin',t:['MENÜ','TATLILAR'],s:['Günün tabağı'],m:'Afiyet olsun'},
 {name:'Kartvizit',k:'kartvizit',n:2,st:7,pal:'Kâğıt',t:['AD SOYAD','İLETİŞİM'],s:['Grafik tasarımcı'],m:'ornek@posta.com'},
 {name:'Instagram paylaşımı',k:'sosyal',n:3,st:6,pal:'Pembe pop',t:['YENİ\nKOLEKSİYON','BİLDİRİM','ÖNE ÇIKAN'],s:['Bu hafta keşfet'],m:'@hesapadi'},
-{name:'Dergi kapağı',k:'kapak',n:1,st:0,pal:'Mürekkep',t:['EDİTÖRÜN\nSEÇKİSİ'],s:['Sayı 12 · Kış'],m:'www.ornek.com'},
+{name:'Dergi kapağı',k:'kapak',n:1,st:0,pal:'Mürekkep',t:['EDİTÖRÜN\nSEÇKİSİ'],s:['Sayı 12 · Kış'],m:'ornek.com'},
 {name:'Albüm kapağı',k:'kapak',f:3,n:1,st:4,pal:'Neon',t:['GECE\nYOLCUSU'],s:['Yeni albüm'],m:'2026'},
-{name:'Kitap kapağı',k:'kapak',f:2,n:1,st:5,pal:'Retro',t:['SESSİZ\nŞEHİR'],s:['Bir roman'],m:'Yazar Adı'}];
+{name:'Kitap kapağı',k:'kapak',f:2,n:1,st:5,pal:'Retro',t:['SESSİZ\nŞEHİR'],s:['Bir roman'],m:'Yazar Adı'},
+/* v36 · yeni şablonlar */
+{name:'Kahvaltı menüsü',k:'menu',f:1,n:2,st:5,pal:'Şeftali',t:['KAHVALTI','SICAK İÇECEKLER'],s:['Her gün 08:00–14:00','Taze demlenir'],b:['Serpme kahvaltı (2 kişilik) ........ 650 ₺\nPeynir çeşitleri, zeytin, bal-kaymak, sıcaklar.\nMenemen ........ 180 ₺\nTereyağında, köy yumurtasıyla.','Sucuklu yumurta ........ 210 ₺\nSahanda, kaşar eşliğinde.\nGözleme ........ 160 ₺\nPeynirli, patatesli ya da ıspanaklı.','Demleme çay ........ 35 ₺\nİnce belli bardakta.\nTürk kahvesi ........ 90 ₺\nLokum eşliğinde.','Taze portakal suyu ........ 110 ₺\nGünlük sıkılır.\nSalep ........ 120 ₺\nTarçınla, kış boyunca.'],m:'Afiyet olsun'},
+{name:'Kafe menüsü',k:'menu',n:2,st:7,pal:'Çikolata',t:['KAFE','TATLILAR'],s:['Kahve · Çay · Tatlı'],b:['Espresso ........ 85 ₺\nTek shot, yoğun gövde.\nLatte ........ 120 ₺\nSıcak ya da buzlu.','Filtre kahve ........ 95 ₺\nGünün çekirdeği.\nChai latte ........ 125 ₺\nBaharatlı, köpüklü.','San Sebastian ........ 190 ₺\nKremalı, yanık yüzeyli.\nBrownie ........ 140 ₺\nDondurma eşliğinde.','Limonlu tart ........ 150 ₺\nTaze limon kreması.\nKurabiye ........ 60 ₺\nGünlük fırından.'],m:'Kafe · {n}'},
+{name:'Pizza menüsü',k:'menu',f:2,n:2,st:3,pal:'Mercan',t:['PİZZA','İÇECEKLER'],s:['Taş fırından, ince hamur'],b:['Margherita ........ 280 ₺\nDomates, mozzarella, fesleğen.\nSucuklu ........ 320 ₺\nKasap sucuk, kaşar, biber.','Mantarlı ........ 300 ₺\nKültür mantarı, kekik, mozzarella.\nKarışık ........ 350 ₺\nSucuk, mantar, zeytin, biber.','Ayran ........ 40 ₺\nYayık ayranı.\nLimonata ........ 70 ₺\nEv yapımı.','Soda ........ 35 ₺\nSade ya da meyveli.\nSu ........ 20 ₺\nCam şişe.'],m:'Paket servis: 0 (212) 000 00 00'},
+{name:'Kokteyl menüsü',k:'menu',f:1,n:2,st:2,pal:'Gece',t:['KOKTEYL','ALKOLSÜZ'],s:['Bar · 18:00’den itibaren'],b:['Klasik ........ 380 ₺\nBarmenin günün seçkisi.\nNarenciye ........ 360 ₺\nTaze limon ve portakal.','Bitter ........ 390 ₺\nOtsu, dengeli, sert.\nTropik ........ 370 ₺\nAnanas ve hindistancevizi.','Ev limonatası ........ 120 ₺\nNaneli, az şekerli.\nZencefilli soda ........ 110 ₺\nEv yapımı şurupla.','Soğuk demleme çay ........ 100 ₺\nŞeftalili.\nMocktail ........ 160 ₺\nGünün meyvesiyle.'],m:'Yaşı 18’den küçüklere alkol servisi yapılmaz.'},
+{name:'Düğün davetiyesi',k:'brosur',f:2,n:1,st:5,pal:'Kâğıt',t:['AYŞE\n& MEHMET'],s:['Düğünümüze davetlisiniz · 14 Haziran 2026 · 19:00'],m:'Bilgi: 0 (5xx) 000 00 00'},
+{name:'Nişan davetiyesi',k:'brosur',f:2,n:1,st:9,pal:'Lavanta',t:['NİŞANIMIZA\nBEKLERİZ'],s:['Elif & Can · 6 Eylül 2026 · 18:30'],m:'Adres: Bahçe Salonu'},
+{name:'Doğum günü daveti',k:'sosyal',f:1,n:1,st:6,pal:'Güneş',t:['DOĞUM\nGÜNÜ!'],s:['Cumartesi 15:00 · Pasta ve sürprizler'],m:'Katılım: 0 (5xx) 000 00 00'},
+{name:'Emlak broşürü',k:'brosur',n:2,st:1,pal:'Lacivert',t:['DENİZ\nMANZARALI\nDAİRELER','Kat planları'],s:['3+1 · 145 m² · Teslim 2027','2+1 ve 3+1 seçenekleri'],m:'Satış ofisi: 0 (212) 000 00 00'},
+{name:'Satılık daire afişi',k:'afis',n:1,st:1,pal:'Kobalt',t:['SATILIK\nDAİRE'],s:['3+1 · 120 m² · Asansörlü · Otoparklı'],m:'Sahibinden: 0 (5xx) 000 00 00'},
+{name:'Okul gazetesi',k:'dergi',n:8,st:6,pal:'Limon',cover:1,t:['OKUL\nGAZETESİ','Sınıftan haberler','Röportaj','Kitap köşesi','Bilim sayfası','Sanat galerisi','Spor','Bulmaca'],s:['Sayı 3 · Bahar dönemi'],m:'Okul gazetesi · {n}',pno:1},
+{name:'Kurum bülteni',k:'dergi',n:4,st:1,pal:'Buz',cover:1,t:['BÜLTEN\nKASIM','Yönetimden','Projeler','Ekipten haberler'],s:['Aylık iç iletişim bülteni'],m:'Bülten · {n}',pno:1},
+{name:'Yıllık rapor',k:'katalog',n:6,st:7,pal:'Mono',cover:1,t:['YILLIK\nRAPOR 2026','Başkanın mesajı','Yılın özeti','Projeler','Sürdürülebilirlik','Finansal görünüm'],s:['Faaliyet raporu'],m:'Yıllık rapor · {n}',pno:1},
+{name:'Gezi dergisi',k:'dergi',n:6,st:9,pal:'Okyanus',cover:1,t:['ROTA\nEGE','Kıyı köyleri','Yerel lezzetler','Gizli koylar','Konaklama','Harita'],s:['Sayı 5 · Yaz'],m:'Gezi · {n}',pno:1},
+{name:'Yemek dergisi',k:'dergi',n:6,st:0,pal:'Şeftali',cover:1,t:['SOFRA\nKIŞ','Çorbalar','Fırından','Mevsim sebzeleri','Tatlılar','Tarif dizini'],s:['Sayı 9 · Kış'],m:'Sofra · {n}',pno:1},
+{name:'Sergi afişi',k:'afis',f:1,n:1,st:1,pal:'Mürekkep',t:['SERGİ'],s:['Çağdaş sanat · 3–30 Kasım · Ücretsiz'],m:'Galeri Sanat · Açılış 18:00'},
+{name:'Tiyatro afişi',k:'afis',n:1,st:0,pal:'Bordo',t:['PERDE\nAÇILIYOR'],s:['Yeni oyun · Cuma ve Cumartesi 20:30'],m:'Biletler gişede'},
+{name:'Koşu etkinliği afişi',k:'afis',n:1,st:8,pal:'Neon',t:['ŞEHİR\nKOŞUSU'],s:['10K · 5K · Pazar 08:00'],m:'Kayıt: ornek.com/kosu'},
+{name:'İndirim afişi',k:'afis',n:1,st:3,pal:'Güneş',t:['BÜYÜK\nİNDİRİM'],s:['Seçili ürünlerde %50’ye varan fırsatlar'],m:'Stoklarla sınırlıdır'},
+{name:'Instagram story serisi',k:'sosyal',f:2,n:4,st:4,pal:'Siber',t:['YENİ\nÜRÜN','NASIL\nKULLANILIR','FİYAT','HEMEN\nAL'],s:['Kaydır →'],m:'@hesapadi'},
+{name:'Kampanya paylaşımı',k:'sosyal',f:1,n:1,st:3,pal:'Mercan',t:['HAFTA\nSONU %30'],s:['Tüm ürünlerde · Cuma–Pazar'],q:['“Kaçırma!”'],m:'@hesapadi'},
+{name:'Etkinlik duyurusu',k:'sosyal',n:1,st:6,pal:'Lavanta',t:['ATÖLYE\nGÜNÜ'],s:['Seramik atölyesi · 12 kişilik'],m:'Kayıt için DM'},
+{name:'Alıntı paylaşımı',k:'sosyal',f:1,n:1,st:0,pal:'Kâğıt',t:['“AZ AMA\nÖZ.”'],s:['Günün sözü'],m:'@hesapadi'},
+{name:'Mobilya kataloğu',k:'katalog',f:1,n:8,st:7,pal:'Çöl',cover:1,t:['YAŞAM\nKOLEKSİYONU','Oturma odası','Yemek odası','Yatak odası','Çalışma alanı','Aydınlatma','Aksesuar','Mağazalar'],s:['Koleksiyon 2026'],m:'Katalog · {n}',pno:1},
+{name:'Kozmetik kataloğu',k:'katalog',f:2,n:6,st:7,pal:'Nane',cover:1,t:['DOĞAL\nBAKIM','Yüz','Vücut','Saç','Setler','Sipariş'],s:['Bitkisel içerikler'],m:'Katalog · {n}',pno:1},
+{name:'Moda lookbook',k:'katalog',f:3,n:8,st:2,pal:'Ters mono',cover:1,t:['LOOK\nBOOK','Sabah','Şehir','Akşam','Hafta sonu','Detaylar','Aksesuar','Koleksiyon'],s:['İlkbahar · Yaz 2026'],m:'Lookbook · {n}',pno:1},
+{name:'Klinik broşürü',k:'brosur',n:2,st:1,pal:'Buz',t:['SAĞLIĞINIZ\nÖNCELİĞİMİZ','Hizmetlerimiz'],s:['Muayene · Check-up · Laboratuvar'],m:'Randevu: 0 (212) 000 00 00'},
+{name:'Kurs broşürü',k:'brosur',f:3,n:2,st:9,pal:'Kobalt',t:['YENİ\nDÖNEM','Programlar'],s:['Kayıtlar başladı'],m:'ornek.com/kayit'},
+{name:'Otel broşürü',k:'brosur',f:1,n:2,st:2,pal:'Altın',t:['DENİZE\nSIFIR','Odalar ve spa'],s:['Butik otel · 24 oda'],m:'Rezervasyon: ornek.com'},
+{name:'Modern kartvizit',k:'kartvizit',f:1,n:2,st:4,pal:'Gece',t:['STÜDYO\nNOKTA','İLETİŞİM'],s:['Tasarım ofisi'],m:'ornek.com'},
+{name:'Klasik kartvizit',k:'kartvizit',f:1,n:2,st:5,pal:'Kâğıt',t:['AV. AD SOYAD','İLETİŞİM'],s:['Hukuk bürosu'],m:'0 (212) 000 00 00'},
+{name:'Podcast kapağı',k:'kapak',f:3,n:1,st:4,pal:'Lavanta',t:['SES\nODASI'],s:['Haftalık podcast'],m:'Yeni bölüm her pazartesi'},
+{name:'Rapor kapağı',k:'kapak',f:1,n:1,st:1,pal:'Mono',t:['FAALİYET\nRAPORU'],s:['2026 · Kurumsal'],m:'Şirket Adı'}];
 function tplGo(i){const t=TPLS[i];if(!t)return;const ki=KINDS.findIndex(k=>k[0]==t.k);if(ki<0)return;
  WZ=newW(ki);WZ.n=t.n;WZ.name=t.name;WZ.ne=1;WZ.st=t.st;WZ.f=t.f||0;WZ.o=null;WZ.custom=false;WZ.start='auto';WZ.cover=!!t.cover&&t.n>1;wizGo();
  const p=palBy(t.pal);
- mapPages(pi=>{palQ(p[1],p[2],p[3]);const T=t.t[pi%t.t.length],Sx=(t.s||[])[pi%((t.s||['']).length)];let bi=0;S.els.forEach(e=>{if(e.type=='t')e.txt=T;else if(e.type=='s'&&Sx)e.txt=Sx;else if(e.type=='b'&&t.b)e.txt=t.b[(pi+bi++)%t.b.length];else if(e.type=='m'&&t.m)e.txt=t.m.replace('{n}',pi+1)});fitAll()});
+ mapPages(pi=>{palQ(p[1],p[2],p[3]);const T=t.t[pi%t.t.length],Sx=(t.s||[])[pi%((t.s||['']).length)];let bi=0,tn=0;/* aynı başlık sayfada tekrar etmesin */S.els=S.els.filter(e=>!(e.type=='t'&&tn++>0));S.els.forEach(e=>{if(e.type=='q'){e.txt=t.q?t.q[pi%t.q.length]:(Sx?'“'+Sx+'”':T.replace(/\n/g,' '));return}if(e.type=='t')e.txt=T;else if(e.type=='s'&&Sx)e.txt=Sx;else if(e.type=='b'&&t.b)e.txt=t.b[(pi+bi++)%t.b.length];else if(e.type=='m'&&t.m)e.txt=t.m.replace('{n}',pi+1)});fitAll()});
  if(t.pno&&t.n>1){const e=pnoEl();const c=saveCompFrom([e],'Sayfa numarası',true);V3.call(COMPS().indexOf(c),null,null,true)}
+ /* yazı tipleri yüklenince tüm sayfaları gerçek ölçüyle yeniden sığdır (kelime bölünmesin) */
+ try{const pid=PROJ.id;loadF().then(()=>{if(!PROJ||PROJ.id!==pid)return;mapPages(()=>fitAll());render();try{thumbs()}catch(x){}})}catch(x){}
  toast('Şablon hazır: '+t.name)}
 function tplRender(){const c=$('tpls');if(!c)return;c.innerHTML=TPLS.map((t,i)=>{const p=palBy(t.pal),s=STY[t.st],K=KINDS.find(k=>k[0]==t.k);return`<button class="tpl" data-tpl="${i}" style="--tb:${p[1]};--tt:${p[2]};--ta:${p[3]};--tf:'${s.t}'"><i class="tp"><u></u><b>${esc(t.t[0].split('\n')[0])}</b><em></em></i><span>${esc(t.name)}</span><small>${K?K[1]:''} · ${t.n} sayfa</small></button>`}).join('')}
 tplRender();

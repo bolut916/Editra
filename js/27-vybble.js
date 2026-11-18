@@ -36,11 +36,11 @@ safe('dev V',()=>{const hero=$('lph');if(!hero)return;const w=D.createElement('d
 
 /* 3) Yapay zekâ kutusu: örnek istekler harf harf yazılıp silinir (kullanıcı yazarken durur) */
 safe('yazan kutu',()=>{const inp=$('bqi');if(!inp)return;const base=inp.getAttribute('placeholder')||'';inp.setAttribute('aria-label',inp.getAttribute('aria-label')||base);
- const L=['Lüks kahve kataloğu','Minimal mimarlık dergisi','Yaz festivali afişi','Premium restoran menüsü','Moda lookbook kapağı','Yıllık rapor, kurumsal'];
+ const EN=window.v4i18n&&v4i18n.lang==='en',L=EN?['Luxury coffee catalog','Minimal architecture magazine','Summer festival poster','Premium restaurant menu','Fashion lookbook cover','Corporate annual report']:['Lüks kahve kataloğu','Minimal mimarlık dergisi','Yaz festivali afişi','Premium restoran menüsü','Moda lookbook kapağı','Yıllık rapor, kurumsal'];const PRE=EN?'Or type: “':'Ya da yaz: “';
  let i=0,j=0,del=false,tm=0,on=false;
  const step=()=>{tm=0;if(!on)return;if(reduced()||D.activeElement===inp||inp.value||!homeOn()){inp.setAttribute('placeholder',base);tm=setTimeout(step,1200);return}
-  const t=L[i];if(!del){j++;inp.setAttribute('placeholder','Ya da yaz: “'+t.slice(0,j)+'▍');if(j>=t.length){del=true;tm=setTimeout(step,1500);return}tm=setTimeout(step,55+Math.random()*50)}
-  else{j--;inp.setAttribute('placeholder','Ya da yaz: “'+t.slice(0,j)+'▍');if(j<=0){del=false;i=(i+1)%L.length;tm=setTimeout(step,350);return}tm=setTimeout(step,28)}};
+  const t=L[i];if(!del){j++;inp.setAttribute('placeholder',PRE+t.slice(0,j)+'▍');if(j>=t.length){del=true;tm=setTimeout(step,1500);return}tm=setTimeout(step,55+Math.random()*50)}
+  else{j--;inp.setAttribute('placeholder',PRE+t.slice(0,j)+'▍');if(j<=0){del=false;i=(i+1)%L.length;tm=setTimeout(step,350);return}tm=setTimeout(step,28)}};
  const start=()=>{if(on)return;on=true;step()},stop=()=>{on=false;clearTimeout(tm);inp.setAttribute('placeholder',base)};
  if('IntersectionObserver' in window)new IntersectionObserver(es=>{es[0].isIntersecting?start():stop()}).observe(inp);else start();
  inp.addEventListener('focus',()=>inp.setAttribute('placeholder',base));P.typer={stop,start}});
