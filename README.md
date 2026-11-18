@@ -53,6 +53,15 @@ Tek dosyada (`js/25-canli.js`) toplanmış, her biri ayrı korumalı blokta çal
 - **Editör:** araç şeridi ve panel sekmelerinde seçili olana kayan gösterge, artboard değişince parlayan çerçeve, otomatik tasarımda öğelerin eski yerlerinden yenilerine akması, "Tasarla" düğmesinde denenen aday sayısının canlı akışı ve bitince kıvılcım.
 - **Performans ve erişilebilirlik:** nokta alanı tek seferde 8 toplu çizimle boyanır (kare başına ≈1 ms işlemci), imleç durunca ≈0,8 sn'de sakinleşip tamamen durur, ekran dışındayken, sekme gizliyken ve editördeyken çalışmaz. Sistemdeki ya da Ayarlar'daki "Hareketi azalt" açıksa sürekli animasyonlar kapanır ve içerik hemen görünür. Dokunmatik cihazlarda imleç efektleri devre dışıdır.
 
+### Dil, şablonlar, film ve öneriler (v38)
+- **İngilizce arayüz:** Tarayıcı dili Türkçe değilse İngilizce açılır; başlıktaki TR/EN düğmesi ve Ayarlar › Dil ile değişir (`?lang=en` bağlantısı da olur). Tasarımların içeriği çevrilmez.
+- **46 şablon** (14 → 46): kahvaltı, kafe, pizza, kokteyl menüsü; düğün, nişan, doğum günü davetiyesi; emlak; okul gazetesi, kurum bülteni, yıllık rapor; gezi ve yemek dergisi; sergi, tiyatro, koşu, indirim afişi; story serisi, kampanya, etkinlik, alıntı paylaşımı; mobilya, kozmetik kataloğu, lookbook; klinik, kurs, otel broşürü; kartvizit, podcast ve rapor kapağı.
+- **Tanıtım filmi** ana sayfada (sessiz, ekrana gelince oynar, telefonda dikey).
+- **💡 Metin önerileri:** Seçili yazı için türe göre hazır başlık, slogan, künye ve menü satırları (kural tabanlı).
+- **Paylaş → Vybble (Android):** Galeriden paylaşılan fotoğraflar doğrudan yeni tasarıma gelir.
+- **Ziyaretçi sayacı** (çerezsiz, GoatCounter) hazır ama kapalı; hesap açılınca etkinleşir.
+- Düzeltmeler: dekoratif renk blokları yazıların üstüne binmiyor; büyük başlıklar kelime ortasından bölünmüyor; şablonlarda başlık tekrarı yok.
+
 ### Rehberler ve paylaşım görseli (v33)
 - `rehber/`: menü, katalog, dergi, dergi kapağı, afiş, kartvizit ve matbaaya hazır PDF rehberleri (ölçüler, adımlar, ipuçları, SSS). Her rehberdeki düğme Vybble'ı o türle ya da hazır şablonla açar.
 - Derin bağlantı: `?yeni=menu`, `?sablon=restoran-menusu`.

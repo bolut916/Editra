@@ -48,6 +48,11 @@
 </div>
 <div class="hart" id="hart" hidden></div>
 </section>
+<section class="lp-film" id="lp-film" aria-labelledby="lpf-h"><div class="lpf-in">
+<div class="lpf-tx"><span class="lp-k" data-i18n="film.k">Vybble iş başında</span><h2 id="lpf-h" data-i18n-html="film.h">Fotoğrafını yükle, <em>sayfa kendini kursun.</em></h2><p data-i18n="film.p">Kayıttaki her şey uygulamanın kendisi: otomatik tasarım, baskı kontrolü ve sayfa çevirmeli dergi.</p></div>
+<figure class="lpf-v"><video class="lpf-w" muted playsinline loop preload="none" poster="film/vybble-yatay.jpg" aria-label="Vybble tanıtım filmi (sessiz)"><source data-src="film/vybble-yatay.mp4" type="video/mp4"></video><video class="lpf-t" muted playsinline loop preload="none" poster="film/vybble-dikey.jpg" aria-label="Vybble tanıtım videosu (sessiz)"><source data-src="film/vybble-dikey.mp4" type="video/mp4"></video>
+<button type="button" class="lpf-b" aria-label="Videoyu oynat" data-i18n-aria="film.play"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="pl" d="M8 5.5v13l11-6.5z"/><path class="pa" d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg></button></figure>
+</div></section>
 <div class="lp-marq" aria-hidden="true"><div><span>Dergi</span><span>Katalog</span><span>Kapak</span><span>Afiş</span><span>Broşür</span><span>Menü</span><span>Kartvizit</span><span>Lookbook</span><span>Portfolyo</span><span>Yıllık rapor</span><span>Sosyal medya</span><span>Kitap kapağı</span><span>Dergi</span><span>Katalog</span><span>Kapak</span><span>Afiş</span><span>Broşür</span><span>Menü</span><span>Kartvizit</span><span>Lookbook</span><span>Portfolyo</span><span>Yıllık rapor</span><span>Sosyal medya</span><span>Kitap kapağı</span></div></div>
 <main class="hm">
 
@@ -87,7 +92,7 @@
 </div>
 <section class="about" id="abt"><h2>Dergi ve Swiss grid düzenlerini dakikalar içinde dene</h2>
 <p>Vybble, grafik tasarımcılar ve öğrenciler için geliştirilmiş ücretsiz bir sayfa kompozisyon aracıdır. Görsel, başlık, alt başlık, paragraf ve alıntı ekleyerek Swiss grid (Uluslararası Tipografik Stil) ve modern dergi düzenlerinin binlerce varyasyonunu görebilirsin.</p>
-<ul><li>Birden fazla görsel ve paragraf ekleme, öğe sayısına göre otomatik düzen önerileri</li><li>30'dan fazla Google Fonts yazı tipi, harf ve satır aralığı, renk ve sütun ayarları</li><li>Yapay zekâ destekli düzen ve stil önerileri</li><li>PDF ve PNG olarak dışa aktarma</li></ul></section>
+<ul><li>Birden fazla görsel ve paragraf ekleme, öğe sayısına göre otomatik düzen önerileri</li><li>30'dan fazla Google Fonts yazı tipi, harf ve satır aralığı, renk ve sütun ayarları</li><li>Akıllı (kural tabanlı) düzen ve stil önerileri</li><li>PDF ve PNG olarak dışa aktarma</li></ul></section>
 </div>
 <div id="edw" hidden>
 <header class="top"><button class="ib" id="hb" title="Ana sayfa" aria-label="Ana sayfa">⌂</button><div class="logo" id="lg"></div><input id="pname" class="wni pni" aria-label="Çalışma adı" maxlength="60"><span id="sv" class="sv"></span>
@@ -106,6 +111,7 @@
 <div class="chat" id="chat" hidden><div class="ch-h"><span class="av">🤖</span><b>Vybble Asistan</b><button class="ib sm" id="cx" aria-label="Kapat">✕</button></div><div id="msgs"></div><div class="chips" id="chips"></div><form id="cf"><input id="ci" placeholder="Bir şey sor: “daha modern yap”…" autocomplete="off"><button class="pb">Gönder</button></form></div>
 <div id="splash"><div class="sp-in"><div id="sp-logo"></div><h1>vybble</h1><p>Dergi · Katalog · Kapak · Baskı. Sınır yok.</p><button class="pb" id="go">Başla →</button></div></div>
 <script defer src="qrcode.min.js"></script>
+<script defer src="js/00-dil.js"></script>
 <script defer src="js/01-temel.js"></script>
 <script defer src="js/02-calisma-alani.js"></script>
 <script defer src="js/03-ai-yonetmen.js"></script>
@@ -137,5 +143,8 @@
 <script defer src="js/29-sahne.js"></script>
 <script defer src="js/30-sahneler.js"></script>
 <script defer src="js/31-derin-baglanti.js"></script>
+<script defer src="js/32-film.js"></script>
+<script defer src="js/33-sayac.js"></script>
+<script defer src="js/34-metin-oneri.js"></script>
 <script defer src="js/99-baslat.js"></script>
 </body></html>

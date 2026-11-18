@@ -1,3 +1,4 @@
+00-dil
 01-temel
 02-calisma-alani
 03-ai-yonetmen
@@ -29,4 +30,7 @@
 29-sahne
 30-sahneler
 31-derin-baglanti
+32-film
+33-sayac
+34-metin-oneri
 99-baslat

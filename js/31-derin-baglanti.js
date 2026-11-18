@@ -8,12 +8,16 @@
 'use strict';
 const D=document,$=id=>D.getElementById(id);
 let q;try{q=new URLSearchParams(location.search)}catch(e){return}
-const yeni=(q.get('yeni')||'').trim(),sab=(q.get('sablon')||'').trim();
-if(!yeni&&!sab)return;
+const yeni=(q.get('yeni')||'').trim(),sab=(q.get('sablon')||'').trim(),pay=q.has('paylas');
+if(!yeni&&!sab&&!pay)return;
 const slug=s=>String(s||'').toLocaleLowerCase('tr-TR').replace(/[çğıöşüâî]/g,c=>({'ç':'c','ğ':'g','ı':'i','ö':'o','ş':'s','ü':'u','â':'a','î':'i'}[c])).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-const clean=()=>{try{const u=new URL(location.href);u.searchParams.delete('yeni');u.searchParams.delete('sablon');history.replaceState(history.state,'',u.pathname+(u.search||'')+u.hash)}catch(e){}};
+const clean=()=>{try{const u=new URL(location.href);u.searchParams.delete('yeni');u.searchParams.delete('sablon');u.searchParams.delete('paylas');history.replaceState(history.state,'',u.pathname+(u.search||'')+u.hash)}catch(e){}};
 const homeOn=()=>{const h=$('home');return!!h&&!h.hidden};
-const run=()=>{try{
+/* Android paylaşımı: servis çalışanının sakladığı görselleri al, sihirbazı aç; seçilen türe yerleşsinler */
+const shared=async()=>{try{if(!('caches' in window))return false;const c=await caches.open('vybble-paylas');const ks=await c.keys();if(!ks.length)return false;const F=[];
+ for(const k of ks){const r=await c.match(k);if(!r)continue;const b=await r.blob();F.push(new File([b],decodeURIComponent(r.headers.get('x-ad')||'gorsel'),{type:b.type||'image/jpeg'}))}
+ for(const k of ks)await c.delete(k);if(!F.length)return false;PEND=F;openWiz('dergi');if(typeof toast=='function')toast(F.length+' görsel geldi · ne tasarlayacağını seç');return true}catch(e){console.warn('paylaşım',e);return false}};
+const run=()=>{if(pay){shared();return true}try{
   if(sab&&typeof TPLS!='undefined'&&typeof tplGo=='function'){const i=TPLS.findIndex(t=>slug(t.name)===slug(sab));if(i>=0){tplGo(i);return true}}
   if(yeni&&typeof KINDS!='undefined'&&typeof openWiz=='function'&&KINDS.some(k=>k[0]===yeni)){openWiz(yeni);return true}
   if(sab&&typeof KINDS!='undefined'&&typeof openWiz=='function'){const k=KINDS.find(k=>slug(sab).startsWith(k[0]));if(k){openWiz(k[0]);return true}}

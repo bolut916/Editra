@@ -9,7 +9,10 @@ const PALSTR='Kâğıt:fff8ec,111111,ff4f5e;Gece:0e0e12,f1f1f4,7c5cff;Limon:f6ff
 const PALS=PALSTR.split(';').map(x=>{const[n,c]=x.split(':');return[n,...c.split(',').map(h=>'#'+h)]});
 const TY={img:['▣','Görsel'],t:['H','Başlık'],s:['h','Alt başlık'],b:['¶','Paragraf'],m:['#','Künye'],q:['“','Alıntı'],r:['◼','Şekil']};
 const W={img:3,t:2.2,s:.7,b:2,m:.3,q:1.3,r:0},MAXN=200;
-const LOR=['Sayfayı görünmez bir sütun ve satır ağıyla bölmek; metni, görseli ve boşluğu aynı mantıkla hizalamak. Düzen tutarlı, okunaklı ve nesnel kalır. Dergi tasarımında bu ağ, ritim ve hiyerarşi kurmanın en güvenilir yoludur.','İyi bir dergi sayfası okuru bir yerden başka bir yere taşır: önce başlık, sonra görsel, ardından metin. Boşluklar bu yolculukta nefes aldırır ve vurguyu doğru yere koyar.','Tipografik kontrast; boyut, kalınlık ve aralıkla kurulur. Başlık ile gövde metni arasındaki fark ne kadar net olursa, sayfanın hiyerarşisi o kadar kolay okunur.','Görseller yalnızca süs değildir; sayfanın ağırlık merkezini belirler. Kırpma, ölçek ve konum, aynı fotoğrafın bambaşka bir hikâye anlatmasını sağlar.'];
+const LOR_TR=['Sayfayı görünmez bir sütun ve satır ağıyla bölmek; metni, görseli ve boşluğu aynı mantıkla hizalamak. Düzen tutarlı, okunaklı ve nesnel kalır. Dergi tasarımında bu ağ, ritim ve hiyerarşi kurmanın en güvenilir yoludur.','İyi bir dergi sayfası okuru bir yerden başka bir yere taşır: önce başlık, sonra görsel, ardından metin. Boşluklar bu yolculukta nefes aldırır ve vurguyu doğru yere koyar.','Tipografik kontrast; boyut, kalınlık ve aralıkla kurulur. Başlık ile gövde metni arasındaki fark ne kadar net olursa, sayfanın hiyerarşisi o kadar kolay okunur.','Görseller yalnızca süs değildir; sayfanın ağırlık merkezini belirler. Kırpma, ölçek ve konum, aynı fotoğrafın bambaşka bir hikâye anlatmasını sağlar.'];
+const I18N_EN=!!(window.v4i18n&&v4i18n.lang==='en');
+const LOR=I18N_EN?['Divide the page with an invisible grid of columns and rows; align text, images and white space with the same logic. The layout stays consistent, readable and objective. In magazine design this grid is the most reliable way to build rhythm and hierarchy.','A good magazine page carries the reader from one place to the next: first the headline, then the image, then the text. White space lets the journey breathe and puts the emphasis in the right place.','Typographic contrast is built with size, weight and spacing. The clearer the difference between headline and body text, the stronger the hierarchy of the page.','Restraint is a design decision: fewer typefaces, a limited palette and generous margins make every element on the page count.']:LOR_TR;
+const PHT=I18N_EN?{t:'Magazine\nHeadline',s:'Subheading here',m:'Masthead · Page 01',q:'“Your quote goes here.”'}:{t:'Dergi\nBaşlığı',s:'Alt başlık buraya',m:'Künye · Sayfa 01',q:'“Alıntı metni buraya gelir.”'};
 const STY=[
 {n:'Editoryal',t:'Playfair Display',b:'Source Serif 4',bg:'#f6f1e9',tx:'#1b1b1b',ac:'#b3261e'},
 {n:'Swiss',t:'Inter',b:'Inter',bg:'#f1f0ec',tx:'#111111',ac:'#e30613'},
@@ -37,7 +40,7 @@ let IMGL=null;
 function mk(type){const s=STY[S.st],pc=S.pc||[s.tx,s.ac],B={id:++S.n,type,on:true,pos:[1,1,1,1],op:100,rot:0,dx:0,dy:0,sb:0,sx:0,sy:0,scol:'#000000'};
  if(type=='img')return{...B,src:'',im:new Image(),fit:'cover',fx:50,fy:50,gray:0,con:100,bri:100,blend:'normal',rad:0,sep:0,sat:100,hue:0,blr:0,inv:0,duo:false,d1:'#1b1464',d2:'#ffd6e8'};
  if(type=='r')return{...B,shape:'rect',col:pc[1],rad:0};
- const nb=S.els.filter(e=>e.type=='b').length,d={t:['Dergi\nBaşlığı',14,800,.9,-.03,pc[0],s.t],s:['Alt başlık buraya',4,500,1.1,-.01,pc[1],s.b],b:[LOR[nb%4],1.9,400,1.4,0,pc[0],s.b],m:['Künye · Sayfa 01',1.7,500,1.3,.04,pc[0],'IBM Plex Mono'],q:['“Alıntı metni buraya gelir.”',3.4,500,1.15,-.01,pc[1],s.t]}[type];
+ const nb=S.els.filter(e=>e.type=='b').length,d={t:[PHT.t,14,800,.9,-.03,pc[0],s.t],s:[PHT.s,4,500,1.1,-.01,pc[1],s.b],b:[LOR[nb%4],1.9,400,1.4,0,pc[0],s.b],m:[PHT.m,1.7,500,1.3,.04,pc[0],'IBM Plex Mono'],q:[PHT.q,3.4,500,1.15,-.01,pc[1],s.t]}[type];
  return{...B,txt:d[0],fs:d[1],fw:d[2],lh:d[3],ls:d[4],col:d[5],ff:d[6],tc:type=='m'?'upper':'none',it:type=='q',sw:0,sc:'#000000',gr:false,col2:'#ff4f9a',ga:90,ws:0,ind:0,cc:1,al:'left',va:'start',vert:false,bend:0,wr:false,wm:1}}
 const cur=()=>S.els.find(e=>e.id==S.sel),T=o=>o=='*'?cur():o?S[o]:S;
 const cnt=()=>{const c={};S.els.forEach(e=>c[e.type]=(c[e.type]||0)+1);return c};
@@ -76,7 +79,11 @@ function gen(sp){const[f,seed,fx,fy]=sp,r=rn(seed*7+f),el=S.els,out=el.map(()=>[
  if(bl){out[bl.i]=[0,0,1,1];rest=it.filter(a=>a!==bl);A=[.05,.05,.9,.9]}
  else if(f&1){const H=it.filter(a=>'tsm'.includes(a.t));if(H.length&&H.length<it.length){const hh=r(.17,.27);pl(H,0,0,1,hh);rest=it.filter(a=>!H.includes(a));A=[0,hh+.02,1,.98-hh]}}
  if(rest.length)pl(rest,...A)}
- el.forEach((e,i)=>{if(e.type=='r'){{const sw=r(.25,.6),sh=r(.15,.4);out[i]=[r(0,1-sw),r(0,1-sh),sw,sh]}if(f>=16)ex[i][0]=r(-15,15)}});
+ el.forEach((e,i)=>{if(e.type=='r'){/* dekoratif blok yazıların üstüne binmesin: en az çakışan konumu seç */
+  const T=el.map((x,j)=>'tsbmq'.includes(x.type)&&out[j]?out[j]:null).filter(Boolean);
+  const ov=a=>T.reduce((t,b)=>t+Math.max(0,Math.min(a[0]+a[2],b[0]+b[2])-Math.max(a[0],b[0]))*Math.max(0,Math.min(a[1]+a[3],b[1]+b[3])-Math.max(a[1],b[1])),0);
+  let best=null,bo=1e9;for(let k=0;k<36;k++){const sc=k<12?1:k<24?.6:.35,sw=r(.25,.6)*sc,sh=r(.15,.4)*sc,c=[r(0,1-sw),r(0,1-sh),sw,sh],q=ov(c);if(q<bo){bo=q;best=c}if(q<=0)break}
+  out[i]=best}if(e.type=='r'&&f>=16)ex[i][0]=r(-15,15)});
  return out.map(([x,y,w,h],i)=>[fx?1-x-w:x,fy?1-y-h:y,w,h,ex[i][0]*(fx?-1:1),ex[i][1],ex[i][2],ex[i][3]])}
 function lay(sp){const{cols,rows}=S;return gen(sp).map(([x,y,w,h,rt,dx,dy,vt])=>{const c=Math.min(Math.round(x*cols),cols-1),r=Math.min(Math.round(y*rows),rows-1),c2=Math.min(cols,Math.max(c+1,Math.round((x+w)*cols))),r2=Math.min(rows,Math.max(r+1,Math.round((y+h)*rows)));const a=[c+1,r+1,c2-c,r2-r];a.ex=[rt||0,dx||0,dy||0,vt||0];return a})}
 const gp=e=>{let[c,r,cs,rs]=e.pos;c=cl(c,1,S.cols);r=cl(r,1,S.rows);return[c,r,cl(cs,1,S.cols-c+1),cl(rs,1,S.rows-r+1)]};
@@ -96,7 +103,7 @@ const FXI={Sepya:{sep:80,sat:110,gray:0,duo:false},Duoton:{duo:true},Soluk:{sat:
 function wrap(x,e,w,n){const cw=(w-(n-1)*S.gut*(x.u||1))/n,L=[],ind=(e.ind||0)*(x.fs||0);L.first=new Set();L.last=new Set();
  tk(e.tg&&e.dt!=null?e.dt:e.txt).split('\n').forEach(p=>{let ln='',fst=1;L.first.add(L.length);p.split(' ').forEach(wd=>{const t=ln?ln+' '+wd:wd;if(ln&&x.measureText(tcf(e,t)).width>cw-(fst?ind:0)){L.push(ln);fst=0;ln=wd}else ln=t});L.push(ln);L.last.add(L.length-1)});return L}
 function fit(e){if(e.nf)return;let[,,w,h]=geo(e,100);if(e.vert)[w,h]=[h,w];SC.u=1;
- for(let f=e.type=='t'?60:'sq'.includes(e.type)?9:e.fs,lo='mb'.includes(e.type)?1.2:1;f>lo;f-=.5){e.fs=f;SC.font=fnt(e,f);SC.fs=f;if('wordSpacing'in SC)SC.wordSpacing=(e.ws||0)*f+'px';if('letterSpacing'in SC)SC.letterSpacing=e.ls*f+'px';const L=wrap(SC,e,w,e.cc);if(L.length*e.lh*f<=h*e.cc&&L.every(l=>SC.measureText(tcf(e,l)).width<=w/e.cc+.1))return}}
+ for(let f=e.type=='t'?60:'sq'.includes(e.type)?9:e.fs,lo='msq'.includes(e.type)?.8:e.type=='b'?1.2:1;f>lo;f-='msq'.includes(e.type)&&f<=2?.1:.5){e.fs=f;SC.font=fnt(e,f);SC.fs=f;if('wordSpacing'in SC)SC.wordSpacing=(e.ws||0)*f+'px';if('letterSpacing'in SC)SC.letterSpacing=e.ls*f+'px';const L=wrap(SC,e,w,e.cc);/* %3 pay: ekrandaki yazı tuvaldeki ölçümden biraz geniş olabilir; kelime ortadan bölünmesin */if(L.length*e.lh*f<=h*e.cc*.98&&L.every(l=>SC.measureText(tcf(e,l)).width<=w/e.cc*.97))return}}
 const fitAll=()=>{if(S.af)S.els.forEach(e=>{if('tsqmb'.includes(e.type=='img'||e.type=='r'?'-':e.type))fit(e)})};
 const txe=()=>S.els.filter(e=>e.type!='img'&&e.type!='r'),loadF=()=>Promise.all(txe().map(e=>document.fonts.load(fnt(e,20),e.txt).catch(()=>0)));
 function apply(sp){S.sp=sp;const o=lay(sp);S.els.forEach((e,i)=>{e.pos=o[i];e.on=true;const q=o[i].ex;e.rot=q[0];e.dx=q[1];e.dy=q[2];if('tsbmq'.includes(e.type=='img'||e.type=='r'?'-':e.type))e.vert=!!q[3];if(e.type=='b'){const f=e.pos[2]/S.cols;e.cc=e.txt.length<180?1:f>.8?3:f>.45?2:1}});fitAll();render();thumbs();hist();loadF().then(()=>{fitAll();render()})}
